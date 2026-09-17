@@ -1,0 +1,388 @@
+{
+  "created_at_utc": "2026-09-17T03:15:55.119564+00:00",
+  "grader_source_sha256": "49c624abcbcbcd8e54412c822aeb7e647fda6d38d2e9785477dd6d3ebe33db17",
+  "audit_source_sha256": "14a085677674183863b0534539d8a8d9a21efdd06e4b692060a5b2476dbe6b88",
+  "datasets": [
+    {
+      "benchmark": "gsm8k",
+      "source": "/nas/Datasets/GSM8K/main/test-00000-of-00001.parquet",
+      "source_sha256": "ee7b8da9e381df27b9e3f7758a159ab2bdaa4dbaa910546cbbc47e0cb44e4f59",
+      "canonical_file": "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/gsm8k.jsonl",
+      "canonical_sha256": "4c4e33e816639a02939d3d189041ddecbd6ee3f750845274104c9ebf44229288",
+      "rows": 1319,
+      "source_references_identical_in_order": true,
+      "source_questions_identical_in_order": true,
+      "rows_omitted": 0,
+      "gold_validation_and_selfscore_passed": 1319,
+      "unanchored_correct_rationale_rejected": 1319,
+      "annotation_overrides": 0,
+      "annotation_override_records": [],
+      "additional_accepted_alternatives_verified": 0,
+      "metric": {
+        "name": "math_accuracy",
+        "benchmark": "gsm8k",
+        "statistic": "pass@1",
+        "implementation": "metamath-final-v2",
+        "dependencies": {
+          "math-verify": "0.9.0",
+          "latex2sympy2_extended": "1.11.0",
+          "antlr4-python3-runtime": "4.13.2",
+          "sympy": "1.13.1"
+        },
+        "aggregation": "100 * correct / all_examples",
+        "range": [
+          0,
+          100
+        ],
+        "higher_is_better": true,
+        "generations_per_example": 1,
+        "prediction_extraction": "last explicit boxed/fbox, #### or final-answer anchor; otherwise entire plain numeric answer only",
+        "invalid_predictions": "incorrect; extraction and parse failures recorded separately",
+        "invalid_references": "fatal preflight error",
+        "equivalence": "exact numeric",
+        "symbol_case_sensitive": true,
+        "max_answer_chars": 4096,
+        "parsing_timeout_seconds": 5.0,
+        "verification_timeout_seconds": 5.0,
+        "preparse_complexity_guard": {
+          "nested_or_chained_powers_and_factorials": "rejected before symbolic parsing",
+          "numeric_exponent_limit": 10000,
+          "factorial_argument_limit": 10000,
+          "bounded_operand_arithmetic_bits": 256,
+          "literal_integer_power_result_bits": 100000,
+          "operand_grammar": "bounded basic arithmetic, fractions, and single symbols; factorial arguments must be nonnegative integers"
+        },
+        "latex_malformed_operator_repair": false,
+        "unanchored_rationale_fallback": false,
+        "latex_valid_single_token_arguments": "expanded to braces without adding missing operands",
+        "numeric_base_notation": "exact numeric value; base suffix never discarded",
+        "percentages": "explicit factor 1/100; no scale-insensitive matching",
+        "imaginary_unit": "i is sqrt(-1)",
+        "literal_answers": "whole-answer text normalization; never products of letters",
+        "explicit_latex_unit_suffixes": [
+          "cent",
+          "cents",
+          "children tickets",
+          "cm",
+          "degrees",
+          "digit",
+          "digits",
+          "dollar",
+          "dollars",
+          "edge",
+          "edges",
+          "feet",
+          "ft",
+          "gm",
+          "hour",
+          "hours",
+          "inch",
+          "inches",
+          "integer",
+          "integers",
+          "km",
+          "m",
+          "meal",
+          "meals",
+          "meter",
+          "meters",
+          "minute",
+          "minutes",
+          "mph",
+          "multiple",
+          "multiples",
+          "point",
+          "points",
+          "pound",
+          "pounds",
+          "square feet",
+          "square inches",
+          "square meters",
+          "square units",
+          "student",
+          "students",
+          "teacher",
+          "teachers",
+          "unit",
+          "units",
+          "ways",
+          "ways."
+        ],
+        "gold_annotation_overrides": {}
+      }
+    },
+    {
+      "benchmark": "math",
+      "source": "/nas/Datasets/hendrycks_competition_math/data/test/0000.parquet",
+      "source_sha256": "d570857db776722443a0e5ba598a77a61d91a99fc0d7493621e046c76c020b5c",
+      "canonical_file": "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/math.jsonl",
+      "canonical_sha256": "8051037ea52aa75fd53f5659120045be20e73b22cae6093b837ec356649ab1fd",
+      "rows": 5000,
+      "source_references_identical_in_order": true,
+      "source_questions_identical_in_order": true,
+      "rows_omitted": 0,
+      "gold_validation_and_selfscore_passed": 5000,
+      "unanchored_correct_rationale_rejected": 5000,
+      "annotation_overrides": 16,
+      "annotation_override_records": [
+        {
+          "row": 333,
+          "complete_solution_sha256": "a580deb03cc5bffb4fbc38e2310cace79fd202a62e95c3cde8997e7dcc149079"
+        },
+        {
+          "row": 414,
+          "complete_solution_sha256": "ade85c49c87508e1d285f60e9d88c018ea28a4d8d42f27840ffd63f5e6e2ecd0"
+        },
+        {
+          "row": 2152,
+          "complete_solution_sha256": "75f3ec17279d32db62e0544c71f42e37cb19b7e19b8fc70f5bf662aefb52a1a6"
+        },
+        {
+          "row": 2549,
+          "complete_solution_sha256": "d69fdc848eff7184e8a33ec4a74dfdcdb10082df76caf241ae39da8d58a640dc"
+        },
+        {
+          "row": 2656,
+          "complete_solution_sha256": "49795cf0fe2f5835a84a9156c68e89eb1a072ca316fa968167dbf8314d70145b"
+        },
+        {
+          "row": 2703,
+          "complete_solution_sha256": "17dae234dd0a00d2ecf17bc0106c1548b98b2b1ff6b448592211b3d8160fd3a1"
+        },
+        {
+          "row": 2716,
+          "complete_solution_sha256": "91702eef2d1f016f99f4a684d90a595eba49d7c0f78c1806654f7d02d4cd7881"
+        },
+        {
+          "row": 2912,
+          "complete_solution_sha256": "bc9d573809020b4fa3107d06229d59137aa954c03b08515fa3079747cf7cd81f"
+        },
+        {
+          "row": 2936,
+          "complete_solution_sha256": "b3fe46fe3f7c2672d7454489d2e941a87da7e99180dd2afa00b8178d80083ac7"
+        },
+        {
+          "row": 3628,
+          "complete_solution_sha256": "7848474323ef8f28fb8d4c1eec20681db9f915b316c000f78901caeb4632cfd7"
+        },
+        {
+          "row": 4060,
+          "complete_solution_sha256": "c899a3a8ddaa8afb591e8587112b529b8581e2329fbdb3d8f9cc558229fdc186"
+        },
+        {
+          "row": 4258,
+          "complete_solution_sha256": "924fa52d28956659b60f90b8953ad264f3db66b5c76d5f766a414ac0606c3d1a"
+        },
+        {
+          "row": 4559,
+          "complete_solution_sha256": "6f6e4bed7d6edd64ab43e4d9388bb92e53c68f38ea6c18d68606e174cd832d12"
+        },
+        {
+          "row": 4562,
+          "complete_solution_sha256": "5d24c516df211881fea26778f937d01dc2dbe8d646fd9182e37825e3a53e8a3b"
+        },
+        {
+          "row": 4791,
+          "complete_solution_sha256": "edf899f558a5289a42f4772082fbe6b0301774b591aeeae7e4f4655cc4c225a7"
+        },
+        {
+          "row": 4860,
+          "complete_solution_sha256": "136a93ace73513de76f1d33b6f618640187184d55d91c9eeb04e5f4a53d2558e"
+        }
+      ],
+      "additional_accepted_alternatives_verified": 8,
+      "metric": {
+        "name": "math_accuracy",
+        "benchmark": "math",
+        "statistic": "pass@1",
+        "implementation": "metamath-final-v2",
+        "dependencies": {
+          "math-verify": "0.9.0",
+          "latex2sympy2_extended": "1.11.0",
+          "antlr4-python3-runtime": "4.13.2",
+          "sympy": "1.13.1"
+        },
+        "aggregation": "100 * correct / all_examples",
+        "range": [
+          0,
+          100
+        ],
+        "higher_is_better": true,
+        "generations_per_example": 1,
+        "prediction_extraction": "last explicit boxed/fbox, #### or final-answer anchor; otherwise entire plain numeric answer only",
+        "invalid_predictions": "incorrect; extraction and parse failures recorded separately",
+        "invalid_references": "fatal preflight error",
+        "equivalence": "Math-Verify strict symbolic; float_rounding=6, numeric_precision=15",
+        "symbol_case_sensitive": true,
+        "max_answer_chars": 4096,
+        "parsing_timeout_seconds": 5.0,
+        "verification_timeout_seconds": 5.0,
+        "preparse_complexity_guard": {
+          "nested_or_chained_powers_and_factorials": "rejected before symbolic parsing",
+          "numeric_exponent_limit": 10000,
+          "factorial_argument_limit": 10000,
+          "bounded_operand_arithmetic_bits": 256,
+          "literal_integer_power_result_bits": 100000,
+          "operand_grammar": "bounded basic arithmetic, fractions, and single symbols; factorial arguments must be nonnegative integers"
+        },
+        "latex_malformed_operator_repair": false,
+        "unanchored_rationale_fallback": false,
+        "latex_valid_single_token_arguments": "expanded to braces without adding missing operands",
+        "numeric_base_notation": "exact numeric value; base suffix never discarded",
+        "percentages": "explicit factor 1/100; no scale-insensitive matching",
+        "imaginary_unit": "i is sqrt(-1)",
+        "literal_answers": "whole-answer text normalization; never products of letters",
+        "explicit_latex_unit_suffixes": [
+          "cent",
+          "cents",
+          "children tickets",
+          "cm",
+          "degrees",
+          "digit",
+          "digits",
+          "dollar",
+          "dollars",
+          "edge",
+          "edges",
+          "feet",
+          "ft",
+          "gm",
+          "hour",
+          "hours",
+          "inch",
+          "inches",
+          "integer",
+          "integers",
+          "km",
+          "m",
+          "meal",
+          "meals",
+          "meter",
+          "meters",
+          "minute",
+          "minutes",
+          "mph",
+          "multiple",
+          "multiples",
+          "point",
+          "points",
+          "pound",
+          "pounds",
+          "square feet",
+          "square inches",
+          "square meters",
+          "square units",
+          "student",
+          "students",
+          "teacher",
+          "teachers",
+          "unit",
+          "units",
+          "ways",
+          "ways."
+        ],
+        "gold_annotation_overrides": {
+          "a580deb03cc5bffb4fbc38e2310cace79fd202a62e95c3cde8997e7dcc149079": {
+            "row": 333,
+            "answer": "-3",
+            "alternatives": [
+              "-3",
+              "3"
+            ],
+            "reason": "gold explicitly accepts both signs, despite the derivation giving -3; preserve annotated acceptance"
+          },
+          "ade85c49c87508e1d285f60e9d88c018ea28a4d8d42f27840ffd63f5e6e2ecd0": {
+            "row": 414,
+            "answer": "\\{-2,1\\}",
+            "reason": "question asks all solutions; gold has two separate boxes"
+          },
+          "17dae234dd0a00d2ecf17bc0106c1548b98b2b1ff6b448592211b3d8160fd3a1": {
+            "row": 2703,
+            "answer": "\\{3,\\frac{2}{5}\\}",
+            "reason": "question asks all solutions; gold has two separate boxes"
+          },
+          "91702eef2d1f016f99f4a684d90a595eba49d7c0f78c1806654f7d02d4cd7881": {
+            "row": 2716,
+            "answer": "(10,0)",
+            "alternatives": [
+              "(10,0)",
+              "(0,0)"
+            ],
+            "reason": "question explicitly requests only one focus and permits either point"
+          },
+          "7848474323ef8f28fb8d4c1eec20681db9f915b316c000f78901caeb4632cfd7": {
+            "row": 3628,
+            "answer": "x+11",
+            "reason": "two boxes are equivalent polynomial forms"
+          },
+          "924fa52d28956659b60f90b8953ad264f3db66b5c76d5f766a414ac0606c3d1a": {
+            "row": 4258,
+            "answer": "12x-34",
+            "reason": "two boxes are equivalent polynomial forms"
+          },
+          "136a93ace73513de76f1d33b6f618640187184d55d91c9eeb04e5f4a53d2558e": {
+            "row": 4860,
+            "answer": "\\{\\frac{\\pi}{4},\\frac{5\\pi}{4}\\}",
+            "reason": "question asks all solutions; gold has two separate boxes"
+          },
+          "75f3ec17279d32db62e0544c71f42e37cb19b7e19b8fc70f5bf662aefb52a1a6": {
+            "row": 2152,
+            "answer": "\\{5-10i,11,-3+6i\\}",
+            "reason": "question asks all three possible parallelogram vertices"
+          },
+          "d69fdc848eff7184e8a33ec4a74dfdcdb10082df76caf241ae39da8d58a640dc": {
+            "row": 2549,
+            "answer": "\\{-\\frac{3}{2},-\\frac{3}{4}\\}",
+            "reason": "question asks both solutions, boxed separately"
+          },
+          "49795cf0fe2f5835a84a9156c68e89eb1a072ca316fa968167dbf8314d70145b": {
+            "row": 2656,
+            "answer": "\\{-10879,10879\\}",
+            "reason": "question asks both values of b, boxed separately"
+          },
+          "bc9d573809020b4fa3107d06229d59137aa954c03b08515fa3079747cf7cd81f": {
+            "row": 2912,
+            "answer": "(\\frac{3}{2},-\\frac{5}{2})",
+            "alternatives": [
+              "(\\frac{3}{2},-\\frac{5}{2})",
+              "(-\\frac{5}{2},-\\frac{5}{2})"
+            ],
+            "reason": "question explicitly asks for either one of two vertices"
+          },
+          "b3fe46fe3f7c2672d7454489d2e941a87da7e99180dd2afa00b8178d80083ac7": {
+            "row": 2936,
+            "answer": "(3,-5)",
+            "alternatives": [
+              "(3,-5)",
+              "(0,0)"
+            ],
+            "reason": "gold explicitly accepts either of two points on the odd function"
+          },
+          "c899a3a8ddaa8afb591e8587112b529b8581e2329fbdb3d8f9cc558229fdc186": {
+            "row": 4060,
+            "answer": "6",
+            "reason": "box denotes divisor-count operator; gold explicitly leaves final answer 6 unboxed"
+          },
+          "6f6e4bed7d6edd64ab43e4d9388bb92e53c68f38ea6c18d68606e174cd832d12": {
+            "row": 4559,
+            "answer": "\\{-1,2\\}",
+            "reason": "question asks both possible values of a"
+          },
+          "5d24c516df211881fea26778f937d01dc2dbe8d646fd9182e37825e3a53e8a3b": {
+            "row": 4562,
+            "answer": "\\{30,45,105\\}",
+            "reason": "question asks all three angles in degrees, boxed separately"
+          },
+          "edf899f558a5289a42f4772082fbe6b0301774b591aeeae7e4f4655cc4c225a7": {
+            "row": 4791,
+            "answer": "\\{70,110\\}",
+            "reason": "question asks both solutions 70 and 110; unbraced gold comma is not a thousands separator"
+          }
+        }
+      }
+    }
+  ],
+  "failures": [],
+  "scope": "CPU grading audit only; generated no model responses and launched no training",
+  "elapsed_seconds": 12.455036478000693
+}

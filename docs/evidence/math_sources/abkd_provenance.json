@@ -1,0 +1,50 @@
+{
+  "inspected_date": "2026-09-16",
+  "repository_commit": "027ec2621aad678b94587bb36cab9a16b8a05fed",
+  "repository_clean_when_inspected": true,
+  "paper_pages": 46,
+  "math_results_page": 43,
+  "paper_version_note": "Final ICML proceedings includes Table 12 not present in arXiv v3 HTML.",
+  "files": [
+    {
+      "file": "abkd_ab_launcher.sh",
+      "source_url": "https://github.com/ghwang-s/abkd/blob/027ec2621aad678b94587bb36cab9a16b8a05fed/distillation_llm/scripts/qwen/ab/train_3B_7B_teacher.sh",
+      "sha256": "50eddc30ded7d026be47ab40e33d8854e98117adf1e40bd1a55e0504ba9eff52"
+    },
+    {
+      "file": "abkd_kd_launcher.sh",
+      "source_url": "https://github.com/ghwang-s/abkd/blob/027ec2621aad678b94587bb36cab9a16b8a05fed/distillation_llm/scripts/qwen/kd/kd_3B_7B_teacher.sh",
+      "sha256": "74b2dca50f03f8c7b406fe5ad698973c522a1a5186b9857486b5029e865b91d8"
+    },
+    {
+      "file": "abkd_prepare_launcher.sh",
+      "source_url": "https://github.com/ghwang-s/abkd/blob/027ec2621aad678b94587bb36cab9a16b8a05fed/distillation_llm/scripts/qwen/tools/process_data_metamath.sh",
+      "sha256": "3e1daa52a242c6f9d49f52dddf762018704b2020dad3dcf0b36923d4d6f3c499"
+    },
+    {
+      "file": "abkd_process_metamath.py",
+      "source_url": "https://github.com/ghwang-s/abkd/blob/027ec2621aad678b94587bb36cab9a16b8a05fed/distillation_llm/tools/process_data_metamath.py",
+      "sha256": "5cfdfe3a426b2b94aad311bd130c9f9b8cc69a540405b12d6540568ad87b3e00"
+    },
+    {
+      "file": "abkd_eval_math.py",
+      "source_url": "https://github.com/ghwang-s/abkd/blob/027ec2621aad678b94587bb36cab9a16b8a05fed/distillation_llm/scripts/qwen/eval/eval_math.py",
+      "sha256": "b03a145bd9f2c228a85d132119c1686f17e99d0b729db373af7000a9c57252a5"
+    },
+    {
+      "file": "abkd_icml2025.pdf",
+      "source_url": "https://raw.githubusercontent.com/mlresearch/v267/main/assets/wang25dz/wang25dz.pdf",
+      "sha256": "d8bded94bd5ea6c25f47bd118978001f197c53026cc40ea28d0b7acc1c05c339"
+    },
+    {
+      "file": "abkd_icml2025.txt",
+      "source_url": null,
+      "sha256": "f3d3082e7a78b1caa33028740e226fc197258c375404153785c4794685d57da5"
+    },
+    {
+      "file": "abkd_icml2025_p43.png",
+      "source_url": null,
+      "sha256": "8713e4ea68bd65379b6da946add73efdcc78d634fec01df8f5e1802a77403e6e"
+    }
+  ]
+}

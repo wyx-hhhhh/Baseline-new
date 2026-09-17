@@ -1,0 +1,42 @@
+{
+  "scope": "actual one-step KD production train loop on supplied Qwen8B/1.7B checkpoints",
+  "result": {
+    "step": 1,
+    "best_nll": 5.834184646606445,
+    "best_step": 1,
+    "counters": {
+      "unique_epoch_examples": 1,
+      "response_tokens": 3,
+      "teacher_training_tokens": 23
+    },
+    "elapsed_seconds": 18.72277659602696,
+    "complete": true,
+    "last_checkpoint": "/nas/Users/wyx/Baseline/smoke/runs/qwen3_8b_1p7b/synthetic_smoke/kd/seed_42/checkpoints/step_000001",
+    "peak_student_gpu_bytes_rank0": 8146127872
+  },
+  "completion_marker": {
+    "step": 1,
+    "world_size": 1
+  },
+  "checkpoint_optimizer_masters": 310,
+  "all_optimizer_masters_and_moments_float32": true,
+  "checkpoint_optimizer_readable": true,
+  "final_matches_checkpoint_probe": true,
+  "probe": "model.layers.0.self_attn.q_proj.weight",
+  "changed_probe_elements": 411730,
+  "validation": {
+    "reference_nll": 5.834184646606445,
+    "response_tokens": 3,
+    "examples": 1,
+    "step": 1
+  },
+  "metric": {
+    "step": 1,
+    "epoch": 0,
+    "loss": 1.8342803716659546,
+    "grad_norm": 868.0,
+    "learning_rate": 0.0
+  },
+  "final_export": "/nas/Users/wyx/Baseline/smoke/runs/qwen3_8b_1p7b/synthetic_smoke/kd/seed_42/final",
+  "limitations": "synthetic short sequence, one update; not final experimental model"
+}

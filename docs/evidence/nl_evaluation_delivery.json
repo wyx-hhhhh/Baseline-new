@@ -1,0 +1,78 @@
+{
+  "created_at_utc": "2026-09-17T03:45:39.552850+00:00",
+  "status": "ready_not_launched",
+  "full_gpu_evaluation_launched": false,
+  "metric": "Unicode ROUGE-L F1; maximum over full references then mean over examples; 0..100",
+  "prepared_pool": "/home/wyx/Baseline/artifacts/nl_eval_data/dolly/55003a0320ab5c5e",
+  "pool_manifest_sha256": "1f3a2093ecb86d9e487ec4a9695b280c5279209069f4c38e5c2170d03bfd3de2",
+  "counts": {
+    "dolly": {
+      "source_records": 500,
+      "exact_duplicates_merged": 0,
+      "training_overlaps_removed": 425,
+      "records": 75
+    },
+    "selfinst": {
+      "source_records": 242,
+      "exact_duplicates_merged": 0,
+      "training_overlaps_removed": 0,
+      "records": 242
+    },
+    "super_natural": {
+      "source_records": 8354,
+      "exact_duplicates_merged": 731,
+      "training_overlaps_removed": 0,
+      "records": 7623
+    },
+    "unnatural": {
+      "source_records": 64809,
+      "exact_duplicates_merged": 0,
+      "training_overlaps_removed": 0,
+      "records": 64809
+    },
+    "vicuna": {
+      "source_records": 80,
+      "exact_duplicates_merged": 0,
+      "training_overlaps_removed": 0,
+      "records": 80
+    }
+  },
+  "groups": {
+    "qwen": [
+      0,
+      1
+    ],
+    "llama": [
+      2,
+      3
+    ]
+  },
+  "full_campaign_stages": 40,
+  "tests": {
+    "new": 102,
+    "existing_regression": 104
+  },
+  "artifacts_sha256": {
+    "baseline_common/nl_data.py": "7a9e677258beb8ce8883a04bfa210cf1a2585a501c0f456845a70df88cd967c4",
+    "baseline_common/nl_evaluation.py": "e6f91b04296e50dfc100b8ffe7719d336e380fde21ae1f7ec7686cd3ee9f87bd",
+    "scripts/prepare_nl_eval_data.py": "8cac99ec7e429b43e58e1f9ceca49febdcbed172438c20aef5508a6d4c62d1c0",
+    "scripts/evaluate_nl.py": "0deee680e9a7e3159e1bf091410421d1168f20c0b9f603a1e161fe06492aac7a",
+    "scripts/run_nl_evaluation.py": "d24b80a9f43b6573e83e4ae8b7af309d31432d62614d0394ee5ce99974459e0f",
+    "scripts/evaluate_all.sh": "b32f4358dd5c3bd733dd9bc5797dcb3abf104ac6228ee8add1bcf7962347b4c2",
+    "tests/test_nl_data.py": "45fd14151b85c081934b22057b058878debba9182d67164e98e01871e7fb1a6a",
+    "tests/test_nl_evaluate.py": "af357e1a29edc1b4bc7c924133680feb78d2420fce18e93f4f1fb92395fa0847",
+    "tests/test_nl_campaign.py": "7a9358d1d641b173ceda96611a5f17b932e93447db95b09dd41b51ed909ea3de",
+    "docs/evidence/nl-data-tests.txt": "92255cd92a064074a66b46e5ca14f00e91042146d69627ec984664821f3a5d81",
+    "docs/evidence/nl-evaluator-tests.txt": "b2193ebe142fd2db366baefdabb934f405e51713e2b8b68702dcd3a2f1468be1",
+    "docs/evidence/nl-campaign-tests.txt": "f579027302580c9025d8ed769a9fa1e1549d353cd833fb9da64a04804f3199cb",
+    "docs/evidence/nl-shared-evaluation-regression.txt": "dd6cde1483c0cf811991e9db2efac1956e65d5c746c69e21277f414cd1166289",
+    "docs/evidence/nl_token_budget_audit.json": "b5e8fb8ad8f9b4e37cbc090f25ad38e1b44f90ce96eb74701aa6da36daf54e27",
+    "docs/evidence/nl_reference_audit.json": "e8ae49657f256ada3aa05d1b6ada531251059d0da076e3b19ea95d414f5ee316",
+    "docs/evidence/nl_production_preflight.json": "1cd7cb986cc3b34433fbbeb4af19fad97c20412cff3ea75bd3b666f111405f92",
+    "docs/evidence/nl_evaluation_plan.txt": "8bcd5ff4c164d36dd62601cc5aa2860f37340905b39155040d238394b04fce18"
+  },
+  "commands": [
+    "bash /home/wyx/Baseline/scripts/evaluate_all.sh --group qwen --qwen-gpus 0,1",
+    "bash /home/wyx/Baseline/scripts/evaluate_all.sh --group llama --llama-gpus 2,3"
+  ]
+}

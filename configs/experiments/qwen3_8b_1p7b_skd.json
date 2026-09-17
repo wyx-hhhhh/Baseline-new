@@ -1,0 +1,23 @@
+{
+  "name": "qwen3_8b_1p7b_skd",
+  "pair": "qwen3_8b_1p7b",
+  "method": "skd",
+  "teacher_model": "/nas/Models/Qwen3-8B-Instruct",
+  "student_model": "/nas/Models/Qwen3-1.7B-Instruct",
+  "dataset": "dolly",
+  "train_file": "/nas/Users/wyx/Baseline/data/dolly/train.jsonl",
+  "validation_file": "/nas/Users/wyx/Baseline/data/dolly/validation.jsonl",
+  "generation": {
+    "temperature": 0.7,
+    "top_p": 0.8,
+    "top_k": 20
+  },
+  "teacher_generation": {
+    "temperature": 0.7,
+    "top_p": 0.8,
+    "top_k": 20
+  },
+  "evaluation_metric": "rouge_l",
+  "eval_during_training": false,
+  "eval_rouge_tokenizer": "english"
+}

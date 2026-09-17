@@ -1,0 +1,44 @@
+[
+  {
+    "file": "transformers-4.51.3-trainer.py",
+    "source": "https://raw.githubusercontent.com/huggingface/transformers/v4.51.3/src/transformers/trainer.py",
+    "bytes": 259665,
+    "sha256": "e94c52cc433a73579653238a5e4409114d13209496157ef57038ebba422598bc"
+  },
+  {
+    "file": "transformers-4.51.3-init.py",
+    "source": "https://raw.githubusercontent.com/huggingface/transformers/v4.51.3/src/transformers/__init__.py",
+    "bytes": 330357,
+    "sha256": "c2d0df5eda0841cd18fd46dd0e869fb8b5373a4f97fb166ac4698bce5e3c9e4c"
+  },
+  {
+    "file": "transformers-4.51.3-tokenization_utils_base.py",
+    "source": "https://raw.githubusercontent.com/huggingface/transformers/v4.51.3/src/transformers/tokenization_utils_base.py",
+    "bytes": 208949,
+    "sha256": "32acd70cda55191fc1e1e659af62b9afce2411ddf21c5b8e2ffaa8ac0463da66"
+  },
+  {
+    "file": "transformers-4.51.3-generation_utils.py",
+    "source": "https://raw.githubusercontent.com/huggingface/transformers/v4.51.3/src/transformers/generation/utils.py",
+    "bytes": 280408,
+    "sha256": "dc9044d10c00abe7d341f2e777fb623925ff59dda2c1d814ecc7d6a685ad2ee1"
+  },
+  {
+    "file": "meta-llama-sku_list.py",
+    "source": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/sku_list.py",
+    "bytes": 34287,
+    "sha256": "a71a8ca23c8daf3d1daec02c13e9916c36e315c5056b56ed20b18df98d10c486"
+  },
+  {
+    "file": "trl-0.9.6-utils.py",
+    "source": "https://raw.githubusercontent.com/huggingface/trl/v0.9.6/trl/trainer/utils.py",
+    "bytes": 50798,
+    "sha256": "1aac2c17f43ca2fb598afe835d62559536b7f696915a3a048dacfbd5fb056355"
+  },
+  {
+    "file": "trl-0.9.6-dpo_config.py",
+    "source": "https://raw.githubusercontent.com/huggingface/trl/v0.9.6/trl/trainer/dpo_config.py",
+    "bytes": 7530,
+    "sha256": "1bd8c4fa983b7e96087969a84cda205c140f0fb2dc7719c171dc2edb83ed6a1c"
+  }
+]

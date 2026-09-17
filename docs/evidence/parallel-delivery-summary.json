@@ -1,0 +1,32 @@
+{
+  "request": "Run Qwen and Llama concurrently on two GPUs each, sequential baselines with automatic restart recovery",
+  "entrypoint": "bash /home/wyx/Baseline/scripts/run_all.sh",
+  "groups": {
+    "qwen": {
+      "student_gpu": 0,
+      "teacher_gpu": 1
+    },
+    "llama": {
+      "student_gpu": 2,
+      "teacher_gpu": 3
+    }
+  },
+  "method_order": [
+    "kd",
+    "abkd",
+    "skd",
+    "distillm2"
+  ],
+  "automatic_pair_generation_and_resume": true,
+  "same_command_resume": true,
+  "default_output_root": "/nas/Users/wyx/Baseline",
+  "default_dataset": "dolly",
+  "full_regression": {
+    "passed": 244,
+    "log": "docs/evidence/parallel-full-tests.log"
+  },
+  "final_export_recovery_regression": "docs/evidence/parallel-final-recovery-tests.log",
+  "final_four_gpu_integration": "docs/evidence/parallel-final-gpu-test.log",
+  "gpu_evidence": "docs/evidence/parallel-gpu-smoke.json",
+  "full_size_training_started": false
+}

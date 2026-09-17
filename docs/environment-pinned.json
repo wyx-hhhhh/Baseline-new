@@ -1,0 +1,287 @@
+{
+  "recorded_at_utc": "2026-09-16T07:42:06.434324+00:00",
+  "runtime": {
+    "python": "3.11.14",
+    "executable": "/home/wyx/Baseline/.venv/bin/python",
+    "platform": "Linux-6.8.0-110-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "torch": {
+        "installed": "2.6.0+cu124",
+        "target": "2.6.0",
+        "matches_target": true
+      },
+      "transformers": {
+        "installed": "4.51.3",
+        "target": "4.51.3",
+        "matches_target": true
+      },
+      "accelerate": {
+        "installed": "1.6.0",
+        "target": "1.6.0",
+        "matches_target": true
+      },
+      "datasets": {
+        "installed": "3.5.0",
+        "target": "3.5.0",
+        "matches_target": true
+      },
+      "tokenizers": {
+        "installed": "0.21.1",
+        "target": "0.21.1",
+        "matches_target": true
+      },
+      "numpy": {
+        "installed": "1.26.4",
+        "target": "1.26.4",
+        "matches_target": true
+      },
+      "huggingface-hub": {
+        "installed": "0.30.2",
+        "target": "0.30.2",
+        "matches_target": true
+      },
+      "safetensors": {
+        "installed": "0.5.3",
+        "target": "0.5.3",
+        "matches_target": true
+      }
+    },
+    "errors": [],
+    "transformers_models_import": true,
+    "torch": {
+      "version": "2.6.0+cu124",
+      "cuda_build": "12.4",
+      "cuda_available": true,
+      "devices": [
+        {
+          "index": 0,
+          "name": "NVIDIA GeForce RTX 3090",
+          "total_memory_bytes": 25351356416,
+          "bf16_supported": true,
+          "bf16_matmul_pass": true
+        },
+        {
+          "index": 1,
+          "name": "NVIDIA GeForce RTX 3090",
+          "total_memory_bytes": 25351356416,
+          "bf16_supported": true,
+          "bf16_matmul_pass": true
+        },
+        {
+          "index": 2,
+          "name": "NVIDIA GeForce RTX 3090",
+          "total_memory_bytes": 25351356416,
+          "bf16_supported": true,
+          "bf16_matmul_pass": true
+        },
+        {
+          "index": 3,
+          "name": "NVIDIA GeForce RTX 3090",
+          "total_memory_bytes": 25351356416,
+          "bf16_supported": true,
+          "bf16_matmul_pass": true
+        }
+      ]
+    }
+  },
+  "nvidia_smi": {
+    "returncode": 0,
+    "stdout": "0, NVIDIA GeForce RTX 3090, 615.71.09, 24576, 23817\n1, NVIDIA GeForce RTX 3090, 615.71.09, 24576, 23817\n2, NVIDIA GeForce RTX 3090, 615.71.09, 24576, 23817\n3, NVIDIA GeForce RTX 3090, 615.71.09, 24576, 23817",
+    "stderr": ""
+  },
+  "storage": {
+    "requested_output_root": "/nas/Users/wyx/Baseline",
+    "exists": true,
+    "checked_ancestor": "/nas/Users/wyx/Baseline",
+    "permission_check_writable": true,
+    "verification": "Read-only permission/free-space check; no write attempted",
+    "total_bytes": 47777439023104,
+    "free_bytes": 24182527623168
+  },
+  "host_memory_kib": {
+    "MemTotal": 262707316,
+    "MemAvailable": 251161012,
+    "SwapTotal": 0
+  },
+  "model_pairs": {
+    "qwen3": {
+      "teacher": {
+        "path": "/nas/Models/Qwen3-8B-Instruct",
+        "exists": true,
+        "errors": [],
+        "config": {
+          "architectures": [
+            "Qwen3ForCausalLM"
+          ],
+          "model_type": "qwen3",
+          "vocab_size": 151936,
+          "hidden_size": 4096,
+          "num_hidden_layers": 36,
+          "torch_dtype": "bfloat16",
+          "tie_word_embeddings": false,
+          "bos_token_id": 151643,
+          "eos_token_id": 151645
+        },
+        "generation": {
+          "bos_token_id": 151643,
+          "do_sample": true,
+          "eos_token_id": [
+            151645,
+            151643
+          ],
+          "pad_token_id": 151643,
+          "temperature": 0.6,
+          "top_k": 20,
+          "top_p": 0.95,
+          "transformers_version": "4.51.0"
+        },
+        "metadata_sha256": {
+          "config.json": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2"
+        },
+        "tokenizer": {
+          "tokens": 151669,
+          "max_id": 151668,
+          "token_map_sha256": "f488fa45d324a8bc64c84f0e27b47223872d550f2a6900564f77dfa67ca5ff4d",
+          "bos_token": null,
+          "eos_token": "<|im_end|>",
+          "pad_token": "<|endoftext|>",
+          "chat_template_sha256": "41d5929bf73796beb66809ac700b2cf3ff81694f933e5c14d52b7fd6963c947d",
+          "has_chat_template": true
+        },
+        "eos_tokens": {
+          "151645": "<|im_end|>",
+          "151643": "<|endoftext|>"
+        },
+        "weights": {
+          "files": [
+            "model-00001-of-00005.safetensors",
+            "model-00002-of-00005.safetensors",
+            "model-00003-of-00005.safetensors",
+            "model-00004-of-00005.safetensors",
+            "model-00005-of-00005.safetensors"
+          ],
+          "total_file_bytes": 16381516776,
+          "tensor_count": 399,
+          "stored_parameter_count": 8190735360,
+          "embedding": {
+            "shape": [
+              151936,
+              4096
+            ],
+            "dtype": "BF16",
+            "file": "model-00001-of-00005.safetensors"
+          },
+          "output_head": {
+            "shape": [
+              151936,
+              4096
+            ],
+            "dtype": "BF16",
+            "file": "model-00005-of-00005.safetensors"
+          },
+          "verification": "Headers, file lengths, index membership; tensor values not read or hashed",
+          "errors": []
+        }
+      },
+      "student": {
+        "path": "/nas/Models/Qwen3-1.7B-Instruct",
+        "exists": true,
+        "errors": [],
+        "config": {
+          "architectures": [
+            "Qwen3ForCausalLM"
+          ],
+          "model_type": "qwen3",
+          "vocab_size": 151936,
+          "hidden_size": 2048,
+          "num_hidden_layers": 28,
+          "torch_dtype": "bfloat16",
+          "tie_word_embeddings": true,
+          "bos_token_id": 151643,
+          "eos_token_id": 151645
+        },
+        "generation": {
+          "bos_token_id": 151643,
+          "do_sample": true,
+          "eos_token_id": [
+            151645,
+            151643
+          ],
+          "pad_token_id": 151643,
+          "temperature": 0.6,
+          "top_k": 20,
+          "top_p": 0.95,
+          "transformers_version": "4.51.0"
+        },
+        "metadata_sha256": {
+          "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2"
+        },
+        "tokenizer": {
+          "tokens": 151669,
+          "max_id": 151668,
+          "token_map_sha256": "f488fa45d324a8bc64c84f0e27b47223872d550f2a6900564f77dfa67ca5ff4d",
+          "bos_token": null,
+          "eos_token": "<|im_end|>",
+          "pad_token": "<|endoftext|>",
+          "chat_template_sha256": "41d5929bf73796beb66809ac700b2cf3ff81694f933e5c14d52b7fd6963c947d",
+          "has_chat_template": true
+        },
+        "eos_tokens": {
+          "151645": "<|im_end|>",
+          "151643": "<|endoftext|>"
+        },
+        "weights": {
+          "files": [
+            "model-00001-of-00002.safetensors",
+            "model-00002-of-00002.safetensors"
+          ],
+          "total_file_bytes": 4063515592,
+          "tensor_count": 311,
+          "stored_parameter_count": 2031739904,
+          "embedding": {
+            "shape": [
+              151936,
+              2048
+            ],
+            "dtype": "BF16",
+            "file": "model-00001-of-00002.safetensors"
+          },
+          "output_head": {
+            "shape": [
+              151936,
+              2048
+            ],
+            "dtype": "BF16",
+            "file": "model-00002-of-00002.safetensors"
+          },
+          "verification": "Headers, file lengths, index membership; tensor values not read or hashed",
+          "errors": []
+        }
+      },
+      "compatible": true,
+      "checks": {
+        "full_token_to_id_map_equal": true,
+        "tokenizer_algorithm_equal": true,
+        "head_vocab_equal": true,
+        "generation_eos_equal": true,
+        "chat_template_equal": true
+      },
+      "template_policy": "Both roles use the student's chat template; template equality is informational"
+    }
+  },
+  "reference_pins_match": true,
+  "preflight_pass": true,
+  "gpu_preflight_pass": true,
+  "limitations": [
+    "No training step, full model load, convergence, or distributed test is performed by this script.",
+    "Output write access is not tested by creating a file; permissions may differ inside a sandbox.",
+    "Weight headers and lengths are checked; checkpoint identity/corruption requires hashing tensor data.",
+    "VRAM fit depends on sequence lengths, optimizer placement, activations, and generation caches."
+  ]
+}

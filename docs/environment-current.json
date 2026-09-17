@@ -1,0 +1,838 @@
+{
+  "recorded_at_utc": "2026-09-16T11:53:38.103374+00:00",
+  "runtime": {
+    "python": "3.11.14",
+    "executable": "/home/wyx/Baseline/.venv/bin/python",
+    "platform": "Linux-6.8.0-110-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "torch": {
+        "installed": "2.6.0+cu124",
+        "target": "2.6.0",
+        "matches_target": true
+      },
+      "transformers": {
+        "installed": "4.51.3",
+        "target": "4.51.3",
+        "matches_target": true
+      },
+      "accelerate": {
+        "installed": "1.6.0",
+        "target": "1.6.0",
+        "matches_target": true
+      },
+      "datasets": {
+        "installed": "3.5.0",
+        "target": "3.5.0",
+        "matches_target": true
+      },
+      "tokenizers": {
+        "installed": "0.21.1",
+        "target": "0.21.1",
+        "matches_target": true
+      },
+      "numpy": {
+        "installed": "1.26.4",
+        "target": "1.26.4",
+        "matches_target": true
+      },
+      "huggingface-hub": {
+        "installed": "0.30.2",
+        "target": "0.30.2",
+        "matches_target": true
+      },
+      "safetensors": {
+        "installed": "0.5.3",
+        "target": "0.5.3",
+        "matches_target": true
+      },
+      "rouge-score": {
+        "installed": "0.1.2",
+        "target": "0.1.2",
+        "matches_target": true
+      }
+    },
+    "errors": [],
+    "rouge_l_import_and_score": true,
+    "transformers_models_import": true,
+    "torch": {
+      "version": "2.6.0+cu124",
+      "cuda_build": "12.4",
+      "cuda_available": true,
+      "devices": [
+        {
+          "index": 0,
+          "name": "NVIDIA GeForce RTX 3090",
+          "total_memory_bytes": 25351356416,
+          "bf16_supported": true,
+          "bf16_matmul_pass": true
+        },
+        {
+          "index": 1,
+          "name": "NVIDIA GeForce RTX 3090",
+          "total_memory_bytes": 25351356416,
+          "bf16_supported": true,
+          "bf16_matmul_pass": true
+        },
+        {
+          "index": 2,
+          "name": "NVIDIA GeForce RTX 3090",
+          "total_memory_bytes": 25351356416,
+          "bf16_supported": true,
+          "bf16_matmul_pass": true
+        },
+        {
+          "index": 3,
+          "name": "NVIDIA GeForce RTX 3090",
+          "total_memory_bytes": 25351356416,
+          "bf16_supported": true,
+          "bf16_matmul_pass": true
+        }
+      ]
+    }
+  },
+  "nvidia_smi": {
+    "returncode": 0,
+    "stdout": "0, NVIDIA GeForce RTX 3090, 615.71.09, 24576, 23817\n1, NVIDIA GeForce RTX 3090, 615.71.09, 24576, 23817\n2, NVIDIA GeForce RTX 3090, 615.71.09, 24576, 23817\n3, NVIDIA GeForce RTX 3090, 615.71.09, 24576, 23817",
+    "stderr": ""
+  },
+  "storage": {
+    "requested_output_root": "/nas/Users/wyx/Baseline",
+    "exists": true,
+    "checked_ancestor": "/nas/Users/wyx/Baseline",
+    "permission_check_writable": true,
+    "verification": "Read-only permission/free-space check; no write attempted",
+    "total_bytes": 47777439023104,
+    "free_bytes": 24144037543936
+  },
+  "host_memory_kib": {
+    "MemTotal": 262707316,
+    "MemAvailable": 251450908,
+    "SwapTotal": 0
+  },
+  "model_pairs": {
+    "qwen3": {
+      "teacher": {
+        "path": "/nas/Models/Qwen3-8B-Instruct",
+        "exists": true,
+        "errors": [],
+        "config": {
+          "architectures": [
+            "Qwen3ForCausalLM"
+          ],
+          "model_type": "qwen3",
+          "vocab_size": 151936,
+          "hidden_size": 4096,
+          "num_hidden_layers": 36,
+          "torch_dtype": "bfloat16",
+          "tie_word_embeddings": false,
+          "bos_token_id": 151643,
+          "eos_token_id": 151645
+        },
+        "generation": {
+          "bos_token_id": 151643,
+          "do_sample": true,
+          "eos_token_id": [
+            151645,
+            151643
+          ],
+          "pad_token_id": 151643,
+          "temperature": 0.6,
+          "top_k": 20,
+          "top_p": 0.95,
+          "transformers_version": "4.51.0"
+        },
+        "metadata_sha256": {
+          "config.json": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2"
+        },
+        "tokenizer": {
+          "tokens": 151669,
+          "max_id": 151668,
+          "token_map_sha256": "f488fa45d324a8bc64c84f0e27b47223872d550f2a6900564f77dfa67ca5ff4d",
+          "bos_token": null,
+          "eos_token": "<|im_end|>",
+          "pad_token": "<|endoftext|>",
+          "chat_template_sha256": "41d5929bf73796beb66809ac700b2cf3ff81694f933e5c14d52b7fd6963c947d",
+          "has_chat_template": true
+        },
+        "eos_tokens": {
+          "151645": "<|im_end|>",
+          "151643": "<|endoftext|>"
+        },
+        "weights": {
+          "files": [
+            "model-00001-of-00005.safetensors",
+            "model-00002-of-00005.safetensors",
+            "model-00003-of-00005.safetensors",
+            "model-00004-of-00005.safetensors",
+            "model-00005-of-00005.safetensors"
+          ],
+          "total_file_bytes": 16381516776,
+          "tensor_count": 399,
+          "stored_parameter_count": 8190735360,
+          "embedding": {
+            "shape": [
+              151936,
+              4096
+            ],
+            "dtype": "BF16",
+            "file": "model-00001-of-00005.safetensors"
+          },
+          "output_head": {
+            "shape": [
+              151936,
+              4096
+            ],
+            "dtype": "BF16",
+            "file": "model-00005-of-00005.safetensors"
+          },
+          "verification": "Headers, file lengths, index membership; tensor values not read or hashed",
+          "errors": []
+        }
+      },
+      "student": {
+        "path": "/nas/Models/Qwen3-1.7B-Instruct",
+        "exists": true,
+        "errors": [],
+        "config": {
+          "architectures": [
+            "Qwen3ForCausalLM"
+          ],
+          "model_type": "qwen3",
+          "vocab_size": 151936,
+          "hidden_size": 2048,
+          "num_hidden_layers": 28,
+          "torch_dtype": "bfloat16",
+          "tie_word_embeddings": true,
+          "bos_token_id": 151643,
+          "eos_token_id": 151645
+        },
+        "generation": {
+          "bos_token_id": 151643,
+          "do_sample": true,
+          "eos_token_id": [
+            151645,
+            151643
+          ],
+          "pad_token_id": 151643,
+          "temperature": 0.6,
+          "top_k": 20,
+          "top_p": 0.95,
+          "transformers_version": "4.51.0"
+        },
+        "metadata_sha256": {
+          "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2"
+        },
+        "tokenizer": {
+          "tokens": 151669,
+          "max_id": 151668,
+          "token_map_sha256": "f488fa45d324a8bc64c84f0e27b47223872d550f2a6900564f77dfa67ca5ff4d",
+          "bos_token": null,
+          "eos_token": "<|im_end|>",
+          "pad_token": "<|endoftext|>",
+          "chat_template_sha256": "41d5929bf73796beb66809ac700b2cf3ff81694f933e5c14d52b7fd6963c947d",
+          "has_chat_template": true
+        },
+        "eos_tokens": {
+          "151645": "<|im_end|>",
+          "151643": "<|endoftext|>"
+        },
+        "weights": {
+          "files": [
+            "model-00001-of-00002.safetensors",
+            "model-00002-of-00002.safetensors"
+          ],
+          "total_file_bytes": 4063515592,
+          "tensor_count": 311,
+          "stored_parameter_count": 2031739904,
+          "embedding": {
+            "shape": [
+              151936,
+              2048
+            ],
+            "dtype": "BF16",
+            "file": "model-00001-of-00002.safetensors"
+          },
+          "output_head": {
+            "shape": [
+              151936,
+              2048
+            ],
+            "dtype": "BF16",
+            "file": "model-00002-of-00002.safetensors"
+          },
+          "verification": "Headers, file lengths, index membership; tensor values not read or hashed",
+          "errors": []
+        }
+      },
+      "compatible": true,
+      "checks": {
+        "full_token_to_id_map_equal": true,
+        "tokenizer_algorithm_equal": true,
+        "head_vocab_equal": true,
+        "generation_eos_equal": true,
+        "chat_template_equal": true
+      },
+      "template_policy": "Both roles use the student's chat template; template equality is informational",
+      "vocabulary_policy": "full"
+    },
+    "llama3": {
+      "teacher": {
+        "path": "/nas/Models/Meta-Llama-3-8B-Instruct",
+        "exists": true,
+        "errors": [],
+        "config": {
+          "architectures": [
+            "LlamaForCausalLM"
+          ],
+          "model_type": "llama",
+          "vocab_size": 128256,
+          "hidden_size": 4096,
+          "num_hidden_layers": 32,
+          "torch_dtype": "bfloat16",
+          "tie_word_embeddings": false,
+          "bos_token_id": 128000,
+          "eos_token_id": 128009
+        },
+        "generation": {
+          "bos_token_id": 128000,
+          "eos_token_id": [
+            128001,
+            128009
+          ],
+          "do_sample": true,
+          "temperature": 0.6,
+          "max_length": 4096,
+          "top_p": 0.9,
+          "transformers_version": "4.40.0.dev0"
+        },
+        "metadata_sha256": {
+          "config.json": "61f3de03a16ca8046b05dc777bce72717022bc8522152eee61a69072272ef54b",
+          "tokenizer.json": "e134af98b985517b4f068e3755ae90d4e9cd2d45d328325dc503f1c6b2d06cc7",
+          "tokenizer_config.json": "da0e3a7cce6e4d787e85eb1c24d548420e0d7fe2c7a214e192795c46e40d75bb",
+          "generation_config.json": "d1af74d8ba49428ab2faa65f7948165cc6bf52b740e57e840f8af772587c894c"
+        },
+        "tokenizer": {
+          "tokens": 128256,
+          "max_id": 128255,
+          "token_map_sha256": "16a7cf8ef076207572ffa502651c7b63e24e2dd9eac46cbf876ad44032f94602",
+          "bos_token": "<|begin_of_text|>",
+          "eos_token": "<|eot_id|>",
+          "pad_token": null,
+          "chat_template_sha256": "66f092052041d56ef539b6f779861121dfa7c6945ebb69ff7c4a40d56e2c9f90",
+          "has_chat_template": true
+        },
+        "eos_tokens": {
+          "128001": "<|end_of_text|>",
+          "128009": "<|eot_id|>"
+        },
+        "weights": {
+          "files": [
+            "model-00001-of-00004.safetensors",
+            "model-00002-of-00004.safetensors",
+            "model-00003-of-00004.safetensors",
+            "model-00004-of-00004.safetensors"
+          ],
+          "total_file_bytes": 16060556376,
+          "tensor_count": 291,
+          "stored_parameter_count": 8030261248,
+          "embedding": {
+            "shape": [
+              128256,
+              4096
+            ],
+            "dtype": "BF16",
+            "file": "model-00001-of-00004.safetensors"
+          },
+          "output_head": {
+            "shape": [
+              128256,
+              4096
+            ],
+            "dtype": "BF16",
+            "file": "model-00004-of-00004.safetensors"
+          },
+          "verification": "Headers, file lengths, index membership; tensor values not read or hashed",
+          "errors": []
+        }
+      },
+      "student": {
+        "path": "/nas/Models/Meta-Llama-3.2-1B-Instruct",
+        "exists": true,
+        "errors": [],
+        "config": {
+          "architectures": [
+            "LlamaForCausalLM"
+          ],
+          "model_type": "llama",
+          "vocab_size": 128256,
+          "hidden_size": 2048,
+          "num_hidden_layers": 16,
+          "torch_dtype": "bfloat16",
+          "tie_word_embeddings": true,
+          "bos_token_id": 128000,
+          "eos_token_id": [
+            128001,
+            128008,
+            128009
+          ]
+        },
+        "generation": {
+          "bos_token_id": 128000,
+          "do_sample": true,
+          "eos_token_id": [
+            128001,
+            128008,
+            128009
+          ],
+          "temperature": 0.6,
+          "top_p": 0.9,
+          "transformers_version": "4.45.0.dev0"
+        },
+        "metadata_sha256": {
+          "config.json": "2febf68cea25bf4611be02b7536f2488a5ba523bb1134986e3610152abe74fdb",
+          "tokenizer.json": "79e3e522635f3171300913bb421464a87de6222182a0570b9b2ccba2a964b2b4",
+          "tokenizer_config.json": "9823dcfdc1121869029da45192238e85cf44f0b232a6d9dc20e4fe6f4242a14e",
+          "generation_config.json": "88effbb63300dbbc7390143fbbdd9d9fa50587b37e8bfd16c8c90d4970a74a36"
+        },
+        "tokenizer": {
+          "tokens": 128256,
+          "max_id": 128255,
+          "token_map_sha256": "f66003c7a898537275cd9d3ab290d6e247b9c5063352c2cc010213febfbe068f",
+          "bos_token": "<|begin_of_text|>",
+          "eos_token": "<|eot_id|>",
+          "pad_token": null,
+          "chat_template_sha256": "2732d9da5568668ed22ea202bffb12f0df405439651e1275ba1f521522f92966",
+          "has_chat_template": true
+        },
+        "eos_tokens": {
+          "128001": "<|end_of_text|>",
+          "128008": "<|eom_id|>",
+          "128009": "<|eot_id|>"
+        },
+        "weights": {
+          "files": [
+            "model.safetensors"
+          ],
+          "total_file_bytes": 2471645608,
+          "tensor_count": 146,
+          "stored_parameter_count": 1235814400,
+          "embedding": {
+            "shape": [
+              128256,
+              2048
+            ],
+            "dtype": "BF16",
+            "file": "model.safetensors"
+          },
+          "output_head": {
+            "shape": [
+              128256,
+              2048
+            ],
+            "dtype": "BF16",
+            "file": "model.safetensors",
+            "tied_to": "model.embed_tokens.weight"
+          },
+          "verification": "Headers, file lengths, index membership; tensor values not read or hashed",
+          "errors": []
+        }
+      },
+      "compatible": true,
+      "checks": {
+        "full_token_to_id_map_equal": false,
+        "tokenizer_algorithm_equal": false,
+        "head_vocab_equal": true,
+        "generation_eos_equal": false,
+        "chat_template_equal": false,
+        "shared_vocabulary_validated": true,
+        "shared_generation_eos_equal": true
+      },
+      "template_policy": "Both roles use the student's chat template; template equality is informational",
+      "vocabulary_policy": "llama3_shared",
+      "vocabulary_alignment": {
+        "policy": "llama3_shared",
+        "vocabulary_size": 128256,
+        "base_vocabulary_size": 128000,
+        "shared_special_ids": [
+          128000,
+          128001,
+          128006,
+          128007,
+          128009
+        ],
+        "excluded_ids": [
+          128002,
+          128003,
+          128004,
+          128005,
+          128008,
+          128010,
+          128011,
+          128012,
+          128013,
+          128014,
+          128015,
+          128016,
+          128017,
+          128018,
+          128019,
+          128020,
+          128021,
+          128022,
+          128023,
+          128024,
+          128025,
+          128026,
+          128027,
+          128028,
+          128029,
+          128030,
+          128031,
+          128032,
+          128033,
+          128034,
+          128035,
+          128036,
+          128037,
+          128038,
+          128039,
+          128040,
+          128041,
+          128042,
+          128043,
+          128044,
+          128045,
+          128046,
+          128047,
+          128048,
+          128049,
+          128050,
+          128051,
+          128052,
+          128053,
+          128054,
+          128055,
+          128056,
+          128057,
+          128058,
+          128059,
+          128060,
+          128061,
+          128062,
+          128063,
+          128064,
+          128065,
+          128066,
+          128067,
+          128068,
+          128069,
+          128070,
+          128071,
+          128072,
+          128073,
+          128074,
+          128075,
+          128076,
+          128077,
+          128078,
+          128079,
+          128080,
+          128081,
+          128082,
+          128083,
+          128084,
+          128085,
+          128086,
+          128087,
+          128088,
+          128089,
+          128090,
+          128091,
+          128092,
+          128093,
+          128094,
+          128095,
+          128096,
+          128097,
+          128098,
+          128099,
+          128100,
+          128101,
+          128102,
+          128103,
+          128104,
+          128105,
+          128106,
+          128107,
+          128108,
+          128109,
+          128110,
+          128111,
+          128112,
+          128113,
+          128114,
+          128115,
+          128116,
+          128117,
+          128118,
+          128119,
+          128120,
+          128121,
+          128122,
+          128123,
+          128124,
+          128125,
+          128126,
+          128127,
+          128128,
+          128129,
+          128130,
+          128131,
+          128132,
+          128133,
+          128134,
+          128135,
+          128136,
+          128137,
+          128138,
+          128139,
+          128140,
+          128141,
+          128142,
+          128143,
+          128144,
+          128145,
+          128146,
+          128147,
+          128148,
+          128149,
+          128150,
+          128151,
+          128152,
+          128153,
+          128154,
+          128155,
+          128156,
+          128157,
+          128158,
+          128159,
+          128160,
+          128161,
+          128162,
+          128163,
+          128164,
+          128165,
+          128166,
+          128167,
+          128168,
+          128169,
+          128170,
+          128171,
+          128172,
+          128173,
+          128174,
+          128175,
+          128176,
+          128177,
+          128178,
+          128179,
+          128180,
+          128181,
+          128182,
+          128183,
+          128184,
+          128185,
+          128186,
+          128187,
+          128188,
+          128189,
+          128190,
+          128191,
+          128192,
+          128193,
+          128194,
+          128195,
+          128196,
+          128197,
+          128198,
+          128199,
+          128200,
+          128201,
+          128202,
+          128203,
+          128204,
+          128205,
+          128206,
+          128207,
+          128208,
+          128209,
+          128210,
+          128211,
+          128212,
+          128213,
+          128214,
+          128215,
+          128216,
+          128217,
+          128218,
+          128219,
+          128220,
+          128221,
+          128222,
+          128223,
+          128224,
+          128225,
+          128226,
+          128227,
+          128228,
+          128229,
+          128230,
+          128231,
+          128232,
+          128233,
+          128234,
+          128235,
+          128236,
+          128237,
+          128238,
+          128239,
+          128240,
+          128241,
+          128242,
+          128243,
+          128244,
+          128245,
+          128246,
+          128247,
+          128248,
+          128249,
+          128250,
+          128251,
+          128252,
+          128253,
+          128254,
+          128255
+        ],
+        "support_size": 128005,
+        "chat_date_string": "26 Jul 2024"
+      },
+      "token_mismatch_examples": [
+        {
+          "token": "<|eom_id|>",
+          "teacher_id": null,
+          "student_id": 128008
+        },
+        {
+          "token": "<|finetune_right_pad_id|>",
+          "teacher_id": null,
+          "student_id": 128004
+        },
+        {
+          "token": "<|python_tag|>",
+          "teacher_id": null,
+          "student_id": 128010
+        },
+        {
+          "token": "<|reserved_special_token_100|>",
+          "teacher_id": 128105,
+          "student_id": 128108
+        },
+        {
+          "token": "<|reserved_special_token_101|>",
+          "teacher_id": 128106,
+          "student_id": 128109
+        },
+        {
+          "token": "<|reserved_special_token_102|>",
+          "teacher_id": 128107,
+          "student_id": 128110
+        },
+        {
+          "token": "<|reserved_special_token_103|>",
+          "teacher_id": 128108,
+          "student_id": 128111
+        },
+        {
+          "token": "<|reserved_special_token_104|>",
+          "teacher_id": 128109,
+          "student_id": 128112
+        },
+        {
+          "token": "<|reserved_special_token_105|>",
+          "teacher_id": 128110,
+          "student_id": 128113
+        },
+        {
+          "token": "<|reserved_special_token_106|>",
+          "teacher_id": 128111,
+          "student_id": 128114
+        },
+        {
+          "token": "<|reserved_special_token_107|>",
+          "teacher_id": 128112,
+          "student_id": 128115
+        },
+        {
+          "token": "<|reserved_special_token_108|>",
+          "teacher_id": 128113,
+          "student_id": 128116
+        },
+        {
+          "token": "<|reserved_special_token_109|>",
+          "teacher_id": 128114,
+          "student_id": 128117
+        },
+        {
+          "token": "<|reserved_special_token_10|>",
+          "teacher_id": 128015,
+          "student_id": 128018
+        },
+        {
+          "token": "<|reserved_special_token_110|>",
+          "teacher_id": 128115,
+          "student_id": 128118
+        },
+        {
+          "token": "<|reserved_special_token_111|>",
+          "teacher_id": 128116,
+          "student_id": 128119
+        },
+        {
+          "token": "<|reserved_special_token_112|>",
+          "teacher_id": 128117,
+          "student_id": 128120
+        },
+        {
+          "token": "<|reserved_special_token_113|>",
+          "teacher_id": 128118,
+          "student_id": 128121
+        },
+        {
+          "token": "<|reserved_special_token_114|>",
+          "teacher_id": 128119,
+          "student_id": 128122
+        },
+        {
+          "token": "<|reserved_special_token_115|>",
+          "teacher_id": 128120,
+          "student_id": 128123
+        }
+      ]
+    }
+  },
+  "reference_pins_match": true,
+  "preflight_pass": true,
+  "gpu_preflight_pass": true,
+  "limitations": [
+    "No training step, full model load, convergence, or distributed test is performed by this script.",
+    "Output write access is not tested by creating a file; permissions may differ inside a sandbox.",
+    "Weight headers and lengths are checked; checkpoint identity/corruption requires hashing tensor data.",
+    "VRAM fit depends on sequence lengths, optimizer placement, activations, and generation caches."
+  ]
+}

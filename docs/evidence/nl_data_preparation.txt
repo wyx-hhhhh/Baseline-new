@@ -1,0 +1,7 @@
+Prepared ROUGE-L data: /home/wyx/Baseline/artifacts/nl_eval_data/dolly/55003a0320ab5c5e
+Training overlaps excluded; exact duplicate records merged.
+  DollyEval: 75 held-out examples
+  SelfInst: 242 held-out examples
+  Super-Natural: 7623 held-out examples
+  Unnatural: 64809 held-out examples
+  VicunaEval: 80 held-out examples

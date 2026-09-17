@@ -1,0 +1,18 @@
+Command: env CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=2 TOKENIZERS_PARALLELISM=false PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 .venv/bin/python -m pytest -q tests/test_nl_campaign.py
+
+.........................                                                [100%]
+=============================== warnings summary ===============================
+tests/test_nl_campaign.py::test_evaluation_overrides_preserve_exact_saved_training_configuration
+  /home/wyx/Baseline/.venv/lib/python3.11/site-packages/transformers/utils/hub.py:105: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+25 passed, 1 warning in 21.73s
+
+Source SHA-256 after preparation-lock regression verification:
+d24b80a9f43b6573e83e4ae8b7af309d31432d62614d0394ee5ce99974459e0f  scripts/run_nl_evaluation.py
+b32f4358dd5c3bd733dd9bc5797dcb3abf104ac6228ee8add1bcf7962347b4c2  scripts/evaluate_all.sh
+0deee680e9a7e3159e1bf091410421d1168f20c0b9f603a1e161fe06492aac7a  scripts/evaluate_nl.py
+e6f91b04296e50dfc100b8ffe7719d336e380fde21ae1f7ec7686cd3ee9f87bd  baseline_common/nl_evaluation.py
+7a9e677258beb8ce8883a04bfa210cf1a2585a501c0f456845a70df88cd967c4  baseline_common/nl_data.py
+7a9358d1d641b173ceda96611a5f17b932e93447db95b09dd41b51ed909ea3de  tests/test_nl_campaign.py

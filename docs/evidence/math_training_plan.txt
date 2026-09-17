@@ -1,0 +1,14 @@
+Fixed pool: /nas/Users/wyx/Baseline/data/metamathqa_50k_v1
+Math phase: train
+qwen: GPUs 0,1
+  train: kd, seed 42 -> /nas/Users/wyx/Baseline/math/runs/qwen3_8b_1p7b/metamathqa_50k_v1/kd/seed_42
+  train: abkd, seed 42 -> /nas/Users/wyx/Baseline/math/runs/qwen3_8b_1p7b/metamathqa_50k_v1/abkd/seed_42
+  train: skd, seed 42 -> /nas/Users/wyx/Baseline/math/runs/qwen3_8b_1p7b/metamathqa_50k_v1/skd/seed_42
+  pairs: distillm2, seed 42 -> /nas/Users/wyx/Baseline/math/pairs/qwen3_8b_1p7b/pairs.train.jsonl
+  train: distillm2, seed 42 -> /nas/Users/wyx/Baseline/math/runs/qwen3_8b_1p7b/metamathqa_50k_v1/distillm2/seed_42
+llama: GPUs 2,3
+  train: kd, seed 42 -> /nas/Users/wyx/Baseline/math/runs/llama3_8b_llama32_1b/metamathqa_50k_v1/kd/seed_42
+  train: abkd, seed 42 -> /nas/Users/wyx/Baseline/math/runs/llama3_8b_llama32_1b/metamathqa_50k_v1/abkd/seed_42
+  train: skd, seed 42 -> /nas/Users/wyx/Baseline/math/runs/llama3_8b_llama32_1b/metamathqa_50k_v1/skd/seed_42
+  pairs: distillm2, seed 42 -> /nas/Users/wyx/Baseline/math/pairs/llama3_8b_llama32_1b/pairs.train.jsonl
+  train: distillm2, seed 42 -> /nas/Users/wyx/Baseline/math/runs/llama3_8b_llama32_1b/metamathqa_50k_v1/distillm2/seed_42

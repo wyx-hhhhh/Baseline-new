@@ -1,0 +1,14 @@
+# Research compatibility target from check/unified_configuration.md.
+# Python 3.11.14 tested (check/ originally proposed 3.11.13).
+# Install the CUDA wheel separately first, or use the hashed training lock:
+# python -m pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cu124
+# These direct pins are not a transitive lockfile.
+torch==2.6.0
+transformers==4.51.3
+accelerate==1.6.0
+datasets==3.5.0
+tokenizers==0.21.1
+numpy==1.26.4
+huggingface-hub==0.30.2
+safetensors==0.5.3
+rouge-score==0.1.2

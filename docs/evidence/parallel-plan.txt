@@ -1,0 +1,13 @@
+qwen: student GPU 0, teacher GPU 1
+  train: kd, seed 42 -> /nas/Users/wyx/Baseline/runs/qwen3_8b_1p7b/dolly/kd/seed_42
+  train: abkd, seed 42 -> /nas/Users/wyx/Baseline/runs/qwen3_8b_1p7b/dolly/abkd/seed_42
+  train: skd, seed 42 -> /nas/Users/wyx/Baseline/runs/qwen3_8b_1p7b/dolly/skd/seed_42
+  pairs: distillm2, seed 42 -> /nas/Users/wyx/Baseline/data/dolly/qwen3_8b_1p7b/pairs.train.jsonl
+  train: distillm2, seed 42 -> /nas/Users/wyx/Baseline/runs/qwen3_8b_1p7b/dolly/distillm2/seed_42
+llama: student GPU 2, teacher GPU 3
+  train: kd, seed 42 -> /nas/Users/wyx/Baseline/runs/llama3_8b_llama32_1b/dolly/kd/seed_42
+  train: abkd, seed 42 -> /nas/Users/wyx/Baseline/runs/llama3_8b_llama32_1b/dolly/abkd/seed_42
+  train: skd, seed 42 -> /nas/Users/wyx/Baseline/runs/llama3_8b_llama32_1b/dolly/skd/seed_42
+  pairs: distillm2, seed 42 -> /nas/Users/wyx/Baseline/data/dolly/llama3_8b_llama32_1b/pairs.train.jsonl
+  train: distillm2, seed 42 -> /nas/Users/wyx/Baseline/runs/llama3_8b_llama32_1b/dolly/distillm2/seed_42
+Logs and progress: /nas/Users/wyx/Baseline/orchestration/dolly

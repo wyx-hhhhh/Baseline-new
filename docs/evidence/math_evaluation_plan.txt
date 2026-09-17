@@ -1,0 +1,20 @@
+Fixed pool: /nas/Users/wyx/Baseline/data/metamathqa_50k_v1
+Math phase: evaluate
+qwen: GPUs 0,1
+  evaluate: kd_gsm8k, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/qwen3_8b_1p7b/metamathqa_50k_v1/kd/seed_42/gsm8k
+  evaluate: kd_math, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/qwen3_8b_1p7b/metamathqa_50k_v1/kd/seed_42/math
+  evaluate: abkd_gsm8k, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/qwen3_8b_1p7b/metamathqa_50k_v1/abkd/seed_42/gsm8k
+  evaluate: abkd_math, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/qwen3_8b_1p7b/metamathqa_50k_v1/abkd/seed_42/math
+  evaluate: skd_gsm8k, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/qwen3_8b_1p7b/metamathqa_50k_v1/skd/seed_42/gsm8k
+  evaluate: skd_math, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/qwen3_8b_1p7b/metamathqa_50k_v1/skd/seed_42/math
+  evaluate: distillm2_gsm8k, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/qwen3_8b_1p7b/metamathqa_50k_v1/distillm2/seed_42/gsm8k
+  evaluate: distillm2_math, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/qwen3_8b_1p7b/metamathqa_50k_v1/distillm2/seed_42/math
+llama: GPUs 2,3
+  evaluate: kd_gsm8k, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/llama3_8b_llama32_1b/metamathqa_50k_v1/kd/seed_42/gsm8k
+  evaluate: kd_math, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/llama3_8b_llama32_1b/metamathqa_50k_v1/kd/seed_42/math
+  evaluate: abkd_gsm8k, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/llama3_8b_llama32_1b/metamathqa_50k_v1/abkd/seed_42/gsm8k
+  evaluate: abkd_math, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/llama3_8b_llama32_1b/metamathqa_50k_v1/abkd/seed_42/math
+  evaluate: skd_gsm8k, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/llama3_8b_llama32_1b/metamathqa_50k_v1/skd/seed_42/gsm8k
+  evaluate: skd_math, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/llama3_8b_llama32_1b/metamathqa_50k_v1/skd/seed_42/math
+  evaluate: distillm2_gsm8k, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/llama3_8b_llama32_1b/metamathqa_50k_v1/distillm2/seed_42/gsm8k
+  evaluate: distillm2_math, seed 42 -> /nas/Users/wyx/Baseline/math/evaluations/llama3_8b_llama32_1b/metamathqa_50k_v1/distillm2/seed_42/math

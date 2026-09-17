@@ -1,0 +1,242 @@
+{
+  "schema_version": "baseline-investigation-proposal-v1",
+  "status": "PROPOSAL_NOT_EXECUTABLE_BY_EXISTING_REPOSITORIES",
+  "created_date": "2026-09-16",
+  "environment": {
+    "python": "3.11.13",
+    "platform": "Linux x86_64",
+    "cuda_wheel_profile": "cu124",
+    "pins": {
+      "torch": "2.6.0",
+      "transformers": "4.51.3",
+      "tokenizers": "0.21.1",
+      "accelerate": "1.6.0",
+      "peft": "0.15.2",
+      "trl": "0.9.6",
+      "deepspeed": "0.16.7",
+      "datasets": "3.5.0",
+      "huggingface-hub": "0.30.2",
+      "numpy": "1.26.4"
+    },
+    "attention_backend": "sdpa",
+    "optional_flash_attn": "2.7.4.post1",
+    "optional_vllm_separate_environment": "0.8.5",
+    "verification": "direct_metadata_constraints_only_not_full_resolver_or_GPU_validation"
+  },
+  "pairs": [
+    {
+      "name": "qwen3_8b_1p7b",
+      "teacher": {
+        "id": "Qwen/Qwen3-8B",
+        "revision": "b968826d9c46dd6066d109eabc6255188de91218"
+      },
+      "student": {
+        "id": "Qwen/Qwen3-1.7B",
+        "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e"
+      },
+      "stage": "post_trained",
+      "tokenizer_alignment": "exact_tokenizer_json_and_full_vocab_mapping_verified",
+      "renderer": "official_qwen_chat_template",
+      "enable_thinking": false,
+      "generation": {
+        "temperature": 0.7,
+        "top_p": 0.8,
+        "top_k": 20
+      }
+    },
+    {
+      "name": "llama3_8b_llama32_1b",
+      "teacher": {
+        "id": "meta-llama/Meta-Llama-3-8B",
+        "revision": "8cde5ca8380496c9a6cc7ef3a8b46a0372a1d920"
+      },
+      "student": {
+        "id": "meta-llama/Llama-3.2-1B",
+        "revision": "4e20de362430cd3b72f300e6b0f18e50e7166e08"
+      },
+      "stage": "base",
+      "tokenizer_alignment": "pending_authorized_tokenizer_download_and_comparison",
+      "renderer": "explicit_task_prompt_to_be_defined",
+      "enable_thinking": null,
+      "generation": {
+        "temperature": 0.7,
+        "top_p": 0.9,
+        "top_k": 0
+      }
+    }
+  ],
+  "alternative_llama_teacher": {
+    "id": "meta-llama/Llama-3.1-8B",
+    "revision": "d04e592bb4f6aa9cfee91e2e20afa771667e1d4b",
+    "selected": false
+  },
+  "training": {
+    "student_update_mode": "full_finetune",
+    "teacher_frozen": true,
+    "teacher_quantization": null,
+    "dtype": "bfloat16",
+    "loss_dtype": "float32",
+    "max_prompt_tokens": 1024,
+    "max_new_tokens": 1024,
+    "max_total_tokens": 2048,
+    "target_prompts_per_optimizer_step": 32,
+    "example_world_size": 4,
+    "example_microbatch_prompts": 1,
+    "example_accumulation_steps": 8,
+    "learning_rate": 1e-05,
+    "optimizer": "torch.optim.AdamW",
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0.01,
+    "max_grad_norm": 1.0,
+    "scheduler": "cosine",
+    "warmup_ratio": 0.03,
+    "initial_num_epochs": 1,
+    "kd_temperature": 1.0,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "response_only": true,
+    "shared_initialization_manifest": null
+  },
+  "dataset": {
+    "id_or_path": null,
+    "revision_or_content_hash": null,
+    "split_manifest": null,
+    "evaluation_metric": null,
+    "checkpoint_selection_rule": null,
+    "validation_interval": null,
+    "final_update_budget": null
+  },
+  "hardware": {
+    "gpu_model": null,
+    "gpu_count": null,
+    "vram_gib_per_gpu": null,
+    "driver": null,
+    "os": null
+  },
+  "methods": [
+    {
+      "name": "kd",
+      "sequence_source": "reference",
+      "loss": "forward_kl_teacher_to_student",
+      "kd_weight": 1.0,
+      "hard_ce_weight": 0.0,
+      "reduction": "valid_response_token_mean"
+    },
+    {
+      "name": "abkd",
+      "sequence_source": "reference",
+      "loss": "alpha_beta_divergence",
+      "alpha": 0.1,
+      "beta": 0.8,
+      "reduction": "valid_response_token_mean",
+      "protocol_note": "Controlled reference-trajectory variant; supplied Qwen script uses pseudo responses."
+    },
+    {
+      "name": "gkd",
+      "sequence_source": "reference_or_fresh_current_student",
+      "student_sequence_probability": 0.5,
+      "loss": "weighted_js",
+      "js_student_weight": 0.9,
+      "js_teacher_weight": 0.1,
+      "replay": false,
+      "reduction": "valid_response_token_mean"
+    },
+    {
+      "name": "skd",
+      "sequence_source": "student_proposals_with_teacher_intervention",
+      "loss": "forward_kl_teacher_to_student",
+      "acceptance_top_k": 25,
+      "proposal_block_length": 5,
+      "proposal_schedule": "constant",
+      "expected_seq_len": 0,
+      "replay": false,
+      "reduction": "valid_response_token_mean",
+      "protocol_note": "Harmonized generation settings; preserve original YAML as separate reproduction profile."
+    },
+    {
+      "name": "distillm2",
+      "sequence_source": "offline_teacher_student_pairs",
+      "loss": "distillm_v2",
+      "chosen_source": "teacher",
+      "rejected_source": "initial_student",
+      "base_alpha_1": 0.1,
+      "base_alpha_2": 0.1,
+      "update_alpha": false,
+      "gradual_beta": false,
+      "effective_pair_beta": 1.0,
+      "precompute_ref_log_probs": false,
+      "refresh": "once_after_initialization_and_split_freeze",
+      "reduction": "per_response_token_mean_then_sum_two_responses_then_pair_mean"
+    }
+  ],
+  "matrix": [
+    {
+      "run_family": "qwen3_8b_1p7b__kd",
+      "pair": "qwen3_8b_1p7b",
+      "method": "kd"
+    },
+    {
+      "run_family": "qwen3_8b_1p7b__abkd",
+      "pair": "qwen3_8b_1p7b",
+      "method": "abkd"
+    },
+    {
+      "run_family": "qwen3_8b_1p7b__gkd",
+      "pair": "qwen3_8b_1p7b",
+      "method": "gkd"
+    },
+    {
+      "run_family": "qwen3_8b_1p7b__skd",
+      "pair": "qwen3_8b_1p7b",
+      "method": "skd"
+    },
+    {
+      "run_family": "qwen3_8b_1p7b__distillm2",
+      "pair": "qwen3_8b_1p7b",
+      "method": "distillm2"
+    },
+    {
+      "run_family": "llama3_8b_llama32_1b__kd",
+      "pair": "llama3_8b_llama32_1b",
+      "method": "kd"
+    },
+    {
+      "run_family": "llama3_8b_llama32_1b__abkd",
+      "pair": "llama3_8b_llama32_1b",
+      "method": "abkd"
+    },
+    {
+      "run_family": "llama3_8b_llama32_1b__gkd",
+      "pair": "llama3_8b_llama32_1b",
+      "method": "gkd"
+    },
+    {
+      "run_family": "llama3_8b_llama32_1b__skd",
+      "pair": "llama3_8b_llama32_1b",
+      "method": "skd"
+    },
+    {
+      "run_family": "llama3_8b_llama32_1b__distillm2",
+      "pair": "llama3_8b_llama32_1b",
+      "method": "distillm2"
+    }
+  ],
+  "configuration_count": 10,
+  "seeded_run_count": 30,
+  "launch_gates": [
+    "Implement the method adapters and all P0 repairs",
+    "Resolve and validate the complete Linux dependency lock",
+    "Confirm Llama exact family and base/Instruct stage",
+    "Verify authorized Llama tokenizer/config alignment",
+    "Fill hardware and dataset/metric/budget fields",
+    "Create shared initialization manifest per pair/seed",
+    "Pass one-update, sampling, multi-GPU and resume checks for all methods"
+  ]
+}

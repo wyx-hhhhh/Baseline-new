@@ -1,0 +1,152 @@
+{
+  "qwen": {
+    "model": "/nas/Models/Qwen3-1.7B-Instruct",
+    "benchmarks": {
+      "dolly": {
+        "raw_rows": 500,
+        "max_prompt_tokens": 244,
+        "over_limits": {
+          "1024": 0,
+          "2048": 0,
+          "4096": 0,
+          "8192": 0
+        },
+        "longest": {
+          "file": "DollyEval/valid.jsonl",
+          "line": 465
+        }
+      },
+      "selfinst": {
+        "raw_rows": 242,
+        "max_prompt_tokens": 212,
+        "over_limits": {
+          "1024": 0,
+          "2048": 0,
+          "4096": 0,
+          "8192": 0
+        },
+        "longest": {
+          "file": "SelfInst/valid.jsonl",
+          "line": 193
+        }
+      },
+      "super_natural": {
+        "raw_rows": 8354,
+        "max_prompt_tokens": 265,
+        "over_limits": {
+          "1024": 0,
+          "2048": 0,
+          "4096": 0,
+          "8192": 0
+        },
+        "longest": {
+          "file": "Super-Natural/0_2/valid.jsonl",
+          "line": 154
+        }
+      },
+      "unnatural": {
+        "raw_rows": 64809,
+        "max_prompt_tokens": 524,
+        "over_limits": {
+          "1024": 0,
+          "2048": 0,
+          "4096": 0,
+          "8192": 0
+        },
+        "longest": {
+          "file": "Unnatural/11_/valid.jsonl",
+          "line": 12386
+        }
+      },
+      "vicuna": {
+        "raw_rows": 80,
+        "max_prompt_tokens": 48,
+        "over_limits": {
+          "1024": 0,
+          "2048": 0,
+          "4096": 0,
+          "8192": 0
+        },
+        "longest": {
+          "file": "VicunaEval/valid.jsonl",
+          "line": 27
+        }
+      }
+    }
+  },
+  "llama": {
+    "model": "/nas/Models/Meta-Llama-3.2-1B-Instruct",
+    "benchmarks": {
+      "dolly": {
+        "raw_rows": 500,
+        "max_prompt_tokens": 248,
+        "over_limits": {
+          "1024": 0,
+          "2048": 0,
+          "4096": 0,
+          "8192": 0
+        },
+        "longest": {
+          "file": "DollyEval/valid.jsonl",
+          "line": 167
+        }
+      },
+      "selfinst": {
+        "raw_rows": 242,
+        "max_prompt_tokens": 234,
+        "over_limits": {
+          "1024": 0,
+          "2048": 0,
+          "4096": 0,
+          "8192": 0
+        },
+        "longest": {
+          "file": "SelfInst/valid.jsonl",
+          "line": 193
+        }
+      },
+      "super_natural": {
+        "raw_rows": 8354,
+        "max_prompt_tokens": 257,
+        "over_limits": {
+          "1024": 0,
+          "2048": 0,
+          "4096": 0,
+          "8192": 0
+        },
+        "longest": {
+          "file": "Super-Natural/0_2/valid.jsonl",
+          "line": 433
+        }
+      },
+      "unnatural": {
+        "raw_rows": 64809,
+        "max_prompt_tokens": 355,
+        "over_limits": {
+          "1024": 0,
+          "2048": 0,
+          "4096": 0,
+          "8192": 0
+        },
+        "longest": {
+          "file": "Unnatural/11_/valid.jsonl",
+          "line": 12386
+        }
+      },
+      "vicuna": {
+        "raw_rows": 80,
+        "max_prompt_tokens": 71,
+        "over_limits": {
+          "1024": 0,
+          "2048": 0,
+          "4096": 0,
+          "8192": 0
+        },
+        "longest": {
+          "file": "VicunaEval/valid.jsonl",
+          "line": 27
+        }
+      }
+    }
+  }
+}

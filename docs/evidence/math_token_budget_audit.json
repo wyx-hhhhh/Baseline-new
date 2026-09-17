@@ -1,0 +1,103 @@
+{
+  "pool_manifest_sha256": "01c2e37cb1e3d33facf4336400e611f489b64e736b9ad83271f59d1a5fea3bcb",
+  "families": {
+    "qwen": {
+      "splits": {
+        "train": {
+          "records": 50000,
+          "max_prompt_tokens": 1202,
+          "max_reference_tokens_with_eos": 1969,
+          "response_over_caps": {
+            "1024": 39,
+            "2048": 0,
+            "4096": 0,
+            "6144": 0
+          }
+        },
+        "validation": {
+          "records": 5000,
+          "max_prompt_tokens": 563,
+          "max_reference_tokens_with_eos": 1330,
+          "response_over_caps": {
+            "1024": 2,
+            "2048": 0,
+            "4096": 0,
+            "6144": 0
+          }
+        },
+        "gsm8k": {
+          "records": 1319,
+          "max_prompt_tokens": 216,
+          "max_reference_tokens_with_eos": 414,
+          "response_over_caps": {
+            "1024": 0,
+            "2048": 0,
+            "4096": 0,
+            "6144": 0
+          }
+        },
+        "math": {
+          "records": 5000,
+          "max_prompt_tokens": 1364,
+          "max_reference_tokens_with_eos": 1950,
+          "response_over_caps": {
+            "1024": 31,
+            "2048": 0,
+            "4096": 0,
+            "6144": 0
+          }
+        }
+      },
+      "seconds": 51.041413977975026
+    },
+    "llama": {
+      "splits": {
+        "train": {
+          "records": 50000,
+          "max_prompt_tokens": 1022,
+          "max_reference_tokens_with_eos": 1485,
+          "response_over_caps": {
+            "1024": 26,
+            "2048": 0,
+            "4096": 0,
+            "6144": 0
+          }
+        },
+        "validation": {
+          "records": 5000,
+          "max_prompt_tokens": 570,
+          "max_reference_tokens_with_eos": 1211,
+          "response_over_caps": {
+            "1024": 1,
+            "2048": 0,
+            "4096": 0,
+            "6144": 0
+          }
+        },
+        "gsm8k": {
+          "records": 1319,
+          "max_prompt_tokens": 236,
+          "max_reference_tokens_with_eos": 311,
+          "response_over_caps": {
+            "1024": 0,
+            "2048": 0,
+            "4096": 0,
+            "6144": 0
+          }
+        },
+        "math": {
+          "records": 5000,
+          "max_prompt_tokens": 1324,
+          "max_reference_tokens_with_eos": 1930,
+          "response_over_caps": {
+            "1024": 24,
+            "2048": 0,
+            "4096": 0,
+            "6144": 0
+          }
+        }
+      },
+      "seconds": 63.699944113963284
+    }
+  }
+}

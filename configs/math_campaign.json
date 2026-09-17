@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "dataset": "metamathqa_50k_v1",
+  "pool_dir": "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1",
+  "pool_manifest_sha256": "01c2e37cb1e3d33facf4336400e611f489b64e736b9ad83271f59d1a5fea3bcb",
+  "pool_counts": {
+    "train": 50000,
+    "validation": 5000,
+    "gsm8k": 1319,
+    "math": 5000
+  },
+  "output_root": "/nas/Users/wyx/Baseline/math",
+  "config_files": {
+    "qwen": {
+      "kd": "configs/math/qwen3_8b_1p7b_kd.json",
+      "abkd": "configs/math/qwen3_8b_1p7b_abkd.json",
+      "skd": "configs/math/qwen3_8b_1p7b_skd.json",
+      "distillm2": "configs/math/qwen3_8b_1p7b_distillm2.json"
+    },
+    "llama": {
+      "kd": "configs/math/llama3_8b_llama32_1b_kd.json",
+      "abkd": "configs/math/llama3_8b_llama32_1b_abkd.json",
+      "skd": "configs/math/llama3_8b_llama32_1b_skd.json",
+      "distillm2": "configs/math/llama3_8b_llama32_1b_distillm2.json"
+    }
+  },
+  "pair_seed": 42,
+  "evaluation": {
+    "benchmarks": [
+      "gsm8k",
+      "math"
+    ],
+    "max_prompt_tokens": 2048,
+    "max_new_tokens": 2048
+  },
+  "grading": {
+    "implementation": "metamath-final-v2",
+    "source_sha256": "49c624abcbcbcd8e54412c822aeb7e647fda6d38d2e9785477dd6d3ebe33db17",
+    "gold_audit": "docs/evidence/math-grading-audit.json",
+    "gold_audit_sha256": "d43b8416b8caf2364d7b2d6cafede0c91604518bd307d41fa1b553242a9e9d3d"
+  }
+}

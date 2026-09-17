@@ -1,0 +1,26 @@
+{
+  "metric": "ROUGE-L F1",
+  "metric_range": [
+    0,
+    100
+  ],
+  "aggregation": "mean per-example F1",
+  "training_default": "optimizer updates and saves only; no validation generation",
+  "commands": [
+    "bash /home/wyx/Baseline/scripts/run_all.sh",
+    "bash /home/wyx/Baseline/scripts/evaluate_all.sh"
+  ],
+  "default_dataset": "dolly",
+  "held_out_examples": 750,
+  "model_method_runs": 8,
+  "full_regression_passed": 331,
+  "new_cuda_and_checkpoint_cases_passed": 2,
+  "gpu_evaluation_evidence": "docs/evidence/rouge-gpu-evaluation.json",
+  "training_started": false,
+  "full_evaluation_started": false,
+  "resume_supported": [
+    "training checkpoints",
+    "DistiLLM-2 pair generation",
+    "evaluation predictions"
+  ]
+}

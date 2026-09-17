@@ -1,0 +1,28 @@
+{
+  "name": "qwen3_8b_1p7b_kd",
+  "pair": "qwen3_8b_1p7b",
+  "method": "kd",
+  "teacher_model": "/nas/Models/Qwen3-8B-Instruct",
+  "student_model": "/nas/Models/Qwen3-1.7B-Instruct",
+  "dataset": "synthetic_smoke",
+  "train_file": "/nas/Users/wyx/Baseline/smoke/data/train.jsonl",
+  "validation_file": "/nas/Users/wyx/Baseline/smoke/data/validation.jsonl",
+  "generation": {
+    "temperature": 0.7,
+    "top_p": 0.8,
+    "top_k": 20
+  },
+  "teacher_generation": {
+    "temperature": 0.7,
+    "top_p": 0.8,
+    "top_k": 20
+  },
+  "output_root": "/nas/Users/wyx/Baseline/smoke",
+  "max_steps": 1,
+  "gradient_accumulation_steps": 1,
+  "max_prompt_tokens": 64,
+  "max_new_tokens": 8,
+  "eval_max_examples": 1,
+  "save_steps": 1,
+  "eval_steps": 1
+}

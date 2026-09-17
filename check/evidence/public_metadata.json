@@ -1,0 +1,2328 @@
+{
+  "retrieved_at_utc": "2026-09-16T02:12:58.420107+00:00",
+  "models": [
+    {
+      "model_id": "Qwen/Qwen3-8B",
+      "source": "https://huggingface.co/Qwen/Qwen3-8B",
+      "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+      "gated": false,
+      "api_config": {
+        "architectures": [
+          "Qwen3ForCausalLM"
+        ],
+        "model_type": "qwen3",
+        "tokenizer_config": {
+          "bos_token": null,
+          "chat_template": "{%- if tools %}\n    {{- '<|im_start|>system\\n' }}\n    {%- if messages[0].role == 'system' %}\n        {{- messages[0].content + '\\n\\n' }}\n    {%- endif %}\n    {{- \"# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within <tools></tools> XML tags:\\n<tools>\" }}\n    {%- for tool in tools %}\n        {{- \"\\n\" }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \"\\n</tools>\\n\\nFor each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\\n<tool_call>\\n{\\\"name\\\": <function-name>, \\\"arguments\\\": <args-json-object>}\\n</tool_call><|im_end|>\\n\" }}\n{%- else %}\n    {%- if messages[0].role == 'system' %}\n        {{- '<|im_start|>system\\n' + messages[0].content + '<|im_end|>\\n' }}\n    {%- endif %}\n{%- endif %}\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \"user\" and message.content is string and not(message.content.startswith('<tool_response>') and message.content.endswith('</tool_response>')) %}\n        {%- set ns.multi_step_tool = false %}\n        {%- set ns.last_query_index = index %}\n    {%- endif %}\n{%- endfor %}\n{%- for message in messages %}\n    {%- if message.content is string %}\n        {%- set content = message.content %}\n    {%- else %}\n        {%- set content = '' %}\n    {%- endif %}\n    {%- if (message.role == \"user\") or (message.role == \"system\" and not loop.first) %}\n        {{- '<|im_start|>' + message.role + '\\n' + content + '<|im_end|>' + '\\n' }}\n    {%- elif message.role == \"assistant\" %}\n        {%- set reasoning_content = '' %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if '</think>' in content %}\n                {%- set reasoning_content = content.split('</think>')[0].rstrip('\\n').split('<think>')[-1].lstrip('\\n') %}\n                {%- set content = content.split('</think>')[-1].lstrip('\\n') %}\n            {%- endif %}\n        {%- endif %}\n        {%- if loop.index0 > ns.last_query_index %}\n            {%- if loop.last or (not loop.last and reasoning_content) %}\n                {{- '<|im_start|>' + message.role + '\\n<think>\\n' + reasoning_content.strip('\\n') + '\\n</think>\\n\\n' + content.lstrip('\\n') }}\n            {%- else %}\n                {{- '<|im_start|>' + message.role + '\\n' + content }}\n            {%- endif %}\n        {%- else %}\n            {{- '<|im_start|>' + message.role + '\\n' + content }}\n        {%- endif %}\n        {%- if message.tool_calls %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if (loop.first and content) or (not loop.first) %}\n                    {{- '\\n' }}\n                {%- endif %}\n                {%- if tool_call.function %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {{- '<tool_call>\\n{\"name\": \"' }}\n                {{- tool_call.name }}\n                {{- '\", \"arguments\": ' }}\n                {%- if tool_call.arguments is string %}\n                    {{- tool_call.arguments }}\n                {%- else %}\n                    {{- tool_call.arguments | tojson }}\n                {%- endif %}\n                {{- '}\\n</tool_call>' }}\n            {%- endfor %}\n        {%- endif %}\n        {{- '<|im_end|>\\n' }}\n    {%- elif message.role == \"tool\" %}\n        {%- if loop.first or (messages[loop.index0 - 1].role != \"tool\") %}\n            {{- '<|im_start|>user' }}\n        {%- endif %}\n        {{- '\\n<tool_response>\\n' }}\n        {{- content }}\n        {{- '\\n</tool_response>' }}\n        {%- if loop.last or (messages[loop.index0 + 1].role != \"tool\") %}\n            {{- '<|im_end|>\\n' }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- '<|im_start|>assistant\\n' }}\n    {%- if enable_thinking is defined and enable_thinking is false %}\n        {{- '<think>\\n\\n</think>\\n\\n' }}\n    {%- endif %}\n{%- endif %}",
+          "eos_token": "<|im_end|>",
+          "pad_token": "<|endoftext|>",
+          "unk_token": null
+        }
+      },
+      "pipeline_tag": "text-generation",
+      "config.json": {
+        "source": "https://huggingface.co/Qwen/Qwen3-8B/resolve/b968826d9c46dd6066d109eabc6255188de91218/config.json",
+        "sha256": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+        "bytes": 728,
+        "values": {
+          "architectures": [
+            "Qwen3ForCausalLM"
+          ],
+          "attention_bias": false,
+          "attention_dropout": 0.0,
+          "bos_token_id": 151643,
+          "eos_token_id": 151645,
+          "head_dim": 128,
+          "hidden_act": "silu",
+          "hidden_size": 4096,
+          "initializer_range": 0.02,
+          "intermediate_size": 12288,
+          "max_position_embeddings": 40960,
+          "max_window_layers": 36,
+          "model_type": "qwen3",
+          "num_attention_heads": 32,
+          "num_hidden_layers": 36,
+          "num_key_value_heads": 8,
+          "rms_norm_eps": 1e-06,
+          "rope_scaling": null,
+          "rope_theta": 1000000,
+          "sliding_window": null,
+          "tie_word_embeddings": false,
+          "torch_dtype": "bfloat16",
+          "transformers_version": "4.51.0",
+          "use_cache": true,
+          "use_sliding_window": false,
+          "vocab_size": 151936
+        }
+      },
+      "generation_config.json": {
+        "source": "https://huggingface.co/Qwen/Qwen3-8B/resolve/b968826d9c46dd6066d109eabc6255188de91218/generation_config.json",
+        "sha256": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "bytes": 239,
+        "values": {
+          "bos_token_id": 151643,
+          "do_sample": true,
+          "eos_token_id": [
+            151645,
+            151643
+          ],
+          "pad_token_id": 151643,
+          "temperature": 0.6,
+          "top_k": 20,
+          "top_p": 0.95,
+          "transformers_version": "4.51.0"
+        }
+      },
+      "tokenizer_config.json": {
+        "source": "https://huggingface.co/Qwen/Qwen3-8B/resolve/b968826d9c46dd6066d109eabc6255188de91218/tokenizer_config.json",
+        "sha256": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "bytes": 9732,
+        "values": {
+          "bos_token": null,
+          "eos_token": "<|im_end|>",
+          "pad_token": "<|endoftext|>",
+          "tokenizer_class": "Qwen2Tokenizer",
+          "model_max_length": 131072
+        }
+      },
+      "tokenizer.json": {
+        "source": "https://huggingface.co/Qwen/Qwen3-8B/resolve/b968826d9c46dd6066d109eabc6255188de91218/tokenizer.json",
+        "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "bytes": 11422654,
+        "base_vocab_count": 151643,
+        "added_token_count": 26
+      }
+    },
+    {
+      "model_id": "Qwen/Qwen3-1.7B",
+      "source": "https://huggingface.co/Qwen/Qwen3-1.7B",
+      "revision": "70d244cc86ccca08cf5af4e1e306ecf908b1ad5e",
+      "gated": false,
+      "api_config": {
+        "architectures": [
+          "Qwen3ForCausalLM"
+        ],
+        "model_type": "qwen3",
+        "tokenizer_config": {
+          "bos_token": null,
+          "chat_template": "{%- if tools %}\n    {{- '<|im_start|>system\\n' }}\n    {%- if messages[0].role == 'system' %}\n        {{- messages[0].content + '\\n\\n' }}\n    {%- endif %}\n    {{- \"# Tools\\n\\nYou may call one or more functions to assist with the user query.\\n\\nYou are provided with function signatures within <tools></tools> XML tags:\\n<tools>\" }}\n    {%- for tool in tools %}\n        {{- \"\\n\" }}\n        {{- tool | tojson }}\n    {%- endfor %}\n    {{- \"\\n</tools>\\n\\nFor each function call, return a json object with function name and arguments within <tool_call></tool_call> XML tags:\\n<tool_call>\\n{\\\"name\\\": <function-name>, \\\"arguments\\\": <args-json-object>}\\n</tool_call><|im_end|>\\n\" }}\n{%- else %}\n    {%- if messages[0].role == 'system' %}\n        {{- '<|im_start|>system\\n' + messages[0].content + '<|im_end|>\\n' }}\n    {%- endif %}\n{%- endif %}\n{%- set ns = namespace(multi_step_tool=true, last_query_index=messages|length - 1) %}\n{%- for message in messages[::-1] %}\n    {%- set index = (messages|length - 1) - loop.index0 %}\n    {%- if ns.multi_step_tool and message.role == \"user\" and message.content is string and not(message.content.startswith('<tool_response>') and message.content.endswith('</tool_response>')) %}\n        {%- set ns.multi_step_tool = false %}\n        {%- set ns.last_query_index = index %}\n    {%- endif %}\n{%- endfor %}\n{%- for message in messages %}\n    {%- if message.content is string %}\n        {%- set content = message.content %}\n    {%- else %}\n        {%- set content = '' %}\n    {%- endif %}\n    {%- if (message.role == \"user\") or (message.role == \"system\" and not loop.first) %}\n        {{- '<|im_start|>' + message.role + '\\n' + content + '<|im_end|>' + '\\n' }}\n    {%- elif message.role == \"assistant\" %}\n        {%- set reasoning_content = '' %}\n        {%- if message.reasoning_content is string %}\n            {%- set reasoning_content = message.reasoning_content %}\n        {%- else %}\n            {%- if '</think>' in content %}\n                {%- set reasoning_content = content.split('</think>')[0].rstrip('\\n').split('<think>')[-1].lstrip('\\n') %}\n                {%- set content = content.split('</think>')[-1].lstrip('\\n') %}\n            {%- endif %}\n        {%- endif %}\n        {%- if loop.index0 > ns.last_query_index %}\n            {%- if loop.last or (not loop.last and reasoning_content) %}\n                {{- '<|im_start|>' + message.role + '\\n<think>\\n' + reasoning_content.strip('\\n') + '\\n</think>\\n\\n' + content.lstrip('\\n') }}\n            {%- else %}\n                {{- '<|im_start|>' + message.role + '\\n' + content }}\n            {%- endif %}\n        {%- else %}\n            {{- '<|im_start|>' + message.role + '\\n' + content }}\n        {%- endif %}\n        {%- if message.tool_calls %}\n            {%- for tool_call in message.tool_calls %}\n                {%- if (loop.first and content) or (not loop.first) %}\n                    {{- '\\n' }}\n                {%- endif %}\n                {%- if tool_call.function %}\n                    {%- set tool_call = tool_call.function %}\n                {%- endif %}\n                {{- '<tool_call>\\n{\"name\": \"' }}\n                {{- tool_call.name }}\n                {{- '\", \"arguments\": ' }}\n                {%- if tool_call.arguments is string %}\n                    {{- tool_call.arguments }}\n                {%- else %}\n                    {{- tool_call.arguments | tojson }}\n                {%- endif %}\n                {{- '}\\n</tool_call>' }}\n            {%- endfor %}\n        {%- endif %}\n        {{- '<|im_end|>\\n' }}\n    {%- elif message.role == \"tool\" %}\n        {%- if loop.first or (messages[loop.index0 - 1].role != \"tool\") %}\n            {{- '<|im_start|>user' }}\n        {%- endif %}\n        {{- '\\n<tool_response>\\n' }}\n        {{- content }}\n        {{- '\\n</tool_response>' }}\n        {%- if loop.last or (messages[loop.index0 + 1].role != \"tool\") %}\n            {{- '<|im_end|>\\n' }}\n        {%- endif %}\n    {%- endif %}\n{%- endfor %}\n{%- if add_generation_prompt %}\n    {{- '<|im_start|>assistant\\n' }}\n    {%- if enable_thinking is defined and enable_thinking is false %}\n        {{- '<think>\\n\\n</think>\\n\\n' }}\n    {%- endif %}\n{%- endif %}",
+          "eos_token": "<|im_end|>",
+          "pad_token": "<|endoftext|>",
+          "unk_token": null
+        }
+      },
+      "pipeline_tag": "text-generation",
+      "config.json": {
+        "source": "https://huggingface.co/Qwen/Qwen3-1.7B/resolve/70d244cc86ccca08cf5af4e1e306ecf908b1ad5e/config.json",
+        "sha256": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "bytes": 726,
+        "values": {
+          "architectures": [
+            "Qwen3ForCausalLM"
+          ],
+          "attention_bias": false,
+          "attention_dropout": 0.0,
+          "bos_token_id": 151643,
+          "eos_token_id": 151645,
+          "head_dim": 128,
+          "hidden_act": "silu",
+          "hidden_size": 2048,
+          "initializer_range": 0.02,
+          "intermediate_size": 6144,
+          "max_position_embeddings": 40960,
+          "max_window_layers": 28,
+          "model_type": "qwen3",
+          "num_attention_heads": 16,
+          "num_hidden_layers": 28,
+          "num_key_value_heads": 8,
+          "rms_norm_eps": 1e-06,
+          "rope_scaling": null,
+          "rope_theta": 1000000,
+          "sliding_window": null,
+          "tie_word_embeddings": true,
+          "torch_dtype": "bfloat16",
+          "transformers_version": "4.51.0",
+          "use_cache": true,
+          "use_sliding_window": false,
+          "vocab_size": 151936
+        }
+      },
+      "generation_config.json": {
+        "source": "https://huggingface.co/Qwen/Qwen3-1.7B/resolve/70d244cc86ccca08cf5af4e1e306ecf908b1ad5e/generation_config.json",
+        "sha256": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "bytes": 239,
+        "values": {
+          "bos_token_id": 151643,
+          "do_sample": true,
+          "eos_token_id": [
+            151645,
+            151643
+          ],
+          "pad_token_id": 151643,
+          "temperature": 0.6,
+          "top_k": 20,
+          "top_p": 0.95,
+          "transformers_version": "4.51.0"
+        }
+      },
+      "tokenizer_config.json": {
+        "source": "https://huggingface.co/Qwen/Qwen3-1.7B/resolve/70d244cc86ccca08cf5af4e1e306ecf908b1ad5e/tokenizer_config.json",
+        "sha256": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "bytes": 9732,
+        "values": {
+          "bos_token": null,
+          "eos_token": "<|im_end|>",
+          "pad_token": "<|endoftext|>",
+          "tokenizer_class": "Qwen2Tokenizer",
+          "model_max_length": 131072
+        }
+      },
+      "tokenizer.json": {
+        "source": "https://huggingface.co/Qwen/Qwen3-1.7B/resolve/70d244cc86ccca08cf5af4e1e306ecf908b1ad5e/tokenizer.json",
+        "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "bytes": 11422654,
+        "base_vocab_count": 151643,
+        "added_token_count": 26
+      }
+    },
+    {
+      "model_id": "meta-llama/Meta-Llama-3-8B",
+      "source": "https://huggingface.co/meta-llama/Meta-Llama-3-8B",
+      "revision": "8cde5ca8380496c9a6cc7ef3a8b46a0372a1d920",
+      "gated": "manual",
+      "api_config": {
+        "architectures": [
+          "LlamaForCausalLM"
+        ],
+        "model_type": "llama",
+        "tokenizer_config": {
+          "bos_token": "<|begin_of_text|>",
+          "eos_token": "<|end_of_text|>"
+        }
+      },
+      "pipeline_tag": "text-generation",
+      "config.json": {
+        "source": "https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/8cde5ca8380496c9a6cc7ef3a8b46a0372a1d920/config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      "generation_config.json": {
+        "source": "https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/8cde5ca8380496c9a6cc7ef3a8b46a0372a1d920/generation_config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      "tokenizer_config.json": {
+        "source": "https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/8cde5ca8380496c9a6cc7ef3a8b46a0372a1d920/tokenizer_config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      "tokenizer.json": {
+        "source": "https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/8cde5ca8380496c9a6cc7ef3a8b46a0372a1d920/tokenizer.json",
+        "error": "HTTP Error 401: Unauthorized"
+      }
+    },
+    {
+      "model_id": "meta-llama/Llama-3.2-1B",
+      "source": "https://huggingface.co/meta-llama/Llama-3.2-1B",
+      "revision": "4e20de362430cd3b72f300e6b0f18e50e7166e08",
+      "gated": "manual",
+      "api_config": {
+        "architectures": [
+          "LlamaForCausalLM"
+        ],
+        "model_type": "llama",
+        "tokenizer_config": {
+          "bos_token": "<|begin_of_text|>",
+          "eos_token": "<|end_of_text|>"
+        }
+      },
+      "pipeline_tag": "text-generation",
+      "config.json": {
+        "source": "https://huggingface.co/meta-llama/Llama-3.2-1B/resolve/4e20de362430cd3b72f300e6b0f18e50e7166e08/config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      "generation_config.json": {
+        "source": "https://huggingface.co/meta-llama/Llama-3.2-1B/resolve/4e20de362430cd3b72f300e6b0f18e50e7166e08/generation_config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      "tokenizer_config.json": {
+        "source": "https://huggingface.co/meta-llama/Llama-3.2-1B/resolve/4e20de362430cd3b72f300e6b0f18e50e7166e08/tokenizer_config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      "tokenizer.json": {
+        "source": "https://huggingface.co/meta-llama/Llama-3.2-1B/resolve/4e20de362430cd3b72f300e6b0f18e50e7166e08/tokenizer.json",
+        "error": "HTTP Error 401: Unauthorized"
+      }
+    },
+    {
+      "model_id": "meta-llama/Llama-3.1-8B",
+      "source": "https://huggingface.co/meta-llama/Llama-3.1-8B",
+      "revision": "d04e592bb4f6aa9cfee91e2e20afa771667e1d4b",
+      "gated": "manual",
+      "api_config": {
+        "architectures": [
+          "LlamaForCausalLM"
+        ],
+        "model_type": "llama",
+        "tokenizer_config": {
+          "bos_token": "<|begin_of_text|>",
+          "eos_token": "<|end_of_text|>"
+        }
+      },
+      "pipeline_tag": "text-generation",
+      "config.json": {
+        "source": "https://huggingface.co/meta-llama/Llama-3.1-8B/resolve/d04e592bb4f6aa9cfee91e2e20afa771667e1d4b/config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      "generation_config.json": {
+        "source": "https://huggingface.co/meta-llama/Llama-3.1-8B/resolve/d04e592bb4f6aa9cfee91e2e20afa771667e1d4b/generation_config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      "tokenizer_config.json": {
+        "source": "https://huggingface.co/meta-llama/Llama-3.1-8B/resolve/d04e592bb4f6aa9cfee91e2e20afa771667e1d4b/tokenizer_config.json",
+        "error": "HTTP Error 401: Unauthorized"
+      },
+      "tokenizer.json": {
+        "source": "https://huggingface.co/meta-llama/Llama-3.1-8B/resolve/d04e592bb4f6aa9cfee91e2e20afa771667e1d4b/tokenizer.json",
+        "error": "HTTP Error 401: Unauthorized"
+      }
+    }
+  ],
+  "packages": [
+    {
+      "name": "torch",
+      "version": "2.6.0",
+      "source": "https://pypi.org/pypi/torch/2.6.0/json",
+      "requires_python": ">=3.9.0",
+      "requires_dist": [
+        "filelock",
+        "typing-extensions>=4.10.0",
+        "networkx",
+        "jinja2",
+        "fsspec",
+        "nvidia-cuda-nvrtc-cu12==12.4.127; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "nvidia-cuda-runtime-cu12==12.4.127; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "nvidia-cuda-cupti-cu12==12.4.127; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "nvidia-cudnn-cu12==9.1.0.70; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "nvidia-cublas-cu12==12.4.5.8; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "nvidia-cufft-cu12==11.2.1.3; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "nvidia-curand-cu12==10.3.5.147; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "nvidia-cusolver-cu12==11.6.1.9; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "nvidia-cusparse-cu12==12.3.1.170; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "nvidia-cusparselt-cu12==0.6.2; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "nvidia-nccl-cu12==2.21.5; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "nvidia-nvtx-cu12==12.4.127; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "nvidia-nvjitlink-cu12==12.4.127; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "triton==3.2.0; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "setuptools; python_version >= \"3.12\"",
+        "sympy==1.13.1; python_version >= \"3.9\"",
+        "opt-einsum>=3.3; extra == \"opt-einsum\"",
+        "optree>=0.13.0; extra == \"optree\""
+      ],
+      "files": [
+        {
+          "filename": "torch-2.6.0-cp310-cp310-manylinux1_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/37/81/aa9ab58ec10264c1abe62c8b73f5086c3c558885d6beecebf699f0dbeaeb/torch-2.6.0-cp310-cp310-manylinux1_x86_64.whl",
+          "digests": {
+            "blake2b_256": "3781aa9ab58ec10264c1abe62c8b73f5086c3c558885d6beecebf699f0dbeaeb",
+            "md5": "61606fac5904ac094f7e5e9c675beebf",
+            "sha256": "6860df13d9911ac158f4c44031609700e1eba07916fff62e21e6ffa0a9e01961"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:19:12.120732Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp310-cp310-manylinux_2_28_aarch64.whl",
+          "url": "https://files.pythonhosted.org/packages/86/86/e661e229df2f5bfc6eab4c97deb1286d598bbeff31ab0cdb99b3c0d53c6f/torch-2.6.0-cp310-cp310-manylinux_2_28_aarch64.whl",
+          "digests": {
+            "blake2b_256": "8686e661e229df2f5bfc6eab4c97deb1286d598bbeff31ab0cdb99b3c0d53c6f",
+            "md5": "b13b6fd8733ea8e4549cbbcc4fca204c",
+            "sha256": "c4f103a49830ce4c7561ef4434cc7926e5a5fe4e5eb100c19ab36ea1e2b634ab"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:27:50.770792Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp310-cp310-win_amd64.whl",
+          "url": "https://files.pythonhosted.org/packages/20/e0/5cb2f8493571f0a5a7273cd7078f191ac252a402b5fb9cb6091f14879109/torch-2.6.0-cp310-cp310-win_amd64.whl",
+          "digests": {
+            "blake2b_256": "20e05cb2f8493571f0a5a7273cd7078f191ac252a402b5fb9cb6091f14879109",
+            "md5": "39fbc9f3fdec1ee1e04ee6ef90cf5abd",
+            "sha256": "56eeaf2ecac90da5d9e35f7f35eb286da82673ec3c582e310a8d1631a1c02341"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:27:11.630779Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp310-none-macosx_11_0_arm64.whl",
+          "url": "https://files.pythonhosted.org/packages/e5/16/ea1b7842413a7b8a5aaa5e99e8eaf3da3183cc3ab345ad025a07ff636301/torch-2.6.0-cp310-none-macosx_11_0_arm64.whl",
+          "digests": {
+            "blake2b_256": "e516ea1b7842413a7b8a5aaa5e99e8eaf3da3183cc3ab345ad025a07ff636301",
+            "md5": "c5b6c569b2e29bffacde16413819b54b",
+            "sha256": "09e06f9949e1a0518c5b09fe95295bc9661f219d9ecb6f9893e5123e10696628"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:22:18.862494Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp311-cp311-manylinux1_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/78/a9/97cbbc97002fff0de394a2da2cdfa859481fdca36996d7bd845d50aa9d8d/torch-2.6.0-cp311-cp311-manylinux1_x86_64.whl",
+          "digests": {
+            "blake2b_256": "78a997cbbc97002fff0de394a2da2cdfa859481fdca36996d7bd845d50aa9d8d",
+            "md5": "d44e81b74580c550d1c2d05ee2502de7",
+            "sha256": "7979834102cd5b7a43cc64e87f2f3b14bd0e1458f06e9f88ffa386d07c7446e1"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:25:15.874217Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp311-cp311-manylinux_2_28_aarch64.whl",
+          "url": "https://files.pythonhosted.org/packages/6d/fa/134ce8f8a7ea07f09588c9cc2cea0d69249efab977707cf67669431dcf5c/torch-2.6.0-cp311-cp311-manylinux_2_28_aarch64.whl",
+          "digests": {
+            "blake2b_256": "6dfa134ce8f8a7ea07f09588c9cc2cea0d69249efab977707cf67669431dcf5c",
+            "md5": "d544eaac8ef186e0f42550ad8b6228d7",
+            "sha256": "ccbd0320411fe1a3b3fec7b4d3185aa7d0c52adac94480ab024b5c8f74a0bf1d"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:27:38.429253Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp311-cp311-win_amd64.whl",
+          "url": "https://files.pythonhosted.org/packages/11/c5/2370d96b31eb1841c3a0883a492c15278a6718ccad61bb6a649c80d1d9eb/torch-2.6.0-cp311-cp311-win_amd64.whl",
+          "digests": {
+            "blake2b_256": "11c52370d96b31eb1841c3a0883a492c15278a6718ccad61bb6a649c80d1d9eb",
+            "md5": "dff87104e74aa8a341d5740d8b2c6aab",
+            "sha256": "46763dcb051180ce1ed23d1891d9b1598e07d051ce4c9d14307029809c4d64f7"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:26:16.182751Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp311-none-macosx_11_0_arm64.whl",
+          "url": "https://files.pythonhosted.org/packages/0b/fa/f33a4148c6fb46ca2a3f8de39c24d473822d5774d652b66ed9b1214da5f7/torch-2.6.0-cp311-none-macosx_11_0_arm64.whl",
+          "digests": {
+            "blake2b_256": "0bfaf33a4148c6fb46ca2a3f8de39c24d473822d5774d652b66ed9b1214da5f7",
+            "md5": "5c86623e7c4481ffa106ed2d378ae80b",
+            "sha256": "94fc63b3b4bedd327af588696559f68c264440e2503cc9e6954019473d74ae21"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:26:38.881398Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp312-cp312-manylinux1_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/e5/35/0c52d708144c2deb595cd22819a609f78fdd699b95ff6f0ebcd456e3c7c1/torch-2.6.0-cp312-cp312-manylinux1_x86_64.whl",
+          "digests": {
+            "blake2b_256": "e5350c52d708144c2deb595cd22819a609f78fdd699b95ff6f0ebcd456e3c7c1",
+            "md5": "85c2aaada2308966e3044a4e552c9bd6",
+            "sha256": "2bb8987f3bb1ef2675897034402373ddfc8f5ef0e156e2d8cfc47cacafdda4a9"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:23:19.084636Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp312-cp312-manylinux_2_28_aarch64.whl",
+          "url": "https://files.pythonhosted.org/packages/01/d6/455ab3fbb2c61c71c8842753b566012e1ed111e7a4c82e0e1c20d0c76b62/torch-2.6.0-cp312-cp312-manylinux_2_28_aarch64.whl",
+          "digests": {
+            "blake2b_256": "01d6455ab3fbb2c61c71c8842753b566012e1ed111e7a4c82e0e1c20d0c76b62",
+            "md5": "78026e2e8f256c9b2a72400c02124a29",
+            "sha256": "b789069020c5588c70d5c2158ac0aa23fd24a028f34a8b4fcb8fcb4d7efcf5fb"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:25:55.649425Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp312-cp312-win_amd64.whl",
+          "url": "https://files.pythonhosted.org/packages/18/cf/ae99bd066571656185be0d88ee70abc58467b76f2f7c8bfeb48735a71fe6/torch-2.6.0-cp312-cp312-win_amd64.whl",
+          "digests": {
+            "blake2b_256": "18cfae99bd066571656185be0d88ee70abc58467b76f2f7c8bfeb48735a71fe6",
+            "md5": "6016812f4b340f9fdd1fa705115d77da",
+            "sha256": "7e1448426d0ba3620408218b50aa6ada88aeae34f7a239ba5431f6c8774b1239"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:24:01.821185Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp312-none-macosx_11_0_arm64.whl",
+          "url": "https://files.pythonhosted.org/packages/81/b4/605ae4173aa37fb5aa14605d100ff31f4f5d49f617928c9f486bb3aaec08/torch-2.6.0-cp312-none-macosx_11_0_arm64.whl",
+          "digests": {
+            "blake2b_256": "81b4605ae4173aa37fb5aa14605d100ff31f4f5d49f617928c9f486bb3aaec08",
+            "md5": "f3856da1edd6433f594bdce85625fa8e",
+            "sha256": "9a610afe216a85a8b9bc9f8365ed561535c93e804c2a317ef7fabcc5deda0989"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:24:18.976168Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp313-cp313-manylinux1_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/24/85/ead1349fc30fe5a32cadd947c91bda4a62fbfd7f8c34ee61f6398d38fb48/torch-2.6.0-cp313-cp313-manylinux1_x86_64.whl",
+          "digests": {
+            "blake2b_256": "2485ead1349fc30fe5a32cadd947c91bda4a62fbfd7f8c34ee61f6398d38fb48",
+            "md5": "71bf3cb5849d063ccd18b22c453b1a44",
+            "sha256": "4874a73507a300a5d089ceaff616a569e7bb7c613c56f37f63ec3ffac65259cf"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:17:26.260989Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp313-cp313-manylinux_2_28_aarch64.whl",
+          "url": "https://files.pythonhosted.org/packages/dd/b0/26f06f9428b250d856f6d512413e9e800b78625f63801cbba13957432036/torch-2.6.0-cp313-cp313-manylinux_2_28_aarch64.whl",
+          "digests": {
+            "blake2b_256": "ddb026f06f9428b250d856f6d512413e9e800b78625f63801cbba13957432036",
+            "md5": "56dfa38ae5aa6756737dd9543db98474",
+            "sha256": "a0d5e1b9874c1a6c25556840ab8920569a7a4137afa8a63a32cee0bc7d89bd4b"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:21:21.061818Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp313-cp313-win_amd64.whl",
+          "url": "https://files.pythonhosted.org/packages/c2/9c/fc5224e9770c83faed3a087112d73147cd7c7bfb7557dcf9ad87e1dda163/torch-2.6.0-cp313-cp313-win_amd64.whl",
+          "digests": {
+            "blake2b_256": "c29cfc5224e9770c83faed3a087112d73147cd7c7bfb7557dcf9ad87e1dda163",
+            "md5": "2530774662103d632709943610c2d479",
+            "sha256": "510c73251bee9ba02ae1cb6c9d4ee0907b3ce6020e62784e2d7598e0cfa4d6cc"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:21:55.394578Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp313-none-macosx_11_0_arm64.whl",
+          "url": "https://files.pythonhosted.org/packages/88/8b/d60c0491ab63634763be1537ad488694d316ddc4a20eaadd639cedc53971/torch-2.6.0-cp313-none-macosx_11_0_arm64.whl",
+          "digests": {
+            "blake2b_256": "888bd60c0491ab63634763be1537ad488694d316ddc4a20eaadd639cedc53971",
+            "md5": "b0e1c063a1c045bd332850dc2263e528",
+            "sha256": "ff96f4038f8af9f7ec4231710ed4549da1bdebad95923953a25045dcf6fd87e2"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:22:08.559186Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp39-cp39-manylinux1_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/40/bb/feb5644baa621fd8e1e88bf51f6fa38ab3f985d472a764144ff4867ac1d6/torch-2.6.0-cp39-cp39-manylinux1_x86_64.whl",
+          "digests": {
+            "blake2b_256": "40bbfeb5644baa621fd8e1e88bf51f6fa38ab3f985d472a764144ff4867ac1d6",
+            "md5": "c120ead5377780e5856849ebee24d7df",
+            "sha256": "9ea955317cfcd3852b1402b62af258ce735c2edeee42ca9419b6bc889e5ae053"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:20:39.827943Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp39-cp39-manylinux_2_28_aarch64.whl",
+          "url": "https://files.pythonhosted.org/packages/ee/11/08774a8198a33263947c59e04b8a0bf85a61a44e82100c46cf833bbce35e/torch-2.6.0-cp39-cp39-manylinux_2_28_aarch64.whl",
+          "digests": {
+            "blake2b_256": "ee1108774a8198a33263947c59e04b8a0bf85a61a44e82100c46cf833bbce35e",
+            "md5": "4e45b52f8f97dba64ff71b3652cebe56",
+            "sha256": "bb2c6c3e65049f081940f5ab15c9136c7de40d3f01192541c920a07c7c585b7e"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:21:33.978780Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp39-cp39-win_amd64.whl",
+          "url": "https://files.pythonhosted.org/packages/c1/0d/56fb07032accbfebb4555638b6002ec5678d0942da85497e40f9405ab756/torch-2.6.0-cp39-cp39-win_amd64.whl",
+          "digests": {
+            "blake2b_256": "c10d56fb07032accbfebb4555638b6002ec5678d0942da85497e40f9405ab756",
+            "md5": "27baf017253c4448679ae683278c0882",
+            "sha256": "683410f97984103148e31b38a8631acf31c3034c020c0f4d26171e7626d8317a"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:18:07.965376Z",
+          "yanked": false
+        },
+        {
+          "filename": "torch-2.6.0-cp39-none-macosx_11_0_arm64.whl",
+          "url": "https://files.pythonhosted.org/packages/b3/17/41f681b87290a1d2f1394f943e470f8b0b3c2987b7df8dc078d8831fce5b/torch-2.6.0-cp39-none-macosx_11_0_arm64.whl",
+          "digests": {
+            "blake2b_256": "b31741f681b87290a1d2f1394f943e470f8b0b3c2987b7df8dc078d8831fce5b",
+            "md5": "6b891f64e86ac9c6af97c344d2257d08",
+            "sha256": "265f70de5fd45b864d924b64be1797f86e76c8e48a02c2a3a6fc7ec247d2226c"
+          },
+          "upload_time_iso_8601": "2025-01-29T16:19:42.165081Z",
+          "yanked": false
+        }
+      ]
+    },
+    {
+      "name": "transformers",
+      "version": "4.51.3",
+      "source": "https://pypi.org/pypi/transformers/4.51.3/json",
+      "requires_python": ">=3.9.0",
+      "requires_dist": [
+        "filelock",
+        "huggingface-hub<1.0,>=0.30.0",
+        "numpy>=1.17",
+        "packaging>=20.0",
+        "pyyaml>=5.1",
+        "regex!=2019.12.17",
+        "requests",
+        "tokenizers<0.22,>=0.21",
+        "safetensors>=0.4.3",
+        "tqdm>=4.27",
+        "accelerate>=0.26.0; extra == \"accelerate\"",
+        "diffusers; extra == \"agents\"",
+        "accelerate>=0.26.0; extra == \"agents\"",
+        "datasets!=2.5.0; extra == \"agents\"",
+        "torch>=2.0; extra == \"agents\"",
+        "sentencepiece!=0.1.92,>=0.1.91; extra == \"agents\"",
+        "opencv-python; extra == \"agents\"",
+        "Pillow<=15.0,>=10.0.1; extra == \"agents\"",
+        "tensorflow<2.16,>2.9; extra == \"all\"",
+        "onnxconverter-common; extra == \"all\"",
+        "tf2onnx; extra == \"all\"",
+        "tensorflow-text<2.16; extra == \"all\"",
+        "keras-nlp<0.14.0,>=0.3.1; extra == \"all\"",
+        "torch>=2.0; extra == \"all\"",
+        "accelerate>=0.26.0; extra == \"all\"",
+        "jax<=0.4.13,>=0.4.1; extra == \"all\"",
+        "jaxlib<=0.4.13,>=0.4.1; extra == \"all\"",
+        "flax<=0.7.0,>=0.4.1; extra == \"all\"",
+        "optax<=0.1.4,>=0.0.8; extra == \"all\"",
+        "scipy<1.13.0; extra == \"all\"",
+        "sentencepiece!=0.1.92,>=0.1.91; extra == \"all\"",
+        "protobuf; extra == \"all\"",
+        "tokenizers<0.22,>=0.21; extra == \"all\"",
+        "torchaudio; extra == \"all\"",
+        "librosa; extra == \"all\"",
+        "pyctcdecode>=0.4.0; extra == \"all\"",
+        "phonemizer; extra == \"all\"",
+        "kenlm; extra == \"all\"",
+        "Pillow<=15.0,>=10.0.1; extra == \"all\"",
+        "kernels<0.4,>=0.3.2; extra == \"all\"",
+        "optuna; extra == \"all\"",
+        "ray[tune]>=2.7.0; extra == \"all\"",
+        "sigopt; extra == \"all\"",
+        "timm<=1.0.11; extra == \"all\"",
+        "torchvision; extra == \"all\"",
+        "codecarbon>=2.8.1; extra == \"all\"",
+        "av; extra == \"all\"",
+        "num2words; extra == \"all\"",
+        "librosa; extra == \"audio\"",
+        "pyctcdecode>=0.4.0; extra == \"audio\"",
+        "phonemizer; extra == \"audio\"",
+        "kenlm; extra == \"audio\"",
+        "optimum-benchmark>=0.3.0; extra == \"benchmark\"",
+        "codecarbon>=2.8.1; extra == \"codecarbon\"",
+        "deepspeed>=0.9.3; extra == \"deepspeed\"",
+        "accelerate>=0.26.0; extra == \"deepspeed\"",
+        "deepspeed>=0.9.3; extra == \"deepspeed-testing\"",
+        "accelerate>=0.26.0; extra == \"deepspeed-testing\"",
+        "pytest<8.0.0,>=7.2.0; extra == \"deepspeed-testing\"",
+        "pytest-asyncio; extra == \"deepspeed-testing\"",
+        "pytest-rich; extra == \"deepspeed-testing\"",
+        "pytest-xdist; extra == \"deepspeed-testing\"",
+        "pytest-order; extra == \"deepspeed-testing\"",
+        "pytest-rerunfailures; extra == \"deepspeed-testing\"",
+        "timeout-decorator; extra == \"deepspeed-testing\"",
+        "parameterized; extra == \"deepspeed-testing\"",
+        "psutil; extra == \"deepspeed-testing\"",
+        "datasets!=2.5.0; extra == \"deepspeed-testing\"",
+        "dill<0.3.5; extra == \"deepspeed-testing\"",
+        "evaluate>=0.2.0; extra == \"deepspeed-testing\"",
+        "pytest-timeout; extra == \"deepspeed-testing\"",
+        "ruff==0.11.2; extra == \"deepspeed-testing\"",
+        "sacrebleu<2.0.0,>=1.4.12; extra == \"deepspeed-testing\"",
+        "rouge-score!=0.0.7,!=0.0.8,!=0.1,!=0.1.1; extra == \"deepspeed-testing\"",
+        "nltk<=3.8.1; extra == \"deepspeed-testing\"",
+        "GitPython<3.1.19; extra == \"deepspeed-testing\"",
+        "sacremoses; extra == \"deepspeed-testing\"",
+        "rjieba; extra == \"deepspeed-testing\"",
+        "beautifulsoup4; extra == \"deepspeed-testing\"",
+        "tensorboard; extra == \"deepspeed-testing\"",
+        "pydantic; extra == \"deepspeed-testing\"",
+        "psutil; extra == \"dev-tensorflow\"",
+        "sentencepiece!=0.1.92,>=0.1.91; extra == \"deepspeed-testing\"",
+        "faiss-cpu; extra == \"deepspeed-testing\"",
+        "cookiecutter==1.7.3; extra == \"deepspeed-testing\"",
+        "optuna; extra == \"deepspeed-testing\"",
+        "protobuf; extra == \"deepspeed-testing\"",
+        "tensorflow<2.16,>2.9; extra == \"dev\"",
+        "onnxconverter-common; extra == \"dev\"",
+        "tf2onnx; extra == \"dev\"",
+        "tensorflow-text<2.16; extra == \"dev\"",
+        "keras-nlp<0.14.0,>=0.3.1; extra == \"dev\"",
+        "torch>=2.0; extra == \"dev\"",
+        "accelerate>=0.26.0; extra == \"dev\"",
+        "jax<=0.4.13,>=0.4.1; extra == \"dev\"",
+        "jaxlib<=0.4.13,>=0.4.1; extra == \"dev\"",
+        "flax<=0.7.0,>=0.4.1; extra == \"dev\"",
+        "optax<=0.1.4,>=0.0.8; extra == \"dev\"",
+        "scipy<1.13.0; extra == \"dev\"",
+        "sentencepiece!=0.1.92,>=0.1.91; extra == \"dev\"",
+        "protobuf; extra == \"dev\"",
+        "tokenizers<0.22,>=0.21; extra == \"dev\"",
+        "torchaudio; extra == \"dev\"",
+        "librosa; extra == \"dev\"",
+        "pyctcdecode>=0.4.0; extra == \"dev\"",
+        "phonemizer; extra == \"dev\"",
+        "kenlm; extra == \"dev\"",
+        "Pillow<=15.0,>=10.0.1; extra == \"dev\"",
+        "kernels<0.4,>=0.3.2; extra == \"dev\"",
+        "optuna; extra == \"dev\"",
+        "ray[tune]>=2.7.0; extra == \"dev\"",
+        "sigopt; extra == \"dev\"",
+        "timm<=1.0.11; extra == \"dev\"",
+        "torchvision; extra == \"dev\"",
+        "codecarbon>=2.8.1; extra == \"dev\"",
+        "av; extra == \"dev\"",
+        "num2words; extra == \"dev\"",
+        "pytest<8.0.0,>=7.2.0; extra == \"dev\"",
+        "pytest-asyncio; extra == \"dev\"",
+        "pytest-rich; extra == \"dev\"",
+        "pytest-xdist; extra == \"dev\"",
+        "pytest-order; extra == \"dev\"",
+        "pytest-rerunfailures; extra == \"dev\"",
+        "timeout-decorator; extra == \"dev\"",
+        "parameterized; extra == \"dev\"",
+        "psutil; extra == \"dev\"",
+        "datasets!=2.5.0; extra == \"dev\"",
+        "dill<0.3.5; extra == \"dev\"",
+        "evaluate>=0.2.0; extra == \"dev\"",
+        "pytest-timeout; extra == \"dev\"",
+        "ruff==0.11.2; extra == \"dev\"",
+        "sacrebleu<2.0.0,>=1.4.12; extra == \"dev\"",
+        "rouge-score!=0.0.7,!=0.0.8,!=0.1,!=0.1.1; extra == \"dev\"",
+        "nltk<=3.8.1; extra == \"dev\"",
+        "GitPython<3.1.19; extra == \"dev\"",
+        "sacremoses; extra == \"dev\"",
+        "rjieba; extra == \"dev\"",
+        "beautifulsoup4; extra == \"dev\"",
+        "tensorboard; extra == \"dev\"",
+        "pydantic; extra == \"dev\"",
+        "faiss-cpu; extra == \"dev\"",
+        "cookiecutter==1.7.3; extra == \"dev\"",
+        "isort>=5.5.4; extra == \"dev\"",
+        "urllib3<2.0.0; extra == \"dev\"",
+        "libcst; extra == \"dev\"",
+        "rich; extra == \"dev\"",
+        "fugashi>=1.0; extra == \"dev\"",
+        "ipadic<2.0,>=1.0.0; extra == \"dev\"",
+        "unidic-lite>=1.0.7; extra == \"dev\"",
+        "unidic>=1.0.2; extra == \"dev\"",
+        "sudachipy>=0.6.6; extra == \"dev\"",
+        "sudachidict-core>=20220729; extra == \"dev\"",
+        "rhoknp<1.3.1,>=1.1.0; extra == \"dev\"",
+        "scikit-learn; extra == \"dev\"",
+        "pytest<8.0.0,>=7.2.0; extra == \"dev-tensorflow\"",
+        "pytest-asyncio; extra == \"dev-tensorflow\"",
+        "pytest-rich; extra == \"dev-tensorflow\"",
+        "pytest-xdist; extra == \"dev-tensorflow\"",
+        "pytest-order; extra == \"dev-tensorflow\"",
+        "pytest-rerunfailures; extra == \"dev-tensorflow\"",
+        "timeout-decorator; extra == \"dev-tensorflow\"",
+        "parameterized; extra == \"dev-tensorflow\"",
+        "datasets!=2.5.0; extra == \"dev-tensorflow\"",
+        "dill<0.3.5; extra == \"dev-tensorflow\"",
+        "evaluate>=0.2.0; extra == \"dev-tensorflow\"",
+        "pytest-timeout; extra == \"dev-tensorflow\"",
+        "ruff==0.11.2; extra == \"dev-tensorflow\"",
+        "sacrebleu<2.0.0,>=1.4.12; extra == \"dev-tensorflow\"",
+        "rouge-score!=0.0.7,!=0.0.8,!=0.1,!=0.1.1; extra == \"dev-tensorflow\"",
+        "nltk<=3.8.1; extra == \"dev-tensorflow\"",
+        "GitPython<3.1.19; extra == \"dev-tensorflow\"",
+        "sacremoses; extra == \"dev-tensorflow\"",
+        "rjieba; extra == \"dev-tensorflow\"",
+        "beautifulsoup4; extra == \"dev-tensorflow\"",
+        "tensorboard; extra == \"dev-tensorflow\"",
+        "pydantic; extra == \"dev-tensorflow\"",
+        "sentencepiece!=0.1.92,>=0.1.91; extra == \"dev-tensorflow\"",
+        "faiss-cpu; extra == \"dev-tensorflow\"",
+        "cookiecutter==1.7.3; extra == \"dev-tensorflow\"",
+        "tensorflow<2.16,>2.9; extra == \"dev-tensorflow\"",
+        "onnxconverter-common; extra == \"dev-tensorflow\"",
+        "tf2onnx; extra == \"dev-tensorflow\"",
+        "tensorflow-text<2.16; extra == \"dev-tensorflow\"",
+        "keras-nlp<0.14.0,>=0.3.1; extra == \"dev-tensorflow\"",
+        "protobuf; extra == \"dev-tensorflow\"",
+        "tokenizers<0.22,>=0.21; extra == \"dev-tensorflow\"",
+        "Pillow<=15.0,>=10.0.1; extra == \"dev-tensorflow\"",
+        "isort>=5.5.4; extra == \"dev-tensorflow\"",
+        "urllib3<2.0.0; extra == \"dev-tensorflow\"",
+        "libcst; extra == \"dev-tensorflow\"",
+        "rich; extra == \"dev-tensorflow\"",
+        "scikit-learn; extra == \"dev-tensorflow\"",
+        "onnxruntime>=1.4.0; extra == \"dev-tensorflow\"",
+        "onnxruntime-tools>=1.4.2; extra == \"dev-tensorflow\"",
+        "librosa; extra == \"dev-tensorflow\"",
+        "pyctcdecode>=0.4.0; extra == \"dev-tensorflow\"",
+        "phonemizer; extra == \"dev-tensorflow\"",
+        "kenlm; extra == \"dev-tensorflow\"",
+        "pytest<8.0.0,>=7.2.0; extra == \"dev-torch\"",
+        "pytest-asyncio; extra == \"dev-torch\"",
+        "pytest-rich; extra == \"dev-torch\"",
+        "pytest-xdist; extra == \"dev-torch\"",
+        "pytest-order; extra == \"dev-torch\"",
+        "pytest-rerunfailures; extra == \"dev-torch\"",
+        "timeout-decorator; extra == \"dev-torch\"",
+        "parameterized; extra == \"dev-torch\"",
+        "psutil; extra == \"dev-torch\"",
+        "datasets!=2.5.0; extra == \"dev-torch\"",
+        "dill<0.3.5; extra == \"dev-torch\"",
+        "evaluate>=0.2.0; extra == \"dev-torch\"",
+        "pytest-timeout; extra == \"dev-torch\"",
+        "ruff==0.11.2; extra == \"dev-torch\"",
+        "sacrebleu<2.0.0,>=1.4.12; extra == \"dev-torch\"",
+        "rouge-score!=0.0.7,!=0.0.8,!=0.1,!=0.1.1; extra == \"dev-torch\"",
+        "nltk<=3.8.1; extra == \"dev-torch\"",
+        "GitPython<3.1.19; extra == \"dev-torch\"",
+        "sacremoses; extra == \"dev-torch\"",
+        "rjieba; extra == \"dev-torch\"",
+        "beautifulsoup4; extra == \"dev-torch\"",
+        "tensorboard; extra == \"dev-torch\"",
+        "pydantic; extra == \"dev-torch\"",
+        "sentencepiece!=0.1.92,>=0.1.91; extra == \"dev-torch\"",
+        "faiss-cpu; extra == \"dev-torch\"",
+        "cookiecutter==1.7.3; extra == \"dev-torch\"",
+        "torch>=2.0; extra == \"dev-torch\"",
+        "accelerate>=0.26.0; extra == \"dev-torch\"",
+        "protobuf; extra == \"dev-torch\"",
+        "tokenizers<0.22,>=0.21; extra == \"dev-torch\"",
+        "torchaudio; extra == \"dev-torch\"",
+        "librosa; extra == \"dev-torch\"",
+        "pyctcdecode>=0.4.0; extra == \"dev-torch\"",
+        "phonemizer; extra == \"dev-torch\"",
+        "kenlm; extra == \"dev-torch\"",
+        "Pillow<=15.0,>=10.0.1; extra == \"dev-torch\"",
+        "kernels<0.4,>=0.3.2; extra == \"dev-torch\"",
+        "optuna; extra == \"dev-torch\"",
+        "ray[tune]>=2.7.0; extra == \"dev-torch\"",
+        "sigopt; extra == \"dev-torch\"",
+        "timm<=1.0.11; extra == \"dev-torch\"",
+        "torchvision; extra == \"dev-torch\"",
+        "codecarbon>=2.8.1; extra == \"dev-torch\"",
+        "isort>=5.5.4; extra == \"dev-torch\"",
+        "urllib3<2.0.0; extra == \"dev-torch\"",
+        "libcst; extra == \"dev-torch\"",
+        "rich; extra == \"dev-torch\"",
+        "fugashi>=1.0; extra == \"dev-torch\"",
+        "ipadic<2.0,>=1.0.0; extra == \"dev-torch\"",
+        "unidic-lite>=1.0.7; extra == \"dev-torch\"",
+        "unidic>=1.0.2; extra == \"dev-torch\"",
+        "sudachipy>=0.6.6; extra == \"dev-torch\"",
+        "sudachidict-core>=20220729; extra == \"dev-torch\"",
+        "rhoknp<1.3.1,>=1.1.0; extra == \"dev-torch\"",
+        "scikit-learn; extra == \"dev-torch\"",
+        "onnxruntime>=1.4.0; extra == \"dev-torch\"",
+        "onnxruntime-tools>=1.4.2; extra == \"dev-torch\"",
+        "num2words; extra == \"dev-torch\"",
+        "jax<=0.4.13,>=0.4.1; extra == \"flax\"",
+        "jaxlib<=0.4.13,>=0.4.1; extra == \"flax\"",
+        "flax<=0.7.0,>=0.4.1; extra == \"flax\"",
+        "optax<=0.1.4,>=0.0.8; extra == \"flax\"",
+        "scipy<1.13.0; extra == \"flax\"",
+        "librosa; extra == \"flax-speech\"",
+        "pyctcdecode>=0.4.0; extra == \"flax-speech\"",
+        "phonemizer; extra == \"flax-speech\"",
+        "kenlm; extra == \"flax-speech\"",
+        "ftfy; extra == \"ftfy\"",
+        "hf-xet; extra == \"hf-xet\"",
+        "kernels<0.4,>=0.3.2; extra == \"hub-kernels\"",
+        "kernels<0.4,>=0.3.2; extra == \"integrations\"",
+        "optuna; extra == \"integrations\"",
+        "ray[tune]>=2.7.0; extra == \"integrations\"",
+        "sigopt; extra == \"integrations\"",
+        "fugashi>=1.0; extra == \"ja\"",
+        "ipadic<2.0,>=1.0.0; extra == \"ja\"",
+        "unidic-lite>=1.0.7; extra == \"ja\"",
+        "unidic>=1.0.2; extra == \"ja\"",
+        "sudachipy>=0.6.6; extra == \"ja\"",
+        "sudachidict-core>=20220729; extra == \"ja\"",
+        "rhoknp<1.3.1,>=1.1.0; extra == \"ja\"",
+        "cookiecutter==1.7.3; extra == \"modelcreation\"",
+        "natten<0.15.0,>=0.14.6; extra == \"natten\"",
+        "num2words; extra == \"num2words\"",
+        "onnxconverter-common; extra == \"onnx\"",
+        "tf2onnx; extra == \"onnx\"",
+        "onnxruntime>=1.4.0; extra == \"onnx\"",
+        "onnxruntime-tools>=1.4.2; extra == \"onnx\"",
+        "onnxruntime>=1.4.0; extra == \"onnxruntime\"",
+        "onnxruntime-tools>=1.4.2; extra == \"onnxruntime\"",
+        "optuna; extra == \"optuna\"",
+        "datasets!=2.5.0; extra == \"quality\"",
+        "isort>=5.5.4; extra == \"quality\"",
+        "ruff==0.11.2; extra == \"quality\"",
+        "GitPython<3.1.19; extra == \"quality\"",
+        "urllib3<2.0.0; extra == \"quality\"",
+        "libcst; extra == \"quality\"",
+        "rich; extra == \"quality\"",
+        "ray[tune]>=2.7.0; extra == \"ray\"",
+        "faiss-cpu; extra == \"retrieval\"",
+        "datasets!=2.5.0; extra == \"retrieval\"",
+        "ruff==0.11.2; extra == \"ruff\"",
+        "sagemaker>=2.31.0; extra == \"sagemaker\"",
+        "sentencepiece!=0.1.92,>=0.1.91; extra == \"sentencepiece\"",
+        "protobuf; extra == \"sentencepiece\"",
+        "pydantic; extra == \"serving\"",
+        "uvicorn; extra == \"serving\"",
+        "fastapi; extra == \"serving\"",
+        "starlette; extra == \"serving\"",
+        "sigopt; extra == \"sigopt\"",
+        "scikit-learn; extra == \"sklearn\"",
+        "torchaudio; extra == \"speech\"",
+        "librosa; extra == \"speech\"",
+        "pyctcdecode>=0.4.0; extra == \"speech\"",
+        "phonemizer; extra == \"speech\"",
+        "kenlm; extra == \"speech\"",
+        "pytest<8.0.0,>=7.2.0; extra == \"testing\"",
+        "pytest-asyncio; extra == \"testing\"",
+        "pytest-rich; extra == \"testing\"",
+        "pytest-xdist; extra == \"testing\"",
+        "pytest-order; extra == \"testing\"",
+        "pytest-rerunfailures; extra == \"testing\"",
+        "timeout-decorator; extra == \"testing\"",
+        "parameterized; extra == \"testing\"",
+        "psutil; extra == \"testing\"",
+        "datasets!=2.5.0; extra == \"testing\"",
+        "dill<0.3.5; extra == \"testing\"",
+        "evaluate>=0.2.0; extra == \"testing\"",
+        "pytest-timeout; extra == \"testing\"",
+        "ruff==0.11.2; extra == \"testing\"",
+        "sacrebleu<2.0.0,>=1.4.12; extra == \"testing\"",
+        "rouge-score!=0.0.7,!=0.0.8,!=0.1,!=0.1.1; extra == \"testing\"",
+        "nltk<=3.8.1; extra == \"testing\"",
+        "GitPython<3.1.19; extra == \"testing\"",
+        "sacremoses; extra == \"testing\"",
+        "rjieba; extra == \"testing\"",
+        "beautifulsoup4; extra == \"testing\"",
+        "tensorboard; extra == \"testing\"",
+        "pydantic; extra == \"testing\"",
+        "sentencepiece!=0.1.92,>=0.1.91; extra == \"testing\"",
+        "faiss-cpu; extra == \"testing\"",
+        "cookiecutter==1.7.3; extra == \"testing\"",
+        "tensorflow<2.16,>2.9; extra == \"tf\"",
+        "onnxconverter-common; extra == \"tf\"",
+        "tf2onnx; extra == \"tf\"",
+        "tensorflow-text<2.16; extra == \"tf\"",
+        "keras-nlp<0.14.0,>=0.3.1; extra == \"tf\"",
+        "keras<2.16,>2.9; extra == \"tf-cpu\"",
+        "tensorflow-cpu<2.16,>2.9; extra == \"tf-cpu\"",
+        "onnxconverter-common; extra == \"tf-cpu\"",
+        "tf2onnx; extra == \"tf-cpu\"",
+        "tensorflow-text<2.16; extra == \"tf-cpu\"",
+        "keras-nlp<0.14.0,>=0.3.1; extra == \"tf-cpu\"",
+        "tensorflow-probability<0.24; extra == \"tf-cpu\"",
+        "librosa; extra == \"tf-speech\"",
+        "pyctcdecode>=0.4.0; extra == \"tf-speech\"",
+        "phonemizer; extra == \"tf-speech\"",
+        "kenlm; extra == \"tf-speech\"",
+        "tiktoken; extra == \"tiktoken\"",
+        "blobfile; extra == \"tiktoken\"",
+        "timm<=1.0.11; extra == \"timm\"",
+        "tokenizers<0.22,>=0.21; extra == \"tokenizers\"",
+        "torch>=2.0; extra == \"torch\"",
+        "accelerate>=0.26.0; extra == \"torch\"",
+        "torchaudio; extra == \"torch-speech\"",
+        "librosa; extra == \"torch-speech\"",
+        "pyctcdecode>=0.4.0; extra == \"torch-speech\"",
+        "phonemizer; extra == \"torch-speech\"",
+        "kenlm; extra == \"torch-speech\"",
+        "torchvision; extra == \"torch-vision\"",
+        "Pillow<=15.0,>=10.0.1; extra == \"torch-vision\"",
+        "filelock; extra == \"torchhub\"",
+        "huggingface-hub<1.0,>=0.30.0; extra == \"torchhub\"",
+        "importlib-metadata; extra == \"torchhub\"",
+        "numpy>=1.17; extra == \"torchhub\"",
+        "packaging>=20.0; extra == \"torchhub\"",
+        "protobuf; extra == \"torchhub\"",
+        "regex!=2019.12.17; extra == \"torchhub\"",
+        "requests; extra == \"torchhub\"",
+        "sentencepiece!=0.1.92,>=0.1.91; extra == \"torchhub\"",
+        "torch>=2.0; extra == \"torchhub\"",
+        "tokenizers<0.22,>=0.21; extra == \"torchhub\"",
+        "tqdm>=4.27; extra == \"torchhub\"",
+        "av; extra == \"video\"",
+        "Pillow<=15.0,>=10.0.1; extra == \"vision\""
+      ],
+      "files": [
+        {
+          "filename": "transformers-4.51.3-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/a9/b6/5257d04ae327b44db31f15cce39e6020cc986333c715660b1315a9724d82/transformers-4.51.3-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "a9b65257d04ae327b44db31f15cce39e6020cc986333c715660b1315a9724d82",
+            "md5": "e418c76e6ffb46b6ca7a0f94b91360d7",
+            "sha256": "fd3279633ceb2b777013234bbf0b4f5c2d23c4626b05497691f00cfda55e8a83"
+          },
+          "upload_time_iso_8601": "2025-04-14T08:13:43.023193Z",
+          "yanked": false
+        },
+        {
+          "filename": "transformers-4.51.3.tar.gz",
+          "url": "https://files.pythonhosted.org/packages/f1/11/7414d5bc07690002ce4d7553602107bf969af85144bbd02830f9fb471236/transformers-4.51.3.tar.gz",
+          "digests": {
+            "blake2b_256": "f1117414d5bc07690002ce4d7553602107bf969af85144bbd02830f9fb471236",
+            "md5": "3227a3e187cabd1bcf23098597218369",
+            "sha256": "e292fcab3990c6defe6328f0f7d2004283ca81a7a07b2de9a46d67fd81ea1409"
+          },
+          "upload_time_iso_8601": "2025-04-14T08:15:00.485356Z",
+          "yanked": false
+        }
+      ]
+    },
+    {
+      "name": "accelerate",
+      "version": "1.6.0",
+      "source": "https://pypi.org/pypi/accelerate/1.6.0/json",
+      "requires_python": ">=3.9.0",
+      "requires_dist": [
+        "numpy<3.0.0,>=1.17",
+        "packaging>=20.0",
+        "psutil",
+        "pyyaml",
+        "torch>=2.0.0",
+        "huggingface-hub>=0.21.0",
+        "safetensors>=0.4.3",
+        "deepspeed; extra == \"deepspeed\"",
+        "black~=23.1; extra == \"dev\"",
+        "hf-doc-builder>=0.3.0; extra == \"dev\"",
+        "ruff~=0.11.2; extra == \"dev\"",
+        "pytest<=8.0.0,>=7.2.0; extra == \"dev\"",
+        "pytest-xdist; extra == \"dev\"",
+        "pytest-subtests; extra == \"dev\"",
+        "parameterized; extra == \"dev\"",
+        "pytest-order; extra == \"dev\"",
+        "datasets; extra == \"dev\"",
+        "diffusers; extra == \"dev\"",
+        "evaluate; extra == \"dev\"",
+        "torchdata>=0.8.0; extra == \"dev\"",
+        "torchpippy>=0.2.0; extra == \"dev\"",
+        "transformers; extra == \"dev\"",
+        "scipy; extra == \"dev\"",
+        "scikit-learn; extra == \"dev\"",
+        "tqdm; extra == \"dev\"",
+        "bitsandbytes; extra == \"dev\"",
+        "timm; extra == \"dev\"",
+        "rich; extra == \"dev\"",
+        "black~=23.1; extra == \"quality\"",
+        "hf-doc-builder>=0.3.0; extra == \"quality\"",
+        "ruff~=0.11.2; extra == \"quality\"",
+        "rich; extra == \"rich\"",
+        "sagemaker; extra == \"sagemaker\"",
+        "datasets; extra == \"test-dev\"",
+        "diffusers; extra == \"test-dev\"",
+        "evaluate; extra == \"test-dev\"",
+        "torchdata>=0.8.0; extra == \"test-dev\"",
+        "torchpippy>=0.2.0; extra == \"test-dev\"",
+        "transformers; extra == \"test-dev\"",
+        "scipy; extra == \"test-dev\"",
+        "scikit-learn; extra == \"test-dev\"",
+        "tqdm; extra == \"test-dev\"",
+        "bitsandbytes; extra == \"test-dev\"",
+        "timm; extra == \"test-dev\"",
+        "pytest<=8.0.0,>=7.2.0; extra == \"test-prod\"",
+        "pytest-xdist; extra == \"test-prod\"",
+        "pytest-subtests; extra == \"test-prod\"",
+        "parameterized; extra == \"test-prod\"",
+        "pytest-order; extra == \"test-prod\"",
+        "wandb; extra == \"test-trackers\"",
+        "comet-ml; extra == \"test-trackers\"",
+        "tensorboard; extra == \"test-trackers\"",
+        "dvclive; extra == \"test-trackers\"",
+        "mlflow; extra == \"test-trackers\"",
+        "matplotlib; extra == \"test-trackers\"",
+        "pytest<=8.0.0,>=7.2.0; extra == \"testing\"",
+        "pytest-xdist; extra == \"testing\"",
+        "pytest-subtests; extra == \"testing\"",
+        "parameterized; extra == \"testing\"",
+        "pytest-order; extra == \"testing\"",
+        "datasets; extra == \"testing\"",
+        "diffusers; extra == \"testing\"",
+        "evaluate; extra == \"testing\"",
+        "torchdata>=0.8.0; extra == \"testing\"",
+        "torchpippy>=0.2.0; extra == \"testing\"",
+        "transformers; extra == \"testing\"",
+        "scipy; extra == \"testing\"",
+        "scikit-learn; extra == \"testing\"",
+        "tqdm; extra == \"testing\"",
+        "bitsandbytes; extra == \"testing\"",
+        "timm; extra == \"testing\""
+      ],
+      "files": [
+        {
+          "filename": "accelerate-1.6.0-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/63/b1/8198e3cdd11a426b1df2912e3381018c4a4a55368f6d0857ba3ca418ef93/accelerate-1.6.0-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "63b18198e3cdd11a426b1df2912e3381018c4a4a55368f6d0857ba3ca418ef93",
+            "md5": "1f34c883e6f889fe227b581ac0c933fc",
+            "sha256": "1aee717d3d3735ad6d09710a7c26990ee4652b79b4e93df46551551b5227c2aa"
+          },
+          "upload_time_iso_8601": "2025-04-01T11:53:01.298773Z",
+          "yanked": false
+        },
+        {
+          "filename": "accelerate-1.6.0.tar.gz",
+          "url": "https://files.pythonhosted.org/packages/8a/6e/c29a1dcde7db07f47870ed63e5124086b11874ad52ccd533dc1ca2c799da/accelerate-1.6.0.tar.gz",
+          "digests": {
+            "blake2b_256": "8a6ec29a1dcde7db07f47870ed63e5124086b11874ad52ccd533dc1ca2c799da",
+            "md5": "83280913de4075dcf877d693e60a3ecd",
+            "sha256": "28c1ef1846e690944f98b68dc7b8bb6c51d032d45e85dcbb3adb0c8b99dffb32"
+          },
+          "upload_time_iso_8601": "2025-04-01T11:53:03.037341Z",
+          "yanked": false
+        }
+      ]
+    },
+    {
+      "name": "peft",
+      "version": "0.15.2",
+      "source": "https://pypi.org/pypi/peft/0.15.2/json",
+      "requires_python": ">=3.9.0",
+      "requires_dist": [
+        "numpy>=1.17",
+        "packaging>=20.0",
+        "psutil",
+        "pyyaml",
+        "torch>=1.13.0",
+        "transformers",
+        "tqdm",
+        "accelerate>=0.21.0",
+        "safetensors",
+        "huggingface_hub>=0.25.0",
+        "black; extra == \"quality\"",
+        "hf-doc-builder; extra == \"quality\"",
+        "ruff~=0.9.2; extra == \"quality\"",
+        "black; extra == \"docs-specific\"",
+        "hf-doc-builder; extra == \"docs-specific\"",
+        "black; extra == \"dev\"",
+        "hf-doc-builder; extra == \"dev\"",
+        "ruff~=0.9.2; extra == \"dev\"",
+        "black; extra == \"dev\"",
+        "hf-doc-builder; extra == \"dev\"",
+        "black; extra == \"test\"",
+        "hf-doc-builder; extra == \"test\"",
+        "ruff~=0.9.2; extra == \"test\"",
+        "black; extra == \"test\"",
+        "hf-doc-builder; extra == \"test\"",
+        "pytest; extra == \"test\"",
+        "pytest-cov; extra == \"test\"",
+        "pytest-xdist; extra == \"test\"",
+        "parameterized; extra == \"test\"",
+        "datasets; extra == \"test\"",
+        "diffusers; extra == \"test\"",
+        "scipy; extra == \"test\"",
+        "protobuf; extra == \"test\"",
+        "sentencepiece; extra == \"test\""
+      ],
+      "files": [
+        {
+          "filename": "peft-0.15.2-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/68/85/8e6ea3d1089f2b6de3c1cd34bbbd7560912af9d34b057be3b8b8fefe1da3/peft-0.15.2-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "68858e6ea3d1089f2b6de3c1cd34bbbd7560912af9d34b057be3b8b8fefe1da3",
+            "md5": "893741ae5b814221408ef095288ce57b",
+            "sha256": "0dfc942b03b7af4b7267cd4e30b15e3a4a1d277adc581ce6245fc13f1f93d0a0"
+          },
+          "upload_time_iso_8601": "2025-04-15T15:27:50.799590Z",
+          "yanked": false
+        },
+        {
+          "filename": "peft-0.15.2.tar.gz",
+          "url": "https://files.pythonhosted.org/packages/33/65/faa18cd8ffbe0f742c3f2559770646cce2574b9cd28a2a05e8d36f64e968/peft-0.15.2.tar.gz",
+          "digests": {
+            "blake2b_256": "3365faa18cd8ffbe0f742c3f2559770646cce2574b9cd28a2a05e8d36f64e968",
+            "md5": "782b0434adb32cc660517d8efc9c3b00",
+            "sha256": "7059029f4d42a092ded1aa117dd366a46084aef638bdd593f6ab0195d5427fcd"
+          },
+          "upload_time_iso_8601": "2025-04-15T15:27:53.090501Z",
+          "yanked": false
+        }
+      ]
+    },
+    {
+      "name": "trl",
+      "version": "0.9.6",
+      "source": "https://pypi.org/pypi/trl/0.9.6/json",
+      "requires_python": ">=3.7",
+      "requires_dist": [
+        "torch>=1.4.0",
+        "transformers>=4.31.0",
+        "numpy<2.0.0,>=1.18.2",
+        "accelerate",
+        "datasets",
+        "tyro>=0.5.11",
+        "wandb; extra == \"benchmark\"",
+        "ghapi; extra == \"benchmark\"",
+        "openrlbenchmark==0.2.1a5; extra == \"benchmark\"",
+        "requests; extra == \"benchmark\"",
+        "deepspeed; extra == \"benchmark\"",
+        "deepspeed>=0.9.5; extra == \"deepspeed\"",
+        "parameterized; extra == \"dev\"",
+        "pytest; extra == \"dev\"",
+        "pytest-xdist; extra == \"dev\"",
+        "accelerate; extra == \"dev\"",
+        "pytest-cov; extra == \"dev\"",
+        "scikit-learn; extra == \"dev\"",
+        "Pillow; extra == \"dev\"",
+        "peft>=0.4.0; extra == \"dev\"",
+        "diffusers>=0.18.0; extra == \"dev\"",
+        "deepspeed>=0.9.5; extra == \"dev\"",
+        "wandb; extra == \"dev\"",
+        "ghapi; extra == \"dev\"",
+        "openrlbenchmark==0.2.1a5; extra == \"dev\"",
+        "requests; extra == \"dev\"",
+        "deepspeed; extra == \"dev\"",
+        "bitsandbytes<=0.41.1; extra == \"dev\"",
+        "diffusers>=0.18.0; extra == \"diffusers\"",
+        "peft>=0.4.0; extra == \"peft\"",
+        "bitsandbytes<=0.41.1; extra == \"quantization\"",
+        "parameterized; extra == \"test\"",
+        "pytest; extra == \"test\"",
+        "pytest-xdist; extra == \"test\"",
+        "accelerate; extra == \"test\"",
+        "pytest-cov; extra == \"test\"",
+        "scikit-learn; extra == \"test\"",
+        "Pillow; extra == \"test\""
+      ],
+      "files": [
+        {
+          "filename": "trl-0.9.6-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/a5/c3/6565c2c376a829f99da20d39c2912405195ec1fa6aae068dc45c46793e72/trl-0.9.6-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "a5c36565c2c376a829f99da20d39c2912405195ec1fa6aae068dc45c46793e72",
+            "md5": "2e9f8a7a55dba5e726f963b8921fda56",
+            "sha256": "4753f190c94c11488fcc46ec74b2128e53fbc61d51f0887b7204ec4dc333af4b"
+          },
+          "upload_time_iso_8601": "2024-07-08T13:38:47.094422Z",
+          "yanked": false
+        }
+      ]
+    },
+    {
+      "name": "deepspeed",
+      "version": "0.16.7",
+      "source": "https://pypi.org/pypi/deepspeed/0.16.7/json",
+      "requires_python": null,
+      "requires_dist": [
+        "einops",
+        "hjson",
+        "msgpack",
+        "ninja",
+        "numpy",
+        "packaging>=20.0",
+        "psutil",
+        "py-cpuinfo",
+        "pydantic>=2.0.0",
+        "torch",
+        "tqdm",
+        "mpi4py; extra == \"1bit-mpi\"",
+        "autodoc_pydantic>=2.0.0; extra == \"readthedocs\"",
+        "docutils<0.18; extra == \"readthedocs\"",
+        "hjson; extra == \"readthedocs\"",
+        "packaging; extra == \"readthedocs\"",
+        "psutil; extra == \"readthedocs\"",
+        "py-cpuinfo; extra == \"readthedocs\"",
+        "pydantic>=2.0.0; extra == \"readthedocs\"",
+        "recommonmark; extra == \"readthedocs\"",
+        "sphinx_rtd_theme; extra == \"readthedocs\"",
+        "torch; extra == \"readthedocs\"",
+        "tqdm; extra == \"readthedocs\"",
+        "accelerate; extra == \"dev\"",
+        "clang-format==18.1.3; extra == \"dev\"",
+        "comet_ml>=3.41.0; extra == \"dev\"",
+        "deepspeed-kernels; sys_platform == \"linux\" and extra == \"dev\"",
+        "docutils<0.18; extra == \"dev\"",
+        "future; extra == \"dev\"",
+        "importlib-metadata>=4; extra == \"dev\"",
+        "mup; extra == \"dev\"",
+        "pre-commit>=3.2.0; extra == \"dev\"",
+        "pytest>=7.2.0; extra == \"dev\"",
+        "pytest-forked; extra == \"dev\"",
+        "pytest-randomly; extra == \"dev\"",
+        "pytest-xdist; extra == \"dev\"",
+        "qtorch==0.3.0; extra == \"dev\"",
+        "recommonmark; extra == \"dev\"",
+        "sphinx; extra == \"dev\"",
+        "sphinx-rtd-theme; extra == \"dev\"",
+        "tensorboard; extra == \"dev\"",
+        "torchvision; extra == \"dev\"",
+        "transformers>=4.39.0; extra == \"dev\"",
+        "wandb; extra == \"dev\"",
+        "tabulate; extra == \"autotuning\"",
+        "hjson; extra == \"autotuning-ml\"",
+        "tabulate; extra == \"autotuning-ml\"",
+        "xgboost; extra == \"autotuning-ml\"",
+        "triton==1.0.0; extra == \"sparse-attn\"",
+        "neural-compressor==2.1.0; extra == \"sparse\"",
+        "google; extra == \"inf\"",
+        "lm-eval==0.3.0; extra == \"inf\"",
+        "protobuf; extra == \"inf\"",
+        "qtorch; extra == \"inf\"",
+        "safetensors; extra == \"inf\"",
+        "sentencepiece; extra == \"inf\"",
+        "transformers>=4.32.1; extra == \"inf\"",
+        "diffusers>=0.25.0; extra == \"sd\"",
+        "triton>=2.1.0; extra == \"sd\"",
+        "triton==2.1.0; extra == \"triton\"",
+        "scipy; extra == \"deepcompile\"",
+        "torch; extra == \"all\"",
+        "recommonmark; extra == \"all\"",
+        "future; extra == \"all\"",
+        "qtorch; extra == \"all\"",
+        "pytest-xdist; extra == \"all\"",
+        "google; extra == \"all\"",
+        "transformers>=4.32.1; extra == \"all\"",
+        "mup; extra == \"all\"",
+        "deepspeed-kernels; sys_platform == \"linux\" and extra == \"all\"",
+        "tensorboard; extra == \"all\"",
+        "qtorch==0.3.0; extra == \"all\"",
+        "docutils<0.18; extra == \"all\"",
+        "triton>=2.1.0; extra == \"all\"",
+        "lm-eval==0.3.0; extra == \"all\"",
+        "pre-commit>=3.2.0; extra == \"all\"",
+        "pytest>=7.2.0; extra == \"all\"",
+        "sphinx; extra == \"all\"",
+        "torchvision; extra == \"all\"",
+        "pytest-randomly; extra == \"all\"",
+        "packaging; extra == \"all\"",
+        "pytest-forked; extra == \"all\"",
+        "mpi4py; extra == \"all\"",
+        "xgboost; extra == \"all\"",
+        "py-cpuinfo; extra == \"all\"",
+        "triton==2.1.0; extra == \"all\"",
+        "wandb; extra == \"all\"",
+        "safetensors; extra == \"all\"",
+        "pydantic>=2.0.0; extra == \"all\"",
+        "tabulate; extra == \"all\"",
+        "sphinx_rtd_theme; extra == \"all\"",
+        "psutil; extra == \"all\"",
+        "triton==1.0.0; extra == \"all\"",
+        "importlib-metadata>=4; extra == \"all\"",
+        "transformers>=4.39.0; extra == \"all\"",
+        "tqdm; extra == \"all\"",
+        "clang-format==18.1.3; extra == \"all\"",
+        "accelerate; extra == \"all\"",
+        "hjson; extra == \"all\"",
+        "neural-compressor==2.1.0; extra == \"all\"",
+        "sentencepiece; extra == \"all\"",
+        "comet_ml>=3.41.0; extra == \"all\"",
+        "sphinx-rtd-theme; extra == \"all\"",
+        "diffusers>=0.25.0; extra == \"all\"",
+        "autodoc_pydantic>=2.0.0; extra == \"all\"",
+        "protobuf; extra == \"all\"",
+        "scipy; extra == \"all\""
+      ],
+      "files": [
+        {
+          "filename": "deepspeed-0.16.7.tar.gz",
+          "url": "https://files.pythonhosted.org/packages/06/b3/a3903de5c5b707170c5c27e1a40f4ef613f14d241bd84d8b151a2a8786f6/deepspeed-0.16.7.tar.gz",
+          "digests": {
+            "blake2b_256": "06b3a3903de5c5b707170c5c27e1a40f4ef613f14d241bd84d8b151a2a8786f6",
+            "md5": "b26e4007bf9a06dfaf04011d9fdac92d",
+            "sha256": "2a56eee6ad7b82decf37bb6ad8ec5e16dad96b647d79854132c715d42a78bd85"
+          },
+          "upload_time_iso_8601": "2025-04-18T15:37:44.929509Z",
+          "yanked": false
+        }
+      ]
+    },
+    {
+      "name": "datasets",
+      "version": "3.5.0",
+      "source": "https://pypi.org/pypi/datasets/3.5.0/json",
+      "requires_python": ">=3.9.0",
+      "requires_dist": [
+        "filelock",
+        "numpy>=1.17",
+        "pyarrow>=15.0.0",
+        "dill<0.3.9,>=0.3.0",
+        "pandas",
+        "requests>=2.32.2",
+        "tqdm>=4.66.3",
+        "xxhash",
+        "multiprocess<0.70.17",
+        "fsspec[http]<=2024.12.0,>=2023.1.0",
+        "aiohttp",
+        "huggingface-hub>=0.24.0",
+        "packaging",
+        "pyyaml>=5.1",
+        "soundfile>=0.12.1; extra == \"audio\"",
+        "librosa; extra == \"audio\"",
+        "soxr>=0.4.0; python_version >= \"3.9\" and extra == \"audio\"",
+        "Pillow>=9.4.0; extra == \"vision\"",
+        "tensorflow>=2.6.0; extra == \"tensorflow\"",
+        "tensorflow>=2.6.0; extra == \"tensorflow-gpu\"",
+        "torch; extra == \"torch\"",
+        "jax>=0.3.14; extra == \"jax\"",
+        "jaxlib>=0.3.14; extra == \"jax\"",
+        "s3fs; extra == \"s3\"",
+        "absl-py; extra == \"dev\"",
+        "decorator; extra == \"dev\"",
+        "joblib<1.3.0; extra == \"dev\"",
+        "joblibspark; extra == \"dev\"",
+        "pytest; extra == \"dev\"",
+        "pytest-datadir; extra == \"dev\"",
+        "pytest-xdist; extra == \"dev\"",
+        "elasticsearch<8.0.0,>=7.17.12; extra == \"dev\"",
+        "faiss-cpu>=1.8.0.post1; extra == \"dev\"",
+        "jax>=0.3.14; sys_platform != \"win32\" and extra == \"dev\"",
+        "jaxlib>=0.3.14; sys_platform != \"win32\" and extra == \"dev\"",
+        "lz4; extra == \"dev\"",
+        "moto[server]; extra == \"dev\"",
+        "pyspark>=3.4; extra == \"dev\"",
+        "py7zr; extra == \"dev\"",
+        "rarfile>=4.0; extra == \"dev\"",
+        "sqlalchemy; extra == \"dev\"",
+        "s3fs>=2021.11.1; extra == \"dev\"",
+        "protobuf<4.0.0; extra == \"dev\"",
+        "tensorflow>=2.6.0; python_version < \"3.10\" and extra == \"dev\"",
+        "tensorflow>=2.16.0; python_version >= \"3.10\" and extra == \"dev\"",
+        "tiktoken; extra == \"dev\"",
+        "torch>=2.0.0; extra == \"dev\"",
+        "torchdata; extra == \"dev\"",
+        "soundfile>=0.12.1; extra == \"dev\"",
+        "transformers>=4.42.0; extra == \"dev\"",
+        "zstandard; extra == \"dev\"",
+        "polars[timezone]>=0.20.0; extra == \"dev\"",
+        "torchvision; extra == \"dev\"",
+        "pyav; extra == \"dev\"",
+        "Pillow>=9.4.0; extra == \"dev\"",
+        "soundfile>=0.12.1; extra == \"dev\"",
+        "librosa; extra == \"dev\"",
+        "soxr>=0.4.0; python_version >= \"3.9\" and extra == \"dev\"",
+        "ruff>=0.3.0; extra == \"dev\"",
+        "s3fs; extra == \"dev\"",
+        "transformers; extra == \"dev\"",
+        "torch; extra == \"dev\"",
+        "tensorflow>=2.6.0; extra == \"dev\"",
+        "absl-py; extra == \"tests\"",
+        "decorator; extra == \"tests\"",
+        "joblib<1.3.0; extra == \"tests\"",
+        "joblibspark; extra == \"tests\"",
+        "pytest; extra == \"tests\"",
+        "pytest-datadir; extra == \"tests\"",
+        "pytest-xdist; extra == \"tests\"",
+        "elasticsearch<8.0.0,>=7.17.12; extra == \"tests\"",
+        "faiss-cpu>=1.8.0.post1; extra == \"tests\"",
+        "jax>=0.3.14; sys_platform != \"win32\" and extra == \"tests\"",
+        "jaxlib>=0.3.14; sys_platform != \"win32\" and extra == \"tests\"",
+        "lz4; extra == \"tests\"",
+        "moto[server]; extra == \"tests\"",
+        "pyspark>=3.4; extra == \"tests\"",
+        "py7zr; extra == \"tests\"",
+        "rarfile>=4.0; extra == \"tests\"",
+        "sqlalchemy; extra == \"tests\"",
+        "s3fs>=2021.11.1; extra == \"tests\"",
+        "protobuf<4.0.0; extra == \"tests\"",
+        "tensorflow>=2.6.0; python_version < \"3.10\" and extra == \"tests\"",
+        "tensorflow>=2.16.0; python_version >= \"3.10\" and extra == \"tests\"",
+        "tiktoken; extra == \"tests\"",
+        "torch>=2.0.0; extra == \"tests\"",
+        "torchdata; extra == \"tests\"",
+        "soundfile>=0.12.1; extra == \"tests\"",
+        "transformers>=4.42.0; extra == \"tests\"",
+        "zstandard; extra == \"tests\"",
+        "polars[timezone]>=0.20.0; extra == \"tests\"",
+        "torchvision; extra == \"tests\"",
+        "pyav; extra == \"tests\"",
+        "Pillow>=9.4.0; extra == \"tests\"",
+        "soundfile>=0.12.1; extra == \"tests\"",
+        "librosa; extra == \"tests\"",
+        "soxr>=0.4.0; python_version >= \"3.9\" and extra == \"tests\"",
+        "absl-py; extra == \"tests-numpy2\"",
+        "decorator; extra == \"tests-numpy2\"",
+        "joblib<1.3.0; extra == \"tests-numpy2\"",
+        "joblibspark; extra == \"tests-numpy2\"",
+        "pytest; extra == \"tests-numpy2\"",
+        "pytest-datadir; extra == \"tests-numpy2\"",
+        "pytest-xdist; extra == \"tests-numpy2\"",
+        "elasticsearch<8.0.0,>=7.17.12; extra == \"tests-numpy2\"",
+        "jax>=0.3.14; sys_platform != \"win32\" and extra == \"tests-numpy2\"",
+        "jaxlib>=0.3.14; sys_platform != \"win32\" and extra == \"tests-numpy2\"",
+        "lz4; extra == \"tests-numpy2\"",
+        "moto[server]; extra == \"tests-numpy2\"",
+        "pyspark>=3.4; extra == \"tests-numpy2\"",
+        "py7zr; extra == \"tests-numpy2\"",
+        "rarfile>=4.0; extra == \"tests-numpy2\"",
+        "sqlalchemy; extra == \"tests-numpy2\"",
+        "s3fs>=2021.11.1; extra == \"tests-numpy2\"",
+        "protobuf<4.0.0; extra == \"tests-numpy2\"",
+        "tiktoken; extra == \"tests-numpy2\"",
+        "torch>=2.0.0; extra == \"tests-numpy2\"",
+        "torchdata; extra == \"tests-numpy2\"",
+        "soundfile>=0.12.1; extra == \"tests-numpy2\"",
+        "transformers>=4.42.0; extra == \"tests-numpy2\"",
+        "zstandard; extra == \"tests-numpy2\"",
+        "polars[timezone]>=0.20.0; extra == \"tests-numpy2\"",
+        "torchvision; extra == \"tests-numpy2\"",
+        "pyav; extra == \"tests-numpy2\"",
+        "Pillow>=9.4.0; extra == \"tests-numpy2\"",
+        "soundfile>=0.12.1; extra == \"tests-numpy2\"",
+        "soxr>=0.4.0; python_version >= \"3.9\" and extra == \"tests-numpy2\"",
+        "ruff>=0.3.0; extra == \"quality\"",
+        "tensorflow==2.12.0; extra == \"benchmarks\"",
+        "torch==2.0.1; extra == \"benchmarks\"",
+        "transformers==4.30.1; extra == \"benchmarks\"",
+        "s3fs; extra == \"docs\"",
+        "transformers; extra == \"docs\"",
+        "torch; extra == \"docs\"",
+        "tensorflow>=2.6.0; extra == \"docs\"",
+        "pdfplumber>=0.11.4; extra == \"pdfs\""
+      ],
+      "files": [
+        {
+          "filename": "datasets-3.5.0-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/b4/83/50abe521eb75744a01efe2ebe836a4b61f4df37941a776f650f291aabdf9/datasets-3.5.0-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "b48350abe521eb75744a01efe2ebe836a4b61f4df37941a776f650f291aabdf9",
+            "md5": "5d25f9f91f6ff258bdcbaafbcea6fa0e",
+            "sha256": "b3b7f163acc6ac4e01a1b00eef26d48bd4039288ceea3601d169272bd5581006"
+          },
+          "upload_time_iso_8601": "2025-03-27T16:34:12.206496Z",
+          "yanked": false
+        },
+        {
+          "filename": "datasets-3.5.0.tar.gz",
+          "url": "https://files.pythonhosted.org/packages/73/dd/6afb1d440a21da104adefb93269a02058bf9f3cf665db6421fe04eceab7d/datasets-3.5.0.tar.gz",
+          "digests": {
+            "blake2b_256": "73dd6afb1d440a21da104adefb93269a02058bf9f3cf665db6421fe04eceab7d",
+            "md5": "ac6f1593b7d691b270b6b307c665ab7c",
+            "sha256": "9e39560e34f83a64e48ceca7adeb645ede3c3055c5cf48ed2b454f8ed2b89754"
+          },
+          "upload_time_iso_8601": "2025-03-27T16:34:14.060638Z",
+          "yanked": false
+        }
+      ]
+    },
+    {
+      "name": "tokenizers",
+      "version": "0.21.1",
+      "source": "https://pypi.org/pypi/tokenizers/0.21.1/json",
+      "requires_python": ">=3.9",
+      "requires_dist": [
+        "huggingface-hub<1.0,>=0.16.4",
+        "pytest; extra == \"testing\"",
+        "requests; extra == \"testing\"",
+        "numpy; extra == \"testing\"",
+        "datasets; extra == \"testing\"",
+        "black==22.3; extra == \"testing\"",
+        "ruff; extra == \"testing\"",
+        "sphinx; extra == \"docs\"",
+        "sphinx-rtd-theme; extra == \"docs\"",
+        "setuptools-rust; extra == \"docs\"",
+        "tokenizers[testing]; extra == \"dev\""
+      ],
+      "files": [
+        {
+          "filename": "tokenizers-0.21.1-cp39-abi3-macosx_10_12_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/a5/1f/328aee25f9115bf04262e8b4e5a2050b7b7cf44b59c74e982db7270c7f30/tokenizers-0.21.1-cp39-abi3-macosx_10_12_x86_64.whl",
+          "digests": {
+            "blake2b_256": "a51f328aee25f9115bf04262e8b4e5a2050b7b7cf44b59c74e982db7270c7f30",
+            "md5": "198610cf6b7de13823dfa20df688207b",
+            "sha256": "e78e413e9e668ad790a29456e677d9d3aa50a9ad311a40905d6861ba7692cf41"
+          },
+          "upload_time_iso_8601": "2025-03-13T10:51:09.459719Z",
+          "yanked": false
+        },
+        {
+          "filename": "tokenizers-0.21.1-cp39-abi3-macosx_11_0_arm64.whl",
+          "url": "https://files.pythonhosted.org/packages/ae/1a/4526797f3719b0287853f12c5ad563a9be09d446c44ac784cdd7c50f76ab/tokenizers-0.21.1-cp39-abi3-macosx_11_0_arm64.whl",
+          "digests": {
+            "blake2b_256": "ae1a4526797f3719b0287853f12c5ad563a9be09d446c44ac784cdd7c50f76ab",
+            "md5": "5d1b6e4f8888ed6c7fa04470e79fb5b5",
+            "sha256": "cd51cd0a91ecc801633829fcd1fda9cf8682ed3477c6243b9a095539de4aecf3"
+          },
+          "upload_time_iso_8601": "2025-03-13T10:51:07.692078Z",
+          "yanked": false
+        },
+        {
+          "filename": "tokenizers-0.21.1-cp39-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+          "url": "https://files.pythonhosted.org/packages/4d/7a/a209b29f971a9fdc1da86f917fe4524564924db50d13f0724feed37b2a4d/tokenizers-0.21.1-cp39-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+          "digests": {
+            "blake2b_256": "4d7aa209b29f971a9fdc1da86f917fe4524564924db50d13f0724feed37b2a4d",
+            "md5": "79484af41b51b72935d30d3084ead9f5",
+            "sha256": "28da6b72d4fb14ee200a1bd386ff74ade8992d7f725f2bde2c495a9a98cf4d9f"
+          },
+          "upload_time_iso_8601": "2025-03-13T10:50:56.679434Z",
+          "yanked": false
+        },
+        {
+          "filename": "tokenizers-0.21.1-cp39-abi3-manylinux_2_17_armv7l.manylinux2014_armv7l.whl",
+          "url": "https://files.pythonhosted.org/packages/3c/1e/b788b50ffc6191e0b1fc2b0d49df8cff16fe415302e5ceb89f619d12c5bc/tokenizers-0.21.1-cp39-abi3-manylinux_2_17_armv7l.manylinux2014_armv7l.whl",
+          "digests": {
+            "blake2b_256": "3c1eb788b50ffc6191e0b1fc2b0d49df8cff16fe415302e5ceb89f619d12c5bc",
+            "md5": "a320ba5f6f52fa7321ccd3b6b6db1f19",
+            "sha256": "34d8cfde551c9916cb92014e040806122295a6800914bab5865deb85623931cf"
+          },
+          "upload_time_iso_8601": "2025-03-13T10:50:59.525711Z",
+          "yanked": false
+        },
+        {
+          "filename": "tokenizers-0.21.1-cp39-abi3-manylinux_2_17_i686.manylinux2014_i686.whl",
+          "url": "https://files.pythonhosted.org/packages/36/aa/3626dfa09a0ecc5b57a8c58eeaeb7dd7ca9a37ad9dd681edab5acd55764c/tokenizers-0.21.1-cp39-abi3-manylinux_2_17_i686.manylinux2014_i686.whl",
+          "digests": {
+            "blake2b_256": "36aa3626dfa09a0ecc5b57a8c58eeaeb7dd7ca9a37ad9dd681edab5acd55764c",
+            "md5": "4d1a1d698a6ab01f9d127ab15e5d53a9",
+            "sha256": "aaa852d23e125b73d283c98f007e06d4595732104b65402f46e8ef24b588d9f8"
+          },
+          "upload_time_iso_8601": "2025-03-13T10:51:04.678218Z",
+          "yanked": false
+        },
+        {
+          "filename": "tokenizers-0.21.1-cp39-abi3-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl",
+          "url": "https://files.pythonhosted.org/packages/a4/4d/8fbc203838b3d26269f944a89459d94c858f5b3f9a9b6ee9728cdcf69161/tokenizers-0.21.1-cp39-abi3-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl",
+          "digests": {
+            "blake2b_256": "a44d8fbc203838b3d26269f944a89459d94c858f5b3f9a9b6ee9728cdcf69161",
+            "md5": "3e26e141281d37e17b1f897264e44258",
+            "sha256": "a21a15d5c8e603331b8a59548bbe113564136dc0f5ad8306dd5033459a226da0"
+          },
+          "upload_time_iso_8601": "2025-03-13T10:51:01.261483Z",
+          "yanked": false
+        },
+        {
+          "filename": "tokenizers-0.21.1-cp39-abi3-manylinux_2_17_s390x.manylinux2014_s390x.whl",
+          "url": "https://files.pythonhosted.org/packages/d8/1b/2bd062adeb7c7511b847b32e356024980c0ffcf35f28947792c2d8ad2288/tokenizers-0.21.1-cp39-abi3-manylinux_2_17_s390x.manylinux2014_s390x.whl",
+          "digests": {
+            "blake2b_256": "d81b2bd062adeb7c7511b847b32e356024980c0ffcf35f28947792c2d8ad2288",
+            "md5": "f005bb89604788e2a1a7810169bcb22e",
+            "sha256": "2fdbd4c067c60a0ac7eca14b6bd18a5bebace54eb757c706b47ea93204f7a37c"
+          },
+          "upload_time_iso_8601": "2025-03-13T10:51:03.243335Z",
+          "yanked": false
+        },
+        {
+          "filename": "tokenizers-0.21.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/8a/63/38be071b0c8e06840bc6046991636bcb30c27f6bb1e670f4f4bc87cf49cc/tokenizers-0.21.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "digests": {
+            "blake2b_256": "8a6338be071b0c8e06840bc6046991636bcb30c27f6bb1e670f4f4bc87cf49cc",
+            "md5": "0364da4a197b81b040b9704d1018441a",
+            "sha256": "2dd9a0061e403546f7377df940e866c3e678d7d4e9643d0461ea442b4f89e61a"
+          },
+          "upload_time_iso_8601": "2025-03-13T10:51:06.235219Z",
+          "yanked": false
+        },
+        {
+          "filename": "tokenizers-0.21.1-cp39-abi3-musllinux_1_2_aarch64.whl",
+          "url": "https://files.pythonhosted.org/packages/ec/83/afa94193c09246417c23a3c75a8a0a96bf44ab5630a3015538d0c316dd4b/tokenizers-0.21.1-cp39-abi3-musllinux_1_2_aarch64.whl",
+          "digests": {
+            "blake2b_256": "ec83afa94193c09246417c23a3c75a8a0a96bf44ab5630a3015538d0c316dd4b",
+            "md5": "c0aabcfc6a0bd6f452b3dccd623f357d",
+            "sha256": "db9484aeb2e200c43b915a1a0150ea885e35f357a5a8fabf7373af333dcc8dbf"
+          },
+          "upload_time_iso_8601": "2025-03-13T10:51:10.927847Z",
+          "yanked": false
+        },
+        {
+          "filename": "tokenizers-0.21.1-cp39-abi3-musllinux_1_2_armv7l.whl",
+          "url": "https://files.pythonhosted.org/packages/ae/b3/0e1a37d4f84c0f014d43701c11eb8072704f6efe8d8fc2dcdb79c47d76de/tokenizers-0.21.1-cp39-abi3-musllinux_1_2_armv7l.whl",
+          "digests": {
+            "blake2b_256": "aeb30e1a37d4f84c0f014d43701c11eb8072704f6efe8d8fc2dcdb79c47d76de",
+            "md5": "02637f96181886df0150bfbf96849bc5",
+            "sha256": "ed248ab5279e601a30a4d67bdb897ecbe955a50f1e7bb62bd99f07dd11c2f5b6"
+          },
+          "upload_time_iso_8601": "2025-03-13T10:51:12.688388Z",
+          "yanked": false
+        },
+        {
+          "filename": "tokenizers-0.21.1-cp39-abi3-musllinux_1_2_i686.whl",
+          "url": "https://files.pythonhosted.org/packages/ac/33/ff08f50e6d615eb180a4a328c65907feb6ded0b8f990ec923969759dc379/tokenizers-0.21.1-cp39-abi3-musllinux_1_2_i686.whl",
+          "digests": {
+            "blake2b_256": "ac33ff08f50e6d615eb180a4a328c65907feb6ded0b8f990ec923969759dc379",
+            "md5": "fd233c9e02324a91f931fb3c9e91109f",
+            "sha256": "9ac78b12e541d4ce67b4dfd970e44c060a2147b9b2a21f509566d556a509c67d"
+          },
+          "upload_time_iso_8601": "2025-03-13T10:51:14.723904Z",
+          "yanked": false
+        },
+        {
+          "filename": "tokenizers-0.21.1-cp39-abi3-musllinux_1_2_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/5f/aa/8ae85f69a9f6012c6f8011c6f4aa1c96154c816e9eea2e1b758601157833/tokenizers-0.21.1-cp39-abi3-musllinux_1_2_x86_64.whl",
+          "digests": {
+            "blake2b_256": "5faa8ae85f69a9f6012c6f8011c6f4aa1c96154c816e9eea2e1b758601157833",
+            "md5": "528e83e92f9d81ffafaee02e14db8ad4",
+            "sha256": "e5a69c1a4496b81a5ee5d2c1f3f7fbdf95e90a0196101b0ee89ed9956b8a168f"
+          },
+          "upload_time_iso_8601": "2025-03-13T10:51:16.526892Z",
+          "yanked": false
+        },
+        {
+          "filename": "tokenizers-0.21.1-cp39-abi3-win32.whl",
+          "url": "https://files.pythonhosted.org/packages/e8/5b/a5d98c89f747455e8b7a9504910c865d5e51da55e825a7ae641fb5ff0a58/tokenizers-0.21.1-cp39-abi3-win32.whl",
+          "digests": {
+            "blake2b_256": "e85ba5d98c89f747455e8b7a9504910c865d5e51da55e825a7ae641fb5ff0a58",
+            "md5": "a90e4f59a9fb4b428071efca1471da3e",
+            "sha256": "1039a3a5734944e09de1d48761ade94e00d0fa760c0e0551151d4dd851ba63e3"
+          },
+          "upload_time_iso_8601": "2025-03-13T10:51:20.643556Z",
+          "yanked": false
+        },
+        {
+          "filename": "tokenizers-0.21.1-cp39-abi3-win_amd64.whl",
+          "url": "https://files.pythonhosted.org/packages/e6/b6/072a8e053ae600dcc2ac0da81a23548e3b523301a442a6ca900e92ac35be/tokenizers-0.21.1-cp39-abi3-win_amd64.whl",
+          "digests": {
+            "blake2b_256": "e6b6072a8e053ae600dcc2ac0da81a23548e3b523301a442a6ca900e92ac35be",
+            "md5": "de6b7bb0bf0709c362ce72e64fc99518",
+            "sha256": "0f0dcbcc9f6e13e675a66d7a5f2f225a736745ce484c1a4e07476a89ccdad382"
+          },
+          "upload_time_iso_8601": "2025-03-13T10:51:19.243197Z",
+          "yanked": false
+        },
+        {
+          "filename": "tokenizers-0.21.1.tar.gz",
+          "url": "https://files.pythonhosted.org/packages/92/76/5ac0c97f1117b91b7eb7323dcd61af80d72f790b4df71249a7850c195f30/tokenizers-0.21.1.tar.gz",
+          "digests": {
+            "blake2b_256": "92765ac0c97f1117b91b7eb7323dcd61af80d72f790b4df71249a7850c195f30",
+            "md5": "78ab2e5ec41e5648fc73ba5b880816f9",
+            "sha256": "a1bb04dc5b448985f86ecd4b05407f5a8d97cb2c0532199b2a302a604a0165ab"
+          },
+          "upload_time_iso_8601": "2025-03-13T10:51:18.189001Z",
+          "yanked": false
+        }
+      ]
+    },
+    {
+      "name": "huggingface-hub",
+      "version": "0.30.2",
+      "source": "https://pypi.org/pypi/huggingface-hub/0.30.2/json",
+      "requires_python": ">=3.8.0",
+      "requires_dist": [
+        "filelock",
+        "fsspec>=2023.5.0",
+        "packaging>=20.9",
+        "pyyaml>=5.1",
+        "requests",
+        "tqdm>=4.42.1",
+        "typing-extensions>=3.7.4.3",
+        "InquirerPy==0.3.4; extra == \"all\"",
+        "aiohttp; extra == \"all\"",
+        "jedi; extra == \"all\"",
+        "Jinja2; extra == \"all\"",
+        "pytest<8.2.2,>=8.1.1; extra == \"all\"",
+        "pytest-cov; extra == \"all\"",
+        "pytest-env; extra == \"all\"",
+        "pytest-xdist; extra == \"all\"",
+        "pytest-vcr; extra == \"all\"",
+        "pytest-asyncio; extra == \"all\"",
+        "pytest-rerunfailures; extra == \"all\"",
+        "pytest-mock; extra == \"all\"",
+        "urllib3<2.0; extra == \"all\"",
+        "soundfile; extra == \"all\"",
+        "Pillow; extra == \"all\"",
+        "gradio>=4.0.0; extra == \"all\"",
+        "numpy; extra == \"all\"",
+        "fastapi; extra == \"all\"",
+        "ruff>=0.9.0; extra == \"all\"",
+        "mypy==1.5.1; extra == \"all\"",
+        "libcst==1.4.0; extra == \"all\"",
+        "typing-extensions>=4.8.0; extra == \"all\"",
+        "types-PyYAML; extra == \"all\"",
+        "types-requests; extra == \"all\"",
+        "types-simplejson; extra == \"all\"",
+        "types-toml; extra == \"all\"",
+        "types-tqdm; extra == \"all\"",
+        "types-urllib3; extra == \"all\"",
+        "InquirerPy==0.3.4; extra == \"cli\"",
+        "InquirerPy==0.3.4; extra == \"dev\"",
+        "aiohttp; extra == \"dev\"",
+        "jedi; extra == \"dev\"",
+        "Jinja2; extra == \"dev\"",
+        "pytest<8.2.2,>=8.1.1; extra == \"dev\"",
+        "pytest-cov; extra == \"dev\"",
+        "pytest-env; extra == \"dev\"",
+        "pytest-xdist; extra == \"dev\"",
+        "pytest-vcr; extra == \"dev\"",
+        "pytest-asyncio; extra == \"dev\"",
+        "pytest-rerunfailures; extra == \"dev\"",
+        "pytest-mock; extra == \"dev\"",
+        "urllib3<2.0; extra == \"dev\"",
+        "soundfile; extra == \"dev\"",
+        "Pillow; extra == \"dev\"",
+        "gradio>=4.0.0; extra == \"dev\"",
+        "numpy; extra == \"dev\"",
+        "fastapi; extra == \"dev\"",
+        "ruff>=0.9.0; extra == \"dev\"",
+        "mypy==1.5.1; extra == \"dev\"",
+        "libcst==1.4.0; extra == \"dev\"",
+        "typing-extensions>=4.8.0; extra == \"dev\"",
+        "types-PyYAML; extra == \"dev\"",
+        "types-requests; extra == \"dev\"",
+        "types-simplejson; extra == \"dev\"",
+        "types-toml; extra == \"dev\"",
+        "types-tqdm; extra == \"dev\"",
+        "types-urllib3; extra == \"dev\"",
+        "toml; extra == \"fastai\"",
+        "fastai>=2.4; extra == \"fastai\"",
+        "fastcore>=1.3.27; extra == \"fastai\"",
+        "hf-transfer>=0.1.4; extra == \"hf-transfer\"",
+        "hf-xet>=0.1.4; extra == \"hf-xet\"",
+        "aiohttp; extra == \"inference\"",
+        "ruff>=0.9.0; extra == \"quality\"",
+        "mypy==1.5.1; extra == \"quality\"",
+        "libcst==1.4.0; extra == \"quality\"",
+        "tensorflow; extra == \"tensorflow\"",
+        "pydot; extra == \"tensorflow\"",
+        "graphviz; extra == \"tensorflow\"",
+        "tensorflow; extra == \"tensorflow-testing\"",
+        "keras<3.0; extra == \"tensorflow-testing\"",
+        "InquirerPy==0.3.4; extra == \"testing\"",
+        "aiohttp; extra == \"testing\"",
+        "jedi; extra == \"testing\"",
+        "Jinja2; extra == \"testing\"",
+        "pytest<8.2.2,>=8.1.1; extra == \"testing\"",
+        "pytest-cov; extra == \"testing\"",
+        "pytest-env; extra == \"testing\"",
+        "pytest-xdist; extra == \"testing\"",
+        "pytest-vcr; extra == \"testing\"",
+        "pytest-asyncio; extra == \"testing\"",
+        "pytest-rerunfailures; extra == \"testing\"",
+        "pytest-mock; extra == \"testing\"",
+        "urllib3<2.0; extra == \"testing\"",
+        "soundfile; extra == \"testing\"",
+        "Pillow; extra == \"testing\"",
+        "gradio>=4.0.0; extra == \"testing\"",
+        "numpy; extra == \"testing\"",
+        "fastapi; extra == \"testing\"",
+        "torch; extra == \"torch\"",
+        "safetensors[torch]; extra == \"torch\"",
+        "typing-extensions>=4.8.0; extra == \"typing\"",
+        "types-PyYAML; extra == \"typing\"",
+        "types-requests; extra == \"typing\"",
+        "types-simplejson; extra == \"typing\"",
+        "types-toml; extra == \"typing\"",
+        "types-tqdm; extra == \"typing\"",
+        "types-urllib3; extra == \"typing\""
+      ],
+      "files": [
+        {
+          "filename": "huggingface_hub-0.30.2-py3-none-any.whl",
+          "url": "https://files.pythonhosted.org/packages/93/27/1fb384a841e9661faad1c31cbfa62864f59632e876df5d795234da51c395/huggingface_hub-0.30.2-py3-none-any.whl",
+          "digests": {
+            "blake2b_256": "93271fb384a841e9661faad1c31cbfa62864f59632e876df5d795234da51c395",
+            "md5": "77b9f30bcb108112dfdb688afc712e0b",
+            "sha256": "68ff05969927058cfa41df4f2155d4bb48f5f54f719dd0390103eefa9b191e28"
+          },
+          "upload_time_iso_8601": "2025-04-08T08:32:43.305353Z",
+          "yanked": false
+        },
+        {
+          "filename": "huggingface_hub-0.30.2.tar.gz",
+          "url": "https://files.pythonhosted.org/packages/df/22/8eb91736b1dcb83d879bd49050a09df29a57cc5cd9f38e48a4b1c45ee890/huggingface_hub-0.30.2.tar.gz",
+          "digests": {
+            "blake2b_256": "df228eb91736b1dcb83d879bd49050a09df29a57cc5cd9f38e48a4b1c45ee890",
+            "md5": "7de6772953a58cf7cb938a17e15aef99",
+            "sha256": "9a7897c5b6fd9dad3168a794a8998d6378210f5b9688d0dfc180b1a228dc2466"
+          },
+          "upload_time_iso_8601": "2025-04-08T08:32:45.260445Z",
+          "yanked": false
+        }
+      ]
+    },
+    {
+      "name": "numpy",
+      "version": "1.26.4",
+      "source": "https://pypi.org/pypi/numpy/1.26.4/json",
+      "requires_python": ">=3.9",
+      "requires_dist": null,
+      "files": [
+        {
+          "filename": "numpy-1.26.4-cp310-cp310-macosx_10_9_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/a7/94/ace0fdea5241a27d13543ee117cbc65868e82213fb31a8eb7fe9ff23f313/numpy-1.26.4-cp310-cp310-macosx_10_9_x86_64.whl",
+          "digests": {
+            "blake2b_256": "a794ace0fdea5241a27d13543ee117cbc65868e82213fb31a8eb7fe9ff23f313",
+            "md5": "90f33cdd8934cd07192d6ede114d8d4d",
+            "sha256": "9ff0f4f29c51e2803569d7a51c2304de5554655a60c5d776e35b4a41413830d0"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:48:01.194769Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp310-cp310-macosx_11_0_arm64.whl",
+          "url": "https://files.pythonhosted.org/packages/20/f7/b24208eba89f9d1b58c1668bc6c8c4fd472b20c45573cb767f59d49fb0f6/numpy-1.26.4-cp310-cp310-macosx_11_0_arm64.whl",
+          "digests": {
+            "blake2b_256": "20f7b24208eba89f9d1b58c1668bc6c8c4fd472b20c45573cb767f59d49fb0f6",
+            "md5": "63ac60767f6724490e587f6010bd6839",
+            "sha256": "2e4ee3380d6de9c9ec04745830fd9e2eccb3e6cf790d39d7b98ffd19b0dd754a"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:48:29.038321Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+          "url": "https://files.pythonhosted.org/packages/fc/a5/4beee6488160798683eed5bdb7eead455892c3b4e1f78d79d8d3f3b084ac/numpy-1.26.4-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+          "digests": {
+            "blake2b_256": "fca54beee6488160798683eed5bdb7eead455892c3b4e1f78d79d8d3f3b084ac",
+            "md5": "ad4e82b225aaaf5898ea9798b50978d8",
+            "sha256": "d209d8969599b27ad20994c8e41936ee0964e6da07478d6c35016bc386b66ad4"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:48:54.098373Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/4b/d7/ecf66c1cd12dc28b4040b15ab4d17b773b87fa9d29ca16125de01adb36cd/numpy-1.26.4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "digests": {
+            "blake2b_256": "4bd7ecf66c1cd12dc28b4040b15ab4d17b773b87fa9d29ca16125de01adb36cd",
+            "md5": "d428e3da2df4fa359313348302cf003a",
+            "sha256": "ffa75af20b44f8dba823498024771d5ac50620e6915abac414251bd971b4529f"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:49:25.361491Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp310-cp310-musllinux_1_1_aarch64.whl",
+          "url": "https://files.pythonhosted.org/packages/24/03/6f229fe3187546435c4f6f89f6d26c129d4f5bed40552899fcf1f0bf9e50/numpy-1.26.4-cp310-cp310-musllinux_1_1_aarch64.whl",
+          "digests": {
+            "blake2b_256": "24036f229fe3187546435c4f6f89f6d26c129d4f5bed40552899fcf1f0bf9e50",
+            "md5": "89937c3bb596193f8ca9eae2ff84181e",
+            "sha256": "62b8e4b1e28009ef2846b4c7852046736bab361f7aeadeb6a5b89ebec3c7055a"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:49:51.983100Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp310-cp310-musllinux_1_1_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/39/fe/39ada9b094f01f5a35486577c848fe274e374bbf8d8f472e1423a0bbd26d/numpy-1.26.4-cp310-cp310-musllinux_1_1_x86_64.whl",
+          "digests": {
+            "blake2b_256": "39fe39ada9b094f01f5a35486577c848fe274e374bbf8d8f472e1423a0bbd26d",
+            "md5": "de4f9da0a4e6dfd4cec39c7ad5139803",
+            "sha256": "a4abb4f9001ad2858e7ac189089c42178fcce737e4169dc61321660f1a96c7d2"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:50:22.515480Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp310-cp310-win32.whl",
+          "url": "https://files.pythonhosted.org/packages/d5/ef/6ad11d51197aad206a9ad2286dc1aac6a378059e06e8cf22cd08ed4f20dc/numpy-1.26.4-cp310-cp310-win32.whl",
+          "digests": {
+            "blake2b_256": "d5ef6ad11d51197aad206a9ad2286dc1aac6a378059e06e8cf22cd08ed4f20dc",
+            "md5": "2c1f73fd9b3acf4b9b0c23e985cdd38f",
+            "sha256": "bfe25acf8b437eb2a8b2d49d443800a5f18508cd811fea3181723922a8a82b07"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:50:35.834833Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp310-cp310-win_amd64.whl",
+          "url": "https://files.pythonhosted.org/packages/19/77/538f202862b9183f54108557bfda67e17603fc560c384559e769321c9d92/numpy-1.26.4-cp310-cp310-win_amd64.whl",
+          "digests": {
+            "blake2b_256": "1977538f202862b9183f54108557bfda67e17603fc560c384559e769321c9d92",
+            "md5": "920ad1f50e478b1a877fe7b7a46cc520",
+            "sha256": "b97fe8060236edf3662adfc2c633f56a08ae30560c56310562cb4f95500022d5"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:51:03.701656Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp311-cp311-macosx_10_9_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/11/57/baae43d14fe163fa0e4c47f307b6b2511ab8d7d30177c491960504252053/numpy-1.26.4-cp311-cp311-macosx_10_9_x86_64.whl",
+          "digests": {
+            "blake2b_256": "1157baae43d14fe163fa0e4c47f307b6b2511ab8d7d30177c491960504252053",
+            "md5": "719d1ff12db38903dcfd6749078fb11d",
+            "sha256": "4c66707fabe114439db9068ee468c26bbdf909cac0fb58686a42a24de1760c71"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:51:50.149926Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp311-cp311-macosx_11_0_arm64.whl",
+          "url": "https://files.pythonhosted.org/packages/1a/2e/151484f49fd03944c4a3ad9c418ed193cfd02724e138ac8a9505d056c582/numpy-1.26.4-cp311-cp311-macosx_11_0_arm64.whl",
+          "digests": {
+            "blake2b_256": "1a2e151484f49fd03944c4a3ad9c418ed193cfd02724e138ac8a9505d056c582",
+            "md5": "eb601e80194d2e1c00d8daedd8dc68c4",
+            "sha256": "edd8b5fe47dab091176d21bb6de568acdd906d1887a4584a15a9a96a1dca06ef"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:52:15.314050Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+          "url": "https://files.pythonhosted.org/packages/79/ae/7e5b85136806f9dadf4878bf73cf223fe5c2636818ba3ab1c585d0403164/numpy-1.26.4-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+          "digests": {
+            "blake2b_256": "79ae7e5b85136806f9dadf4878bf73cf223fe5c2636818ba3ab1c585d0403164",
+            "md5": "71a7ab11996fa370dc28e28731bd5c32",
+            "sha256": "7ab55401287bfec946ced39700c053796e7cc0e3acbef09993a9ad2adba6ca6e"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:52:47.569134Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/3a/d0/edc009c27b406c4f9cbc79274d6e46d634d139075492ad055e3d68445925/numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "digests": {
+            "blake2b_256": "3ad0edc009c27b406c4f9cbc79274d6e46d634d139075492ad055e3d68445925",
+            "md5": "eb0cdd03e1ee2eb45c57c7340c98cf48",
+            "sha256": "666dbfb6ec68962c033a450943ded891bed2d54e6755e35e5835d63f4f6931d5"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:53:15.637779Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp311-cp311-musllinux_1_1_aarch64.whl",
+          "url": "https://files.pythonhosted.org/packages/09/bf/2b1aaf8f525f2923ff6cfcf134ae5e750e279ac65ebf386c75a0cf6da06a/numpy-1.26.4-cp311-cp311-musllinux_1_1_aarch64.whl",
+          "digests": {
+            "blake2b_256": "09bf2b1aaf8f525f2923ff6cfcf134ae5e750e279ac65ebf386c75a0cf6da06a",
+            "md5": "9d4ae1b0b27a625400f81ed1846a5667",
+            "sha256": "96ff0b2ad353d8f990b63294c8986f1ec3cb19d749234014f4e7eb0112ceba5a"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:53:42.160379Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp311-cp311-musllinux_1_1_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/df/a0/4e0f14d847cfc2a633a1c8621d00724f3206cfeddeb66d35698c4e2cf3d2/numpy-1.26.4-cp311-cp311-musllinux_1_1_x86_64.whl",
+          "digests": {
+            "blake2b_256": "dfa04e0f14d847cfc2a633a1c8621d00724f3206cfeddeb66d35698c4e2cf3d2",
+            "md5": "1b6771350d2f496157430437a895ba4b",
+            "sha256": "60dedbb91afcbfdc9bc0b1f3f402804070deed7392c23eb7a7f07fa857868e8a"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:54:11.696238Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp311-cp311-win32.whl",
+          "url": "https://files.pythonhosted.org/packages/d2/b7/a734c733286e10a7f1a8ad1ae8c90f2d33bf604a96548e0a4a3a6739b468/numpy-1.26.4-cp311-cp311-win32.whl",
+          "digests": {
+            "blake2b_256": "d2b7a734c733286e10a7f1a8ad1ae8c90f2d33bf604a96548e0a4a3a6739b468",
+            "md5": "1e4a18612ee4d0e54e0833574ebc6d25",
+            "sha256": "1af303d6b2210eb850fcf03064d364652b7120803a0b872f5211f5234b399f20"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:54:26.453984Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp311-cp311-win_amd64.whl",
+          "url": "https://files.pythonhosted.org/packages/3f/6b/5610004206cf7f8e7ad91c5a85a8c71b2f2f8051a0c0c4d5916b76d6cbb2/numpy-1.26.4-cp311-cp311-win_amd64.whl",
+          "digests": {
+            "blake2b_256": "3f6b5610004206cf7f8e7ad91c5a85a8c71b2f2f8051a0c0c4d5916b76d6cbb2",
+            "md5": "5fd325dd8704023c1110835d7a1b095a",
+            "sha256": "cd25bcecc4974d09257ffcd1f098ee778f7834c3ad767fe5db785be9a4aa9cb2"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:54:53.933244Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp312-cp312-macosx_10_9_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/95/12/8f2020a8e8b8383ac0177dc9570aad031a3beb12e38847f7129bacd96228/numpy-1.26.4-cp312-cp312-macosx_10_9_x86_64.whl",
+          "digests": {
+            "blake2b_256": "95128f2020a8e8b8383ac0177dc9570aad031a3beb12e38847f7129bacd96228",
+            "md5": "d95ce582923d24dbddbc108aa5fd2128",
+            "sha256": "b3ce300f3644fb06443ee2222c2201dd3a89ea6040541412b8fa189341847218"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:55:32.801071Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp312-cp312-macosx_11_0_arm64.whl",
+          "url": "https://files.pythonhosted.org/packages/75/5b/ca6c8bd14007e5ca171c7c03102d17b4f4e0ceb53957e8c44343a9546dcc/numpy-1.26.4-cp312-cp312-macosx_11_0_arm64.whl",
+          "digests": {
+            "blake2b_256": "755bca6c8bd14007e5ca171c7c03102d17b4f4e0ceb53957e8c44343a9546dcc",
+            "md5": "6f16f3d70e0d95ce2b032167c546cc95",
+            "sha256": "03a8c78d01d9781b28a6989f6fa1bb2c4f2d51201cf99d3dd875df6fbd96b23b"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:55:56.280521Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+          "url": "https://files.pythonhosted.org/packages/79/f8/97f10e6755e2a7d027ca783f63044d5b1bc1ae7acb12afe6a9b4286eac17/numpy-1.26.4-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+          "digests": {
+            "blake2b_256": "79f897f10e6755e2a7d027ca783f63044d5b1bc1ae7acb12afe6a9b4286eac17",
+            "md5": "5369536d4c45fbe384147ff23185b48a",
+            "sha256": "9fad7dcb1aac3c7f0584a5a8133e3a43eeb2fe127f47e3632d43d677c66c102b"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:56:20.368913Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/0f/50/de23fde84e45f5c4fda2488c759b69990fd4512387a8632860f3ac9cd225/numpy-1.26.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "digests": {
+            "blake2b_256": "0f50de23fde84e45f5c4fda2488c759b69990fd4512387a8632860f3ac9cd225",
+            "md5": "1ceb224096686831ad731e472b65e96a",
+            "sha256": "675d61ffbfa78604709862923189bad94014bef562cc35cf61d3a07bba02a7ed"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:56:56.054055Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp312-cp312-musllinux_1_1_aarch64.whl",
+          "url": "https://files.pythonhosted.org/packages/4c/0c/9c603826b6465e82591e05ca230dfc13376da512b25ccd0894709b054ed0/numpy-1.26.4-cp312-cp312-musllinux_1_1_aarch64.whl",
+          "digests": {
+            "blake2b_256": "4c0c9c603826b6465e82591e05ca230dfc13376da512b25ccd0894709b054ed0",
+            "md5": "cd8d3c00bbc89f9bc07e2df762f9e2ae",
+            "sha256": "ab47dbe5cc8210f55aa58e4805fe224dac469cde56b9f731a4c098b91917159a"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:57:21.560124Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp312-cp312-musllinux_1_1_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/76/8c/2ba3902e1a0fc1c74962ea9bb33a534bb05984ad7ff9515bf8d07527cadd/numpy-1.26.4-cp312-cp312-musllinux_1_1_x86_64.whl",
+          "digests": {
+            "blake2b_256": "768c2ba3902e1a0fc1c74962ea9bb33a534bb05984ad7ff9515bf8d07527cadd",
+            "md5": "5bd81ce840bb2e42befe01efb0402b79",
+            "sha256": "1dda2e7b4ec9dd512f84935c5f126c8bd8b9f2fc001e9f54af255e8c5f16b0e0"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:57:56.585421Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp312-cp312-win32.whl",
+          "url": "https://files.pythonhosted.org/packages/28/4a/46d9e65106879492374999e76eb85f87b15328e06bd1550668f79f7b18c6/numpy-1.26.4-cp312-cp312-win32.whl",
+          "digests": {
+            "blake2b_256": "284a46d9e65106879492374999e76eb85f87b15328e06bd1550668f79f7b18c6",
+            "md5": "2cc3b0757228078395da3efa3dc99f23",
+            "sha256": "50193e430acfc1346175fcbdaa28ffec49947a06918b7b92130744e81e640110"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:58:08.963289Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp312-cp312-win_amd64.whl",
+          "url": "https://files.pythonhosted.org/packages/16/2e/86f24451c2d530c88daf997cb8d6ac622c1d40d19f5a031ed68a4b73a374/numpy-1.26.4-cp312-cp312-win_amd64.whl",
+          "digests": {
+            "blake2b_256": "162e86f24451c2d530c88daf997cb8d6ac622c1d40d19f5a031ed68a4b73a374",
+            "md5": "305155bd5ae879344c58968879584ed1",
+            "sha256": "08beddf13648eb95f8d867350f6a018a4be2e5ad54c8d8caed89ebca558b2818"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:58:36.364428Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp39-cp39-macosx_10_9_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/7d/24/ce71dc08f06534269f66e73c04f5709ee024a1afe92a7b6e1d73f158e1f8/numpy-1.26.4-cp39-cp39-macosx_10_9_x86_64.whl",
+          "digests": {
+            "blake2b_256": "7d24ce71dc08f06534269f66e73c04f5709ee024a1afe92a7b6e1d73f158e1f8",
+            "md5": "ec2310f67215743e9c5d16b6c9fb87b6",
+            "sha256": "7349ab0fa0c429c82442a27a9673fc802ffdb7c7775fad780226cb234965e53c"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:59:10.976943Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp39-cp39-macosx_11_0_arm64.whl",
+          "url": "https://files.pythonhosted.org/packages/ae/8c/ab03a7c25741f9ebc92684a20125fbc9fc1b8e1e700beb9197d750fdff88/numpy-1.26.4-cp39-cp39-macosx_11_0_arm64.whl",
+          "digests": {
+            "blake2b_256": "ae8cab03a7c25741f9ebc92684a20125fbc9fc1b8e1e700beb9197d750fdff88",
+            "md5": "406aea6081c1affbebdb6ad56b5deaf4",
+            "sha256": "52b8b60467cd7dd1e9ed082188b4e6bb35aa5cdd01777621a1658910745b90be"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:59:35.472078Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+          "url": "https://files.pythonhosted.org/packages/6d/64/c3bcdf822269421d85fe0d64ba972003f9bb4aa9a419da64b86856c9961f/numpy-1.26.4-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl",
+          "digests": {
+            "blake2b_256": "6d64c3bcdf822269421d85fe0d64ba972003f9bb4aa9a419da64b86856c9961f",
+            "md5": "fee12f0a3cbac7bbf1a1c2d82d3b02a9",
+            "sha256": "d5241e0a80d808d70546c697135da2c613f30e28251ff8307eb72ba696945764"
+          },
+          "upload_time_iso_8601": "2024-02-05T23:59:59.372021Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/54/30/c2a907b9443cf42b90c17ad10c1e8fa801975f01cb9764f3f8eb8aea638b/numpy-1.26.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "digests": {
+            "blake2b_256": "5430c2a907b9443cf42b90c17ad10c1e8fa801975f01cb9764f3f8eb8aea638b",
+            "md5": "baf4b7143c7b9ce170e62b33380fb573",
+            "sha256": "f870204a840a60da0b12273ef34f7051e98c3b5961b61b0c2c1be6dfd64fbcd3"
+          },
+          "upload_time_iso_8601": "2024-02-06T00:00:32.790066Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp39-cp39-musllinux_1_1_aarch64.whl",
+          "url": "https://files.pythonhosted.org/packages/43/12/01a563fc44c07095996d0129b8899daf89e4742146f7044cdbdb3101c57f/numpy-1.26.4-cp39-cp39-musllinux_1_1_aarch64.whl",
+          "digests": {
+            "blake2b_256": "431201a563fc44c07095996d0129b8899daf89e4742146f7044cdbdb3101c57f",
+            "md5": "376ff29f90b7840ae19ecd59ad1ddf53",
+            "sha256": "679b0076f67ecc0138fd2ede3a8fd196dddc2ad3254069bcb9faf9a79b1cebcd"
+          },
+          "upload_time_iso_8601": "2024-02-06T00:00:58.197399Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp39-cp39-musllinux_1_1_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/16/ee/9df80b06680aaa23fc6c31211387e0db349e0e36d6a63ba3bd78c5acdf11/numpy-1.26.4-cp39-cp39-musllinux_1_1_x86_64.whl",
+          "digests": {
+            "blake2b_256": "16ee9df80b06680aaa23fc6c31211387e0db349e0e36d6a63ba3bd78c5acdf11",
+            "md5": "86785b3a7cd156c08c2ebc26f7816fb3",
+            "sha256": "47711010ad8555514b434df65f7d7b076bb8261df1ca9bb78f53d3b2db02e95c"
+          },
+          "upload_time_iso_8601": "2024-02-06T00:01:31.210611Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp39-cp39-win32.whl",
+          "url": "https://files.pythonhosted.org/packages/28/7d/4b92e2fe20b214ffca36107f1a3e75ef4c488430e64de2d9af5db3a4637d/numpy-1.26.4-cp39-cp39-win32.whl",
+          "digests": {
+            "blake2b_256": "287d4b92e2fe20b214ffca36107f1a3e75ef4c488430e64de2d9af5db3a4637d",
+            "md5": "ab8a9ab69f16b7005f238cda76bc0bac",
+            "sha256": "a354325ee03388678242a4d7ebcd08b5c727033fcff3b2f536aea978e15ee9e6"
+          },
+          "upload_time_iso_8601": "2024-02-06T00:01:43.013165Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-cp39-cp39-win_amd64.whl",
+          "url": "https://files.pythonhosted.org/packages/b5/42/054082bd8220bbf6f297f982f0a8f5479fcbc55c8b511d928df07b965869/numpy-1.26.4-cp39-cp39-win_amd64.whl",
+          "digests": {
+            "blake2b_256": "b542054082bd8220bbf6f297f982f0a8f5479fcbc55c8b511d928df07b965869",
+            "md5": "fafa4453e820c7ff40907e5dc79d8199",
+            "sha256": "3373d5d70a5fe74a2c1bb6d2cfd9609ecf686d47a2d7b1d37a8f3b6bf6003aea"
+          },
+          "upload_time_iso_8601": "2024-02-06T00:02:16.694855Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-pp39-pypy39_pp73-macosx_10_9_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/3f/72/3df6c1c06fc83d9cfe381cccb4be2532bbd38bf93fbc9fad087b6687f1c0/numpy-1.26.4-pp39-pypy39_pp73-macosx_10_9_x86_64.whl",
+          "digests": {
+            "blake2b_256": "3f723df6c1c06fc83d9cfe381cccb4be2532bbd38bf93fbc9fad087b6687f1c0",
+            "md5": "7f13e2f07bd3e4a439ade0e4d27905c6",
+            "sha256": "afedb719a9dcfc7eaf2287b839d8198e06dcd4cb5d276a3df279231138e83d30"
+          },
+          "upload_time_iso_8601": "2024-02-06T00:03:05.993309Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-pp39-pypy39_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/8e/02/570545bac308b58ffb21adda0f4e220ba716fb658a63c151daecc3293350/numpy-1.26.4-pp39-pypy39_pp73-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+          "digests": {
+            "blake2b_256": "8e02570545bac308b58ffb21adda0f4e220ba716fb658a63c151daecc3293350",
+            "md5": "928954b41c1cd0e856f1a31d41722661",
+            "sha256": "95a7476c59002f2f6c590b9b7b998306fba6a5aa646b1e22ddfeaf8f78c3a29c"
+          },
+          "upload_time_iso_8601": "2024-02-06T00:03:41.500521Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4-pp39-pypy39_pp73-win_amd64.whl",
+          "url": "https://files.pythonhosted.org/packages/f4/5f/fafd8c51235f60d49f7a88e2275e13971e90555b67da52dd6416caec32fe/numpy-1.26.4-pp39-pypy39_pp73-win_amd64.whl",
+          "digests": {
+            "blake2b_256": "f45ffafd8c51235f60d49f7a88e2275e13971e90555b67da52dd6416caec32fe",
+            "md5": "57bbd5c0b3848d804c416cbcab4a0ae8",
+            "sha256": "7e50d0a0cc3189f9cb0aeb3a6a6af18c16f59f004b866cd2be1c14b36134a4a0"
+          },
+          "upload_time_iso_8601": "2024-02-06T00:04:11.719532Z",
+          "yanked": false
+        },
+        {
+          "filename": "numpy-1.26.4.tar.gz",
+          "url": "https://files.pythonhosted.org/packages/65/6e/09db70a523a96d25e115e71cc56a6f9031e7b8cd166c1ac8438307c14058/numpy-1.26.4.tar.gz",
+          "digests": {
+            "blake2b_256": "656e09db70a523a96d25e115e71cc56a6f9031e7b8cd166c1ac8438307c14058",
+            "md5": "19550cbe7bedd96a928da9d4ad69509d",
+            "sha256": "2a02aba9ed12e4ac4eb3ea9421c420301a0c6460d9830d74a9df87efa4912010"
+          },
+          "upload_time_iso_8601": "2024-02-06T00:26:44.495150Z",
+          "yanked": false
+        }
+      ]
+    },
+    {
+      "name": "vllm",
+      "version": "0.8.5",
+      "source": "https://pypi.org/pypi/vllm/0.8.5/json",
+      "requires_python": "<3.13,>=3.9",
+      "requires_dist": [
+        "cachetools",
+        "psutil",
+        "sentencepiece",
+        "numpy",
+        "requests>=2.26.0",
+        "tqdm",
+        "blake3",
+        "py-cpuinfo",
+        "transformers>=4.51.1",
+        "huggingface-hub[hf_xet]>=0.30.0",
+        "tokenizers>=0.21.1",
+        "protobuf",
+        "fastapi[standard]>=0.115.0",
+        "aiohttp",
+        "openai>=1.52.0",
+        "pydantic>=2.9",
+        "prometheus_client>=0.18.0",
+        "pillow",
+        "prometheus-fastapi-instrumentator>=7.0.0",
+        "tiktoken>=0.6.0",
+        "lm-format-enforcer<0.11,>=0.10.11",
+        "llguidance<0.8.0,>=0.7.9; platform_machine == \"x86_64\" or platform_machine == \"arm64\" or platform_machine == \"aarch64\"",
+        "outlines==0.1.11",
+        "lark==1.2.2",
+        "xgrammar==0.1.18; platform_machine == \"x86_64\" or platform_machine == \"aarch64\"",
+        "typing_extensions>=4.10",
+        "filelock>=3.16.1",
+        "partial-json-parser",
+        "pyzmq>=25.0.0",
+        "msgspec",
+        "gguf>=0.13.0",
+        "importlib_metadata",
+        "mistral_common[opencv]>=1.5.4",
+        "opencv-python-headless>=4.11.0",
+        "pyyaml",
+        "six>=1.16.0; python_version > \"3.11\"",
+        "setuptools>=74.1.1; python_version > \"3.11\"",
+        "einops",
+        "compressed-tensors==0.9.3",
+        "depyf==0.18.0",
+        "cloudpickle",
+        "watchfiles",
+        "python-json-logger",
+        "scipy",
+        "ninja",
+        "opentelemetry-sdk<1.27.0,>=1.26.0",
+        "opentelemetry-api<1.27.0,>=1.26.0",
+        "opentelemetry-exporter-otlp<1.27.0,>=1.26.0",
+        "opentelemetry-semantic-conventions-ai<0.5.0,>=0.4.1",
+        "numba==0.60.0; python_version == \"3.9\"",
+        "numba==0.61.2; python_version > \"3.9\"",
+        "ray[cgraph]!=2.44.*,>=2.43.0",
+        "torch==2.6.0",
+        "torchaudio==2.6.0",
+        "torchvision==0.21.0",
+        "xformers==0.0.29.post2; platform_system == \"Linux\" and platform_machine == \"x86_64\"",
+        "tensorizer>=2.9.0; extra == \"tensorizer\"",
+        "fastsafetensors>=0.1.10; extra == \"fastsafetensors\"",
+        "runai-model-streamer; extra == \"runai\"",
+        "runai-model-streamer-s3; extra == \"runai\"",
+        "boto3; extra == \"runai\"",
+        "librosa; extra == \"audio\"",
+        "soundfile; extra == \"audio\""
+      ],
+      "files": [
+        {
+          "filename": "vllm-0.8.5-cp38-abi3-manylinux1_x86_64.whl",
+          "url": "https://files.pythonhosted.org/packages/26/7e/08d7a75c47792fd07d02b2be6fe6adbb29dfcbd31e94784844d7f730d0bc/vllm-0.8.5-cp38-abi3-manylinux1_x86_64.whl",
+          "digests": {
+            "blake2b_256": "267e08d7a75c47792fd07d02b2be6fe6adbb29dfcbd31e94784844d7f730d0bc",
+            "md5": "97e2fcde1cb9fa976fe816237e6ab0a3",
+            "sha256": "74bfe92953bee1269c1e1c27827bc156777751cdd6a3457ee8e27dd8ebf1e247"
+          },
+          "upload_time_iso_8601": "2025-04-28T23:59:40.401188Z",
+          "yanked": false
+        },
+        {
+          "filename": "vllm-0.8.5.tar.gz",
+          "url": "https://files.pythonhosted.org/packages/5c/37/7846c244e6637c15f6d5ed6d3f572eedd02ed8ab80aec8c3eb228f35b23c/vllm-0.8.5.tar.gz",
+          "digests": {
+            "blake2b_256": "5c377846c244e6637c15f6d5ed6d3f572eedd02ed8ab80aec8c3eb228f35b23c",
+            "md5": "4a4079bad235213ee392164c6c6ec711",
+            "sha256": "c7e04d1046304397b4580334038b558fe491af155fdea508224f140172cf9a82"
+          },
+          "upload_time_iso_8601": "2025-04-28T23:59:48.417949Z",
+          "yanked": false
+        }
+      ]
+    },
+    {
+      "name": "flash-attn",
+      "version": "2.7.4.post1",
+      "source": "https://pypi.org/pypi/flash-attn/2.7.4.post1/json",
+      "requires_python": ">=3.9",
+      "requires_dist": [
+        "torch",
+        "einops"
+      ],
+      "files": [
+        {
+          "filename": "flash_attn-2.7.4.post1.tar.gz",
+          "url": "https://files.pythonhosted.org/packages/11/34/9bf60e736ed7bbe15055ac2dab48ec67d9dbd088d2b4ae318fd77190ab4e/flash_attn-2.7.4.post1.tar.gz",
+          "digests": {
+            "blake2b_256": "11349bf60e736ed7bbe15055ac2dab48ec67d9dbd088d2b4ae318fd77190ab4e",
+            "md5": "95874fc10dc7af0afdf8a835ebfb7d1f",
+            "sha256": "f03485c9a49a4d68d0733acdcad80ab0e72afa025a777fdc2966ceccf9d51765"
+          },
+          "upload_time_iso_8601": "2025-01-30T06:39:51.930097Z",
+          "yanked": false
+        }
+      ]
+    }
+  ]
+}

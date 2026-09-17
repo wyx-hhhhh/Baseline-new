@@ -1,0 +1,349 @@
+{
+  "recorded_at_utc": "2026-09-16T07:30:56.107849+00:00",
+  "runtime": {
+    "python": "3.11.5",
+    "executable": "/software/anaconda3/bin/python3",
+    "platform": "Linux-6.8.0-110-generic-x86_64-with-glibc2.35",
+    "packages": {
+      "torch": {
+        "installed": null,
+        "target": "2.6.0",
+        "matches_target": false
+      },
+      "transformers": {
+        "installed": "4.32.1",
+        "target": "4.51.3",
+        "matches_target": false
+      },
+      "accelerate": {
+        "installed": null,
+        "target": "1.6.0",
+        "matches_target": false
+      },
+      "datasets": {
+        "installed": "2.12.0",
+        "target": "3.5.0",
+        "matches_target": false
+      },
+      "tokenizers": {
+        "installed": "0.13.2",
+        "target": "0.21.1",
+        "matches_target": false
+      },
+      "numpy": {
+        "installed": "1.26.4",
+        "target": "1.26.4",
+        "matches_target": true
+      },
+      "huggingface-hub": {
+        "installed": "0.15.1",
+        "target": "0.30.2",
+        "matches_target": false
+      },
+      "safetensors": {
+        "installed": "0.3.2",
+        "target": "0.5.3",
+        "matches_target": false
+      }
+    },
+    "errors": [
+      "Missing package: torch",
+      "Missing package: accelerate",
+      "Import datasets failed: AttributeError: module 'pyarrow' has no attribute 'PyExtensionType'",
+      "Required Transformers model import failed: ImportError: cannot import name 'Qwen3Config' from 'transformers' (/software/anaconda3/lib/python3.11/site-packages/transformers/__init__.py)",
+      "PyTorch runtime error: ModuleNotFoundError: No module named 'torch'"
+    ]
+  },
+  "nvidia_smi": {
+    "returncode": 9,
+    "stdout": "NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.",
+    "stderr": ""
+  },
+  "storage": {
+    "requested_output_root": "/nas/Users/wyx/Baseline",
+    "exists": true,
+    "checked_ancestor": "/nas/Users/wyx/Baseline",
+    "permission_check_writable": false,
+    "verification": "Read-only permission/free-space check; no write attempted",
+    "total_bytes": 47777439023104,
+    "free_bytes": 24182606266368
+  },
+  "host_memory_kib": {
+    "MemTotal": 262707316,
+    "MemAvailable": 252897332,
+    "SwapTotal": 0
+  },
+  "model_pairs": {
+    "qwen3": {
+      "teacher": {
+        "path": "/nas/Models/Qwen3-8B-Instruct",
+        "exists": true,
+        "errors": [],
+        "config": {
+          "architectures": [
+            "Qwen3ForCausalLM"
+          ],
+          "model_type": "qwen3",
+          "vocab_size": 151936,
+          "hidden_size": 4096,
+          "num_hidden_layers": 36,
+          "torch_dtype": "bfloat16",
+          "tie_word_embeddings": false,
+          "bos_token_id": 151643,
+          "eos_token_id": 151645
+        },
+        "generation": {
+          "bos_token_id": 151643,
+          "do_sample": true,
+          "eos_token_id": [
+            151645,
+            151643
+          ],
+          "pad_token_id": 151643,
+          "temperature": 0.6,
+          "top_k": 20,
+          "top_p": 0.95,
+          "transformers_version": "4.51.0"
+        },
+        "metadata_sha256": {
+          "config.json": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2"
+        },
+        "tokenizer": {
+          "tokens": 151669,
+          "max_id": 151668,
+          "token_map_sha256": "f488fa45d324a8bc64c84f0e27b47223872d550f2a6900564f77dfa67ca5ff4d",
+          "bos_token": null,
+          "eos_token": "<|im_end|>",
+          "pad_token": "<|endoftext|>",
+          "chat_template_sha256": "41d5929bf73796beb66809ac700b2cf3ff81694f933e5c14d52b7fd6963c947d",
+          "has_chat_template": true
+        },
+        "eos_tokens": {
+          "151645": "<|im_end|>",
+          "151643": "<|endoftext|>"
+        },
+        "weights": {
+          "files": [
+            "model-00001-of-00005.safetensors",
+            "model-00002-of-00005.safetensors",
+            "model-00003-of-00005.safetensors",
+            "model-00004-of-00005.safetensors",
+            "model-00005-of-00005.safetensors"
+          ],
+          "total_file_bytes": 16381516776,
+          "tensor_count": 399,
+          "stored_parameter_count": 8190735360,
+          "embedding": {
+            "shape": [
+              151936,
+              4096
+            ],
+            "dtype": "BF16",
+            "file": "model-00001-of-00005.safetensors"
+          },
+          "output_head": {
+            "shape": [
+              151936,
+              4096
+            ],
+            "dtype": "BF16",
+            "file": "model-00005-of-00005.safetensors"
+          },
+          "verification": "Headers, file lengths, index membership; tensor values not read or hashed",
+          "errors": []
+        }
+      },
+      "student": {
+        "path": "/nas/Models/Qwen3-1.7B-Instruct",
+        "exists": true,
+        "errors": [],
+        "config": {
+          "architectures": [
+            "Qwen3ForCausalLM"
+          ],
+          "model_type": "qwen3",
+          "vocab_size": 151936,
+          "hidden_size": 2048,
+          "num_hidden_layers": 28,
+          "torch_dtype": "bfloat16",
+          "tie_word_embeddings": true,
+          "bos_token_id": 151643,
+          "eos_token_id": 151645
+        },
+        "generation": {
+          "bos_token_id": 151643,
+          "do_sample": true,
+          "eos_token_id": [
+            151645,
+            151643
+          ],
+          "pad_token_id": 151643,
+          "temperature": 0.6,
+          "top_k": 20,
+          "top_p": 0.95,
+          "transformers_version": "4.51.0"
+        },
+        "metadata_sha256": {
+          "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+          "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+          "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2"
+        },
+        "tokenizer": {
+          "tokens": 151669,
+          "max_id": 151668,
+          "token_map_sha256": "f488fa45d324a8bc64c84f0e27b47223872d550f2a6900564f77dfa67ca5ff4d",
+          "bos_token": null,
+          "eos_token": "<|im_end|>",
+          "pad_token": "<|endoftext|>",
+          "chat_template_sha256": "41d5929bf73796beb66809ac700b2cf3ff81694f933e5c14d52b7fd6963c947d",
+          "has_chat_template": true
+        },
+        "eos_tokens": {
+          "151645": "<|im_end|>",
+          "151643": "<|endoftext|>"
+        },
+        "weights": {
+          "files": [
+            "model-00001-of-00002.safetensors",
+            "model-00002-of-00002.safetensors"
+          ],
+          "total_file_bytes": 4063515592,
+          "tensor_count": 311,
+          "stored_parameter_count": 2031739904,
+          "embedding": {
+            "shape": [
+              151936,
+              2048
+            ],
+            "dtype": "BF16",
+            "file": "model-00001-of-00002.safetensors"
+          },
+          "output_head": {
+            "shape": [
+              151936,
+              2048
+            ],
+            "dtype": "BF16",
+            "file": "model-00002-of-00002.safetensors"
+          },
+          "verification": "Headers, file lengths, index membership; tensor values not read or hashed",
+          "errors": []
+        }
+      },
+      "compatible": true,
+      "checks": {
+        "full_token_to_id_map_equal": true,
+        "tokenizer_algorithm_equal": true,
+        "head_vocab_equal": true,
+        "generation_eos_equal": true,
+        "chat_template_equal": true
+      }
+    },
+    "llama3": {
+      "teacher": {
+        "path": "/nas/Models/Meta-Llama-3.1-8B-Instruct",
+        "exists": true,
+        "errors": [
+          "Missing model metadata: config.json, tokenizer.json, tokenizer_config.json, generation_config.json"
+        ]
+      },
+      "student": {
+        "path": "/nas/Models/Meta-Llama-3.2-1B-Instruct",
+        "exists": true,
+        "errors": [],
+        "config": {
+          "architectures": [
+            "LlamaForCausalLM"
+          ],
+          "model_type": "llama",
+          "vocab_size": 128256,
+          "hidden_size": 2048,
+          "num_hidden_layers": 16,
+          "torch_dtype": "bfloat16",
+          "tie_word_embeddings": true,
+          "bos_token_id": 128000,
+          "eos_token_id": [
+            128001,
+            128008,
+            128009
+          ]
+        },
+        "generation": {
+          "bos_token_id": 128000,
+          "do_sample": true,
+          "eos_token_id": [
+            128001,
+            128008,
+            128009
+          ],
+          "temperature": 0.6,
+          "top_p": 0.9,
+          "transformers_version": "4.45.0.dev0"
+        },
+        "metadata_sha256": {
+          "config.json": "2febf68cea25bf4611be02b7536f2488a5ba523bb1134986e3610152abe74fdb",
+          "tokenizer.json": "79e3e522635f3171300913bb421464a87de6222182a0570b9b2ccba2a964b2b4",
+          "tokenizer_config.json": "9823dcfdc1121869029da45192238e85cf44f0b232a6d9dc20e4fe6f4242a14e",
+          "generation_config.json": "88effbb63300dbbc7390143fbbdd9d9fa50587b37e8bfd16c8c90d4970a74a36"
+        },
+        "tokenizer": {
+          "tokens": 128256,
+          "max_id": 128255,
+          "token_map_sha256": "f66003c7a898537275cd9d3ab290d6e247b9c5063352c2cc010213febfbe068f",
+          "bos_token": "<|begin_of_text|>",
+          "eos_token": "<|eot_id|>",
+          "pad_token": null,
+          "chat_template_sha256": "2732d9da5568668ed22ea202bffb12f0df405439651e1275ba1f521522f92966",
+          "has_chat_template": true
+        },
+        "eos_tokens": {
+          "128001": "<|end_of_text|>",
+          "128008": "<|eom_id|>",
+          "128009": "<|eot_id|>"
+        },
+        "weights": {
+          "files": [
+            "model.safetensors"
+          ],
+          "total_file_bytes": 2471645608,
+          "tensor_count": 146,
+          "stored_parameter_count": 1235814400,
+          "embedding": {
+            "shape": [
+              128256,
+              2048
+            ],
+            "dtype": "BF16",
+            "file": "model.safetensors"
+          },
+          "output_head": {
+            "shape": [
+              128256,
+              2048
+            ],
+            "dtype": "BF16",
+            "file": "model.safetensors",
+            "tied_to": "model.embed_tokens.weight"
+          },
+          "verification": "Headers, file lengths, index membership; tensor values not read or hashed",
+          "errors": []
+        }
+      },
+      "compatible": false,
+      "reason": "Complete teacher and student artifacts are required to prove compatibility"
+    }
+  },
+  "reference_pins_match": false,
+  "preflight_pass": false,
+  "gpu_preflight_pass": false,
+  "limitations": [
+    "No training step, full model load, convergence, or distributed test is performed by this script.",
+    "Output write access is not tested by creating a file; permissions may differ inside a sandbox.",
+    "Weight headers and lengths are checked; checkpoint identity/corruption requires hashing tensor data.",
+    "VRAM fit depends on sequence lengths, optimizer placement, activations, and generation caches."
+  ]
+}

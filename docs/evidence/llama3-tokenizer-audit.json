@@ -1,0 +1,1555 @@
+{
+  "scope": "Read-only tokenizer metadata/runtime audit; no model weights loaded. No training compatibility claimed by this report.",
+  "timestamp_utc": "2026-09-16T09:39:05.281565+00:00",
+  "environment": {
+    "python_executable": "/home/wyx/Baseline/.venv/bin/python",
+    "torch": "2.6.0+cu124",
+    "transformers": "4.51.3"
+  },
+  "teacher": {
+    "path": "/nas/Models/Meta-Llama-3-8B-Instruct",
+    "metadata_sha256": {
+      "tokenizer.json": "e134af98b985517b4f068e3755ae90d4e9cd2d45d328325dc503f1c6b2d06cc7",
+      "tokenizer_config.json": "da0e3a7cce6e4d787e85eb1c24d548420e0d7fe2c7a214e192795c46e40d75bb",
+      "special_tokens_map.json": "462d91939dbc37178aa5a3eae7068d1990ccc92e09f288cc71f42cdf139d69cc",
+      "config.json": "61f3de03a16ca8046b05dc777bce72717022bc8522152eee61a69072272ef54b",
+      "generation_config.json": "d1af74d8ba49428ab2faa65f7948165cc6bf52b740e57e840f8af772587c894c"
+    },
+    "runtime_vocab_len": 128256,
+    "runtime_lexical_vocab_size": 128000,
+    "full_vocab_canonical_sha256": "16a7cf8ef076207572ffa502651c7b63e24e2dd9eac46cbf876ad44032f94602",
+    "bos_token_id": 128000,
+    "eos_token_id": 128009,
+    "pad_token_id": 128009,
+    "generation_config": {
+      "bos_token_id": 128000,
+      "eos_token_id": [
+        128001,
+        128009
+      ],
+      "do_sample": true,
+      "temperature": 0.6,
+      "max_length": 4096,
+      "top_p": 0.9,
+      "transformers_version": "4.40.0.dev0"
+    },
+    "special_tokens_map_on_disk": {
+      "bos_token": "<|begin_of_text|>",
+      "eos_token": "<|end_of_text|>"
+    },
+    "runtime_special_tokens_map": {
+      "bos_token": "<|begin_of_text|>",
+      "eos_token": "<|eot_id|>",
+      "pad_token": "<|eot_id|>"
+    },
+    "backend_model_canonical_sha256": "71ecc29d81d9c4dab75e19eaa91f95c41473cb897dd437a2ff48279b13277710",
+    "chat_template_sha256": "ba03a121d097859c7b5b9cd03af99aafe95275210d2876f642ad9929a150f122",
+    "fixed_date_example_prompt": "<|begin_of_text|><|start_header_id|>user<|end_header_id|>\n\nHello world!<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n"
+  },
+  "student": {
+    "path": "/nas/Models/Meta-Llama-3.2-1B-Instruct",
+    "metadata_sha256": {
+      "tokenizer.json": "79e3e522635f3171300913bb421464a87de6222182a0570b9b2ccba2a964b2b4",
+      "tokenizer_config.json": "9823dcfdc1121869029da45192238e85cf44f0b232a6d9dc20e4fe6f4242a14e",
+      "special_tokens_map.json": "6f38c73729248f6c127296386e3cdde96e254636cc58b4169d3fd32328d9a8ec",
+      "config.json": "2febf68cea25bf4611be02b7536f2488a5ba523bb1134986e3610152abe74fdb",
+      "generation_config.json": "88effbb63300dbbc7390143fbbdd9d9fa50587b37e8bfd16c8c90d4970a74a36"
+    },
+    "runtime_vocab_len": 128256,
+    "runtime_lexical_vocab_size": 128000,
+    "full_vocab_canonical_sha256": "f66003c7a898537275cd9d3ab290d6e247b9c5063352c2cc010213febfbe068f",
+    "bos_token_id": 128000,
+    "eos_token_id": 128009,
+    "pad_token_id": 128009,
+    "generation_config": {
+      "bos_token_id": 128000,
+      "do_sample": true,
+      "eos_token_id": [
+        128001,
+        128008,
+        128009
+      ],
+      "temperature": 0.6,
+      "top_p": 0.9,
+      "transformers_version": "4.45.0.dev0"
+    },
+    "special_tokens_map_on_disk": {
+      "bos_token": {
+        "content": "<|begin_of_text|>",
+        "lstrip": false,
+        "normalized": false,
+        "rstrip": false,
+        "single_word": false
+      },
+      "eos_token": {
+        "content": "<|eot_id|>",
+        "lstrip": false,
+        "normalized": false,
+        "rstrip": false,
+        "single_word": false
+      }
+    },
+    "runtime_special_tokens_map": {
+      "bos_token": "<|begin_of_text|>",
+      "eos_token": "<|eot_id|>",
+      "pad_token": "<|eot_id|>"
+    },
+    "backend_model_canonical_sha256": "71ecc29d81d9c4dab75e19eaa91f95c41473cb897dd437a2ff48279b13277710",
+    "chat_template_sha256": "5816fce10444e03c2e9ee1ef8a4a1ea61ae7e69e438613f3b17b69d0426223a4",
+    "fixed_date_example_prompt": "<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nCutting Knowledge Date: December 2023\nToday Date: 16 Sep 2026\n\n<|eot_id|><|start_header_id|>user<|end_header_id|>\n\nHello world!<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n"
+  },
+  "current_verify_tokenizers": {
+    "passes": false,
+    "error_type": "ValueError",
+    "error": "Teacher/student full token-to-ID maps differ; token-level KD is invalid"
+  },
+  "backend_component_equality": {
+    "added_tokens": false,
+    "decoder": true,
+    "model": true,
+    "normalizer": true,
+    "padding": true,
+    "post_processor": true,
+    "pre_tokenizer": true,
+    "truncation": true,
+    "version": true
+  },
+  "full_token_maps_equal": false,
+  "identical_lexical_id_range": [
+    0,
+    127999
+  ],
+  "different_id_count": 249,
+  "different_id_ranges": [
+    [
+      128004,
+      128005
+    ],
+    [
+      128008,
+      128008
+    ],
+    [
+      128010,
+      128255
+    ]
+  ],
+  "different_ids": [
+    {
+      "id": 128004,
+      "teacher": "<|reserved_special_token_2|>",
+      "student": "<|finetune_right_pad_id|>"
+    },
+    {
+      "id": 128005,
+      "teacher": "<|reserved_special_token_3|>",
+      "student": "<|reserved_special_token_2|>"
+    },
+    {
+      "id": 128008,
+      "teacher": "<|reserved_special_token_4|>",
+      "student": "<|eom_id|>"
+    },
+    {
+      "id": 128010,
+      "teacher": "<|reserved_special_token_5|>",
+      "student": "<|python_tag|>"
+    },
+    {
+      "id": 128011,
+      "teacher": "<|reserved_special_token_6|>",
+      "student": "<|reserved_special_token_3|>"
+    },
+    {
+      "id": 128012,
+      "teacher": "<|reserved_special_token_7|>",
+      "student": "<|reserved_special_token_4|>"
+    },
+    {
+      "id": 128013,
+      "teacher": "<|reserved_special_token_8|>",
+      "student": "<|reserved_special_token_5|>"
+    },
+    {
+      "id": 128014,
+      "teacher": "<|reserved_special_token_9|>",
+      "student": "<|reserved_special_token_6|>"
+    },
+    {
+      "id": 128015,
+      "teacher": "<|reserved_special_token_10|>",
+      "student": "<|reserved_special_token_7|>"
+    },
+    {
+      "id": 128016,
+      "teacher": "<|reserved_special_token_11|>",
+      "student": "<|reserved_special_token_8|>"
+    },
+    {
+      "id": 128017,
+      "teacher": "<|reserved_special_token_12|>",
+      "student": "<|reserved_special_token_9|>"
+    },
+    {
+      "id": 128018,
+      "teacher": "<|reserved_special_token_13|>",
+      "student": "<|reserved_special_token_10|>"
+    },
+    {
+      "id": 128019,
+      "teacher": "<|reserved_special_token_14|>",
+      "student": "<|reserved_special_token_11|>"
+    },
+    {
+      "id": 128020,
+      "teacher": "<|reserved_special_token_15|>",
+      "student": "<|reserved_special_token_12|>"
+    },
+    {
+      "id": 128021,
+      "teacher": "<|reserved_special_token_16|>",
+      "student": "<|reserved_special_token_13|>"
+    },
+    {
+      "id": 128022,
+      "teacher": "<|reserved_special_token_17|>",
+      "student": "<|reserved_special_token_14|>"
+    },
+    {
+      "id": 128023,
+      "teacher": "<|reserved_special_token_18|>",
+      "student": "<|reserved_special_token_15|>"
+    },
+    {
+      "id": 128024,
+      "teacher": "<|reserved_special_token_19|>",
+      "student": "<|reserved_special_token_16|>"
+    },
+    {
+      "id": 128025,
+      "teacher": "<|reserved_special_token_20|>",
+      "student": "<|reserved_special_token_17|>"
+    },
+    {
+      "id": 128026,
+      "teacher": "<|reserved_special_token_21|>",
+      "student": "<|reserved_special_token_18|>"
+    },
+    {
+      "id": 128027,
+      "teacher": "<|reserved_special_token_22|>",
+      "student": "<|reserved_special_token_19|>"
+    },
+    {
+      "id": 128028,
+      "teacher": "<|reserved_special_token_23|>",
+      "student": "<|reserved_special_token_20|>"
+    },
+    {
+      "id": 128029,
+      "teacher": "<|reserved_special_token_24|>",
+      "student": "<|reserved_special_token_21|>"
+    },
+    {
+      "id": 128030,
+      "teacher": "<|reserved_special_token_25|>",
+      "student": "<|reserved_special_token_22|>"
+    },
+    {
+      "id": 128031,
+      "teacher": "<|reserved_special_token_26|>",
+      "student": "<|reserved_special_token_23|>"
+    },
+    {
+      "id": 128032,
+      "teacher": "<|reserved_special_token_27|>",
+      "student": "<|reserved_special_token_24|>"
+    },
+    {
+      "id": 128033,
+      "teacher": "<|reserved_special_token_28|>",
+      "student": "<|reserved_special_token_25|>"
+    },
+    {
+      "id": 128034,
+      "teacher": "<|reserved_special_token_29|>",
+      "student": "<|reserved_special_token_26|>"
+    },
+    {
+      "id": 128035,
+      "teacher": "<|reserved_special_token_30|>",
+      "student": "<|reserved_special_token_27|>"
+    },
+    {
+      "id": 128036,
+      "teacher": "<|reserved_special_token_31|>",
+      "student": "<|reserved_special_token_28|>"
+    },
+    {
+      "id": 128037,
+      "teacher": "<|reserved_special_token_32|>",
+      "student": "<|reserved_special_token_29|>"
+    },
+    {
+      "id": 128038,
+      "teacher": "<|reserved_special_token_33|>",
+      "student": "<|reserved_special_token_30|>"
+    },
+    {
+      "id": 128039,
+      "teacher": "<|reserved_special_token_34|>",
+      "student": "<|reserved_special_token_31|>"
+    },
+    {
+      "id": 128040,
+      "teacher": "<|reserved_special_token_35|>",
+      "student": "<|reserved_special_token_32|>"
+    },
+    {
+      "id": 128041,
+      "teacher": "<|reserved_special_token_36|>",
+      "student": "<|reserved_special_token_33|>"
+    },
+    {
+      "id": 128042,
+      "teacher": "<|reserved_special_token_37|>",
+      "student": "<|reserved_special_token_34|>"
+    },
+    {
+      "id": 128043,
+      "teacher": "<|reserved_special_token_38|>",
+      "student": "<|reserved_special_token_35|>"
+    },
+    {
+      "id": 128044,
+      "teacher": "<|reserved_special_token_39|>",
+      "student": "<|reserved_special_token_36|>"
+    },
+    {
+      "id": 128045,
+      "teacher": "<|reserved_special_token_40|>",
+      "student": "<|reserved_special_token_37|>"
+    },
+    {
+      "id": 128046,
+      "teacher": "<|reserved_special_token_41|>",
+      "student": "<|reserved_special_token_38|>"
+    },
+    {
+      "id": 128047,
+      "teacher": "<|reserved_special_token_42|>",
+      "student": "<|reserved_special_token_39|>"
+    },
+    {
+      "id": 128048,
+      "teacher": "<|reserved_special_token_43|>",
+      "student": "<|reserved_special_token_40|>"
+    },
+    {
+      "id": 128049,
+      "teacher": "<|reserved_special_token_44|>",
+      "student": "<|reserved_special_token_41|>"
+    },
+    {
+      "id": 128050,
+      "teacher": "<|reserved_special_token_45|>",
+      "student": "<|reserved_special_token_42|>"
+    },
+    {
+      "id": 128051,
+      "teacher": "<|reserved_special_token_46|>",
+      "student": "<|reserved_special_token_43|>"
+    },
+    {
+      "id": 128052,
+      "teacher": "<|reserved_special_token_47|>",
+      "student": "<|reserved_special_token_44|>"
+    },
+    {
+      "id": 128053,
+      "teacher": "<|reserved_special_token_48|>",
+      "student": "<|reserved_special_token_45|>"
+    },
+    {
+      "id": 128054,
+      "teacher": "<|reserved_special_token_49|>",
+      "student": "<|reserved_special_token_46|>"
+    },
+    {
+      "id": 128055,
+      "teacher": "<|reserved_special_token_50|>",
+      "student": "<|reserved_special_token_47|>"
+    },
+    {
+      "id": 128056,
+      "teacher": "<|reserved_special_token_51|>",
+      "student": "<|reserved_special_token_48|>"
+    },
+    {
+      "id": 128057,
+      "teacher": "<|reserved_special_token_52|>",
+      "student": "<|reserved_special_token_49|>"
+    },
+    {
+      "id": 128058,
+      "teacher": "<|reserved_special_token_53|>",
+      "student": "<|reserved_special_token_50|>"
+    },
+    {
+      "id": 128059,
+      "teacher": "<|reserved_special_token_54|>",
+      "student": "<|reserved_special_token_51|>"
+    },
+    {
+      "id": 128060,
+      "teacher": "<|reserved_special_token_55|>",
+      "student": "<|reserved_special_token_52|>"
+    },
+    {
+      "id": 128061,
+      "teacher": "<|reserved_special_token_56|>",
+      "student": "<|reserved_special_token_53|>"
+    },
+    {
+      "id": 128062,
+      "teacher": "<|reserved_special_token_57|>",
+      "student": "<|reserved_special_token_54|>"
+    },
+    {
+      "id": 128063,
+      "teacher": "<|reserved_special_token_58|>",
+      "student": "<|reserved_special_token_55|>"
+    },
+    {
+      "id": 128064,
+      "teacher": "<|reserved_special_token_59|>",
+      "student": "<|reserved_special_token_56|>"
+    },
+    {
+      "id": 128065,
+      "teacher": "<|reserved_special_token_60|>",
+      "student": "<|reserved_special_token_57|>"
+    },
+    {
+      "id": 128066,
+      "teacher": "<|reserved_special_token_61|>",
+      "student": "<|reserved_special_token_58|>"
+    },
+    {
+      "id": 128067,
+      "teacher": "<|reserved_special_token_62|>",
+      "student": "<|reserved_special_token_59|>"
+    },
+    {
+      "id": 128068,
+      "teacher": "<|reserved_special_token_63|>",
+      "student": "<|reserved_special_token_60|>"
+    },
+    {
+      "id": 128069,
+      "teacher": "<|reserved_special_token_64|>",
+      "student": "<|reserved_special_token_61|>"
+    },
+    {
+      "id": 128070,
+      "teacher": "<|reserved_special_token_65|>",
+      "student": "<|reserved_special_token_62|>"
+    },
+    {
+      "id": 128071,
+      "teacher": "<|reserved_special_token_66|>",
+      "student": "<|reserved_special_token_63|>"
+    },
+    {
+      "id": 128072,
+      "teacher": "<|reserved_special_token_67|>",
+      "student": "<|reserved_special_token_64|>"
+    },
+    {
+      "id": 128073,
+      "teacher": "<|reserved_special_token_68|>",
+      "student": "<|reserved_special_token_65|>"
+    },
+    {
+      "id": 128074,
+      "teacher": "<|reserved_special_token_69|>",
+      "student": "<|reserved_special_token_66|>"
+    },
+    {
+      "id": 128075,
+      "teacher": "<|reserved_special_token_70|>",
+      "student": "<|reserved_special_token_67|>"
+    },
+    {
+      "id": 128076,
+      "teacher": "<|reserved_special_token_71|>",
+      "student": "<|reserved_special_token_68|>"
+    },
+    {
+      "id": 128077,
+      "teacher": "<|reserved_special_token_72|>",
+      "student": "<|reserved_special_token_69|>"
+    },
+    {
+      "id": 128078,
+      "teacher": "<|reserved_special_token_73|>",
+      "student": "<|reserved_special_token_70|>"
+    },
+    {
+      "id": 128079,
+      "teacher": "<|reserved_special_token_74|>",
+      "student": "<|reserved_special_token_71|>"
+    },
+    {
+      "id": 128080,
+      "teacher": "<|reserved_special_token_75|>",
+      "student": "<|reserved_special_token_72|>"
+    },
+    {
+      "id": 128081,
+      "teacher": "<|reserved_special_token_76|>",
+      "student": "<|reserved_special_token_73|>"
+    },
+    {
+      "id": 128082,
+      "teacher": "<|reserved_special_token_77|>",
+      "student": "<|reserved_special_token_74|>"
+    },
+    {
+      "id": 128083,
+      "teacher": "<|reserved_special_token_78|>",
+      "student": "<|reserved_special_token_75|>"
+    },
+    {
+      "id": 128084,
+      "teacher": "<|reserved_special_token_79|>",
+      "student": "<|reserved_special_token_76|>"
+    },
+    {
+      "id": 128085,
+      "teacher": "<|reserved_special_token_80|>",
+      "student": "<|reserved_special_token_77|>"
+    },
+    {
+      "id": 128086,
+      "teacher": "<|reserved_special_token_81|>",
+      "student": "<|reserved_special_token_78|>"
+    },
+    {
+      "id": 128087,
+      "teacher": "<|reserved_special_token_82|>",
+      "student": "<|reserved_special_token_79|>"
+    },
+    {
+      "id": 128088,
+      "teacher": "<|reserved_special_token_83|>",
+      "student": "<|reserved_special_token_80|>"
+    },
+    {
+      "id": 128089,
+      "teacher": "<|reserved_special_token_84|>",
+      "student": "<|reserved_special_token_81|>"
+    },
+    {
+      "id": 128090,
+      "teacher": "<|reserved_special_token_85|>",
+      "student": "<|reserved_special_token_82|>"
+    },
+    {
+      "id": 128091,
+      "teacher": "<|reserved_special_token_86|>",
+      "student": "<|reserved_special_token_83|>"
+    },
+    {
+      "id": 128092,
+      "teacher": "<|reserved_special_token_87|>",
+      "student": "<|reserved_special_token_84|>"
+    },
+    {
+      "id": 128093,
+      "teacher": "<|reserved_special_token_88|>",
+      "student": "<|reserved_special_token_85|>"
+    },
+    {
+      "id": 128094,
+      "teacher": "<|reserved_special_token_89|>",
+      "student": "<|reserved_special_token_86|>"
+    },
+    {
+      "id": 128095,
+      "teacher": "<|reserved_special_token_90|>",
+      "student": "<|reserved_special_token_87|>"
+    },
+    {
+      "id": 128096,
+      "teacher": "<|reserved_special_token_91|>",
+      "student": "<|reserved_special_token_88|>"
+    },
+    {
+      "id": 128097,
+      "teacher": "<|reserved_special_token_92|>",
+      "student": "<|reserved_special_token_89|>"
+    },
+    {
+      "id": 128098,
+      "teacher": "<|reserved_special_token_93|>",
+      "student": "<|reserved_special_token_90|>"
+    },
+    {
+      "id": 128099,
+      "teacher": "<|reserved_special_token_94|>",
+      "student": "<|reserved_special_token_91|>"
+    },
+    {
+      "id": 128100,
+      "teacher": "<|reserved_special_token_95|>",
+      "student": "<|reserved_special_token_92|>"
+    },
+    {
+      "id": 128101,
+      "teacher": "<|reserved_special_token_96|>",
+      "student": "<|reserved_special_token_93|>"
+    },
+    {
+      "id": 128102,
+      "teacher": "<|reserved_special_token_97|>",
+      "student": "<|reserved_special_token_94|>"
+    },
+    {
+      "id": 128103,
+      "teacher": "<|reserved_special_token_98|>",
+      "student": "<|reserved_special_token_95|>"
+    },
+    {
+      "id": 128104,
+      "teacher": "<|reserved_special_token_99|>",
+      "student": "<|reserved_special_token_96|>"
+    },
+    {
+      "id": 128105,
+      "teacher": "<|reserved_special_token_100|>",
+      "student": "<|reserved_special_token_97|>"
+    },
+    {
+      "id": 128106,
+      "teacher": "<|reserved_special_token_101|>",
+      "student": "<|reserved_special_token_98|>"
+    },
+    {
+      "id": 128107,
+      "teacher": "<|reserved_special_token_102|>",
+      "student": "<|reserved_special_token_99|>"
+    },
+    {
+      "id": 128108,
+      "teacher": "<|reserved_special_token_103|>",
+      "student": "<|reserved_special_token_100|>"
+    },
+    {
+      "id": 128109,
+      "teacher": "<|reserved_special_token_104|>",
+      "student": "<|reserved_special_token_101|>"
+    },
+    {
+      "id": 128110,
+      "teacher": "<|reserved_special_token_105|>",
+      "student": "<|reserved_special_token_102|>"
+    },
+    {
+      "id": 128111,
+      "teacher": "<|reserved_special_token_106|>",
+      "student": "<|reserved_special_token_103|>"
+    },
+    {
+      "id": 128112,
+      "teacher": "<|reserved_special_token_107|>",
+      "student": "<|reserved_special_token_104|>"
+    },
+    {
+      "id": 128113,
+      "teacher": "<|reserved_special_token_108|>",
+      "student": "<|reserved_special_token_105|>"
+    },
+    {
+      "id": 128114,
+      "teacher": "<|reserved_special_token_109|>",
+      "student": "<|reserved_special_token_106|>"
+    },
+    {
+      "id": 128115,
+      "teacher": "<|reserved_special_token_110|>",
+      "student": "<|reserved_special_token_107|>"
+    },
+    {
+      "id": 128116,
+      "teacher": "<|reserved_special_token_111|>",
+      "student": "<|reserved_special_token_108|>"
+    },
+    {
+      "id": 128117,
+      "teacher": "<|reserved_special_token_112|>",
+      "student": "<|reserved_special_token_109|>"
+    },
+    {
+      "id": 128118,
+      "teacher": "<|reserved_special_token_113|>",
+      "student": "<|reserved_special_token_110|>"
+    },
+    {
+      "id": 128119,
+      "teacher": "<|reserved_special_token_114|>",
+      "student": "<|reserved_special_token_111|>"
+    },
+    {
+      "id": 128120,
+      "teacher": "<|reserved_special_token_115|>",
+      "student": "<|reserved_special_token_112|>"
+    },
+    {
+      "id": 128121,
+      "teacher": "<|reserved_special_token_116|>",
+      "student": "<|reserved_special_token_113|>"
+    },
+    {
+      "id": 128122,
+      "teacher": "<|reserved_special_token_117|>",
+      "student": "<|reserved_special_token_114|>"
+    },
+    {
+      "id": 128123,
+      "teacher": "<|reserved_special_token_118|>",
+      "student": "<|reserved_special_token_115|>"
+    },
+    {
+      "id": 128124,
+      "teacher": "<|reserved_special_token_119|>",
+      "student": "<|reserved_special_token_116|>"
+    },
+    {
+      "id": 128125,
+      "teacher": "<|reserved_special_token_120|>",
+      "student": "<|reserved_special_token_117|>"
+    },
+    {
+      "id": 128126,
+      "teacher": "<|reserved_special_token_121|>",
+      "student": "<|reserved_special_token_118|>"
+    },
+    {
+      "id": 128127,
+      "teacher": "<|reserved_special_token_122|>",
+      "student": "<|reserved_special_token_119|>"
+    },
+    {
+      "id": 128128,
+      "teacher": "<|reserved_special_token_123|>",
+      "student": "<|reserved_special_token_120|>"
+    },
+    {
+      "id": 128129,
+      "teacher": "<|reserved_special_token_124|>",
+      "student": "<|reserved_special_token_121|>"
+    },
+    {
+      "id": 128130,
+      "teacher": "<|reserved_special_token_125|>",
+      "student": "<|reserved_special_token_122|>"
+    },
+    {
+      "id": 128131,
+      "teacher": "<|reserved_special_token_126|>",
+      "student": "<|reserved_special_token_123|>"
+    },
+    {
+      "id": 128132,
+      "teacher": "<|reserved_special_token_127|>",
+      "student": "<|reserved_special_token_124|>"
+    },
+    {
+      "id": 128133,
+      "teacher": "<|reserved_special_token_128|>",
+      "student": "<|reserved_special_token_125|>"
+    },
+    {
+      "id": 128134,
+      "teacher": "<|reserved_special_token_129|>",
+      "student": "<|reserved_special_token_126|>"
+    },
+    {
+      "id": 128135,
+      "teacher": "<|reserved_special_token_130|>",
+      "student": "<|reserved_special_token_127|>"
+    },
+    {
+      "id": 128136,
+      "teacher": "<|reserved_special_token_131|>",
+      "student": "<|reserved_special_token_128|>"
+    },
+    {
+      "id": 128137,
+      "teacher": "<|reserved_special_token_132|>",
+      "student": "<|reserved_special_token_129|>"
+    },
+    {
+      "id": 128138,
+      "teacher": "<|reserved_special_token_133|>",
+      "student": "<|reserved_special_token_130|>"
+    },
+    {
+      "id": 128139,
+      "teacher": "<|reserved_special_token_134|>",
+      "student": "<|reserved_special_token_131|>"
+    },
+    {
+      "id": 128140,
+      "teacher": "<|reserved_special_token_135|>",
+      "student": "<|reserved_special_token_132|>"
+    },
+    {
+      "id": 128141,
+      "teacher": "<|reserved_special_token_136|>",
+      "student": "<|reserved_special_token_133|>"
+    },
+    {
+      "id": 128142,
+      "teacher": "<|reserved_special_token_137|>",
+      "student": "<|reserved_special_token_134|>"
+    },
+    {
+      "id": 128143,
+      "teacher": "<|reserved_special_token_138|>",
+      "student": "<|reserved_special_token_135|>"
+    },
+    {
+      "id": 128144,
+      "teacher": "<|reserved_special_token_139|>",
+      "student": "<|reserved_special_token_136|>"
+    },
+    {
+      "id": 128145,
+      "teacher": "<|reserved_special_token_140|>",
+      "student": "<|reserved_special_token_137|>"
+    },
+    {
+      "id": 128146,
+      "teacher": "<|reserved_special_token_141|>",
+      "student": "<|reserved_special_token_138|>"
+    },
+    {
+      "id": 128147,
+      "teacher": "<|reserved_special_token_142|>",
+      "student": "<|reserved_special_token_139|>"
+    },
+    {
+      "id": 128148,
+      "teacher": "<|reserved_special_token_143|>",
+      "student": "<|reserved_special_token_140|>"
+    },
+    {
+      "id": 128149,
+      "teacher": "<|reserved_special_token_144|>",
+      "student": "<|reserved_special_token_141|>"
+    },
+    {
+      "id": 128150,
+      "teacher": "<|reserved_special_token_145|>",
+      "student": "<|reserved_special_token_142|>"
+    },
+    {
+      "id": 128151,
+      "teacher": "<|reserved_special_token_146|>",
+      "student": "<|reserved_special_token_143|>"
+    },
+    {
+      "id": 128152,
+      "teacher": "<|reserved_special_token_147|>",
+      "student": "<|reserved_special_token_144|>"
+    },
+    {
+      "id": 128153,
+      "teacher": "<|reserved_special_token_148|>",
+      "student": "<|reserved_special_token_145|>"
+    },
+    {
+      "id": 128154,
+      "teacher": "<|reserved_special_token_149|>",
+      "student": "<|reserved_special_token_146|>"
+    },
+    {
+      "id": 128155,
+      "teacher": "<|reserved_special_token_150|>",
+      "student": "<|reserved_special_token_147|>"
+    },
+    {
+      "id": 128156,
+      "teacher": "<|reserved_special_token_151|>",
+      "student": "<|reserved_special_token_148|>"
+    },
+    {
+      "id": 128157,
+      "teacher": "<|reserved_special_token_152|>",
+      "student": "<|reserved_special_token_149|>"
+    },
+    {
+      "id": 128158,
+      "teacher": "<|reserved_special_token_153|>",
+      "student": "<|reserved_special_token_150|>"
+    },
+    {
+      "id": 128159,
+      "teacher": "<|reserved_special_token_154|>",
+      "student": "<|reserved_special_token_151|>"
+    },
+    {
+      "id": 128160,
+      "teacher": "<|reserved_special_token_155|>",
+      "student": "<|reserved_special_token_152|>"
+    },
+    {
+      "id": 128161,
+      "teacher": "<|reserved_special_token_156|>",
+      "student": "<|reserved_special_token_153|>"
+    },
+    {
+      "id": 128162,
+      "teacher": "<|reserved_special_token_157|>",
+      "student": "<|reserved_special_token_154|>"
+    },
+    {
+      "id": 128163,
+      "teacher": "<|reserved_special_token_158|>",
+      "student": "<|reserved_special_token_155|>"
+    },
+    {
+      "id": 128164,
+      "teacher": "<|reserved_special_token_159|>",
+      "student": "<|reserved_special_token_156|>"
+    },
+    {
+      "id": 128165,
+      "teacher": "<|reserved_special_token_160|>",
+      "student": "<|reserved_special_token_157|>"
+    },
+    {
+      "id": 128166,
+      "teacher": "<|reserved_special_token_161|>",
+      "student": "<|reserved_special_token_158|>"
+    },
+    {
+      "id": 128167,
+      "teacher": "<|reserved_special_token_162|>",
+      "student": "<|reserved_special_token_159|>"
+    },
+    {
+      "id": 128168,
+      "teacher": "<|reserved_special_token_163|>",
+      "student": "<|reserved_special_token_160|>"
+    },
+    {
+      "id": 128169,
+      "teacher": "<|reserved_special_token_164|>",
+      "student": "<|reserved_special_token_161|>"
+    },
+    {
+      "id": 128170,
+      "teacher": "<|reserved_special_token_165|>",
+      "student": "<|reserved_special_token_162|>"
+    },
+    {
+      "id": 128171,
+      "teacher": "<|reserved_special_token_166|>",
+      "student": "<|reserved_special_token_163|>"
+    },
+    {
+      "id": 128172,
+      "teacher": "<|reserved_special_token_167|>",
+      "student": "<|reserved_special_token_164|>"
+    },
+    {
+      "id": 128173,
+      "teacher": "<|reserved_special_token_168|>",
+      "student": "<|reserved_special_token_165|>"
+    },
+    {
+      "id": 128174,
+      "teacher": "<|reserved_special_token_169|>",
+      "student": "<|reserved_special_token_166|>"
+    },
+    {
+      "id": 128175,
+      "teacher": "<|reserved_special_token_170|>",
+      "student": "<|reserved_special_token_167|>"
+    },
+    {
+      "id": 128176,
+      "teacher": "<|reserved_special_token_171|>",
+      "student": "<|reserved_special_token_168|>"
+    },
+    {
+      "id": 128177,
+      "teacher": "<|reserved_special_token_172|>",
+      "student": "<|reserved_special_token_169|>"
+    },
+    {
+      "id": 128178,
+      "teacher": "<|reserved_special_token_173|>",
+      "student": "<|reserved_special_token_170|>"
+    },
+    {
+      "id": 128179,
+      "teacher": "<|reserved_special_token_174|>",
+      "student": "<|reserved_special_token_171|>"
+    },
+    {
+      "id": 128180,
+      "teacher": "<|reserved_special_token_175|>",
+      "student": "<|reserved_special_token_172|>"
+    },
+    {
+      "id": 128181,
+      "teacher": "<|reserved_special_token_176|>",
+      "student": "<|reserved_special_token_173|>"
+    },
+    {
+      "id": 128182,
+      "teacher": "<|reserved_special_token_177|>",
+      "student": "<|reserved_special_token_174|>"
+    },
+    {
+      "id": 128183,
+      "teacher": "<|reserved_special_token_178|>",
+      "student": "<|reserved_special_token_175|>"
+    },
+    {
+      "id": 128184,
+      "teacher": "<|reserved_special_token_179|>",
+      "student": "<|reserved_special_token_176|>"
+    },
+    {
+      "id": 128185,
+      "teacher": "<|reserved_special_token_180|>",
+      "student": "<|reserved_special_token_177|>"
+    },
+    {
+      "id": 128186,
+      "teacher": "<|reserved_special_token_181|>",
+      "student": "<|reserved_special_token_178|>"
+    },
+    {
+      "id": 128187,
+      "teacher": "<|reserved_special_token_182|>",
+      "student": "<|reserved_special_token_179|>"
+    },
+    {
+      "id": 128188,
+      "teacher": "<|reserved_special_token_183|>",
+      "student": "<|reserved_special_token_180|>"
+    },
+    {
+      "id": 128189,
+      "teacher": "<|reserved_special_token_184|>",
+      "student": "<|reserved_special_token_181|>"
+    },
+    {
+      "id": 128190,
+      "teacher": "<|reserved_special_token_185|>",
+      "student": "<|reserved_special_token_182|>"
+    },
+    {
+      "id": 128191,
+      "teacher": "<|reserved_special_token_186|>",
+      "student": "<|reserved_special_token_183|>"
+    },
+    {
+      "id": 128192,
+      "teacher": "<|reserved_special_token_187|>",
+      "student": "<|reserved_special_token_184|>"
+    },
+    {
+      "id": 128193,
+      "teacher": "<|reserved_special_token_188|>",
+      "student": "<|reserved_special_token_185|>"
+    },
+    {
+      "id": 128194,
+      "teacher": "<|reserved_special_token_189|>",
+      "student": "<|reserved_special_token_186|>"
+    },
+    {
+      "id": 128195,
+      "teacher": "<|reserved_special_token_190|>",
+      "student": "<|reserved_special_token_187|>"
+    },
+    {
+      "id": 128196,
+      "teacher": "<|reserved_special_token_191|>",
+      "student": "<|reserved_special_token_188|>"
+    },
+    {
+      "id": 128197,
+      "teacher": "<|reserved_special_token_192|>",
+      "student": "<|reserved_special_token_189|>"
+    },
+    {
+      "id": 128198,
+      "teacher": "<|reserved_special_token_193|>",
+      "student": "<|reserved_special_token_190|>"
+    },
+    {
+      "id": 128199,
+      "teacher": "<|reserved_special_token_194|>",
+      "student": "<|reserved_special_token_191|>"
+    },
+    {
+      "id": 128200,
+      "teacher": "<|reserved_special_token_195|>",
+      "student": "<|reserved_special_token_192|>"
+    },
+    {
+      "id": 128201,
+      "teacher": "<|reserved_special_token_196|>",
+      "student": "<|reserved_special_token_193|>"
+    },
+    {
+      "id": 128202,
+      "teacher": "<|reserved_special_token_197|>",
+      "student": "<|reserved_special_token_194|>"
+    },
+    {
+      "id": 128203,
+      "teacher": "<|reserved_special_token_198|>",
+      "student": "<|reserved_special_token_195|>"
+    },
+    {
+      "id": 128204,
+      "teacher": "<|reserved_special_token_199|>",
+      "student": "<|reserved_special_token_196|>"
+    },
+    {
+      "id": 128205,
+      "teacher": "<|reserved_special_token_200|>",
+      "student": "<|reserved_special_token_197|>"
+    },
+    {
+      "id": 128206,
+      "teacher": "<|reserved_special_token_201|>",
+      "student": "<|reserved_special_token_198|>"
+    },
+    {
+      "id": 128207,
+      "teacher": "<|reserved_special_token_202|>",
+      "student": "<|reserved_special_token_199|>"
+    },
+    {
+      "id": 128208,
+      "teacher": "<|reserved_special_token_203|>",
+      "student": "<|reserved_special_token_200|>"
+    },
+    {
+      "id": 128209,
+      "teacher": "<|reserved_special_token_204|>",
+      "student": "<|reserved_special_token_201|>"
+    },
+    {
+      "id": 128210,
+      "teacher": "<|reserved_special_token_205|>",
+      "student": "<|reserved_special_token_202|>"
+    },
+    {
+      "id": 128211,
+      "teacher": "<|reserved_special_token_206|>",
+      "student": "<|reserved_special_token_203|>"
+    },
+    {
+      "id": 128212,
+      "teacher": "<|reserved_special_token_207|>",
+      "student": "<|reserved_special_token_204|>"
+    },
+    {
+      "id": 128213,
+      "teacher": "<|reserved_special_token_208|>",
+      "student": "<|reserved_special_token_205|>"
+    },
+    {
+      "id": 128214,
+      "teacher": "<|reserved_special_token_209|>",
+      "student": "<|reserved_special_token_206|>"
+    },
+    {
+      "id": 128215,
+      "teacher": "<|reserved_special_token_210|>",
+      "student": "<|reserved_special_token_207|>"
+    },
+    {
+      "id": 128216,
+      "teacher": "<|reserved_special_token_211|>",
+      "student": "<|reserved_special_token_208|>"
+    },
+    {
+      "id": 128217,
+      "teacher": "<|reserved_special_token_212|>",
+      "student": "<|reserved_special_token_209|>"
+    },
+    {
+      "id": 128218,
+      "teacher": "<|reserved_special_token_213|>",
+      "student": "<|reserved_special_token_210|>"
+    },
+    {
+      "id": 128219,
+      "teacher": "<|reserved_special_token_214|>",
+      "student": "<|reserved_special_token_211|>"
+    },
+    {
+      "id": 128220,
+      "teacher": "<|reserved_special_token_215|>",
+      "student": "<|reserved_special_token_212|>"
+    },
+    {
+      "id": 128221,
+      "teacher": "<|reserved_special_token_216|>",
+      "student": "<|reserved_special_token_213|>"
+    },
+    {
+      "id": 128222,
+      "teacher": "<|reserved_special_token_217|>",
+      "student": "<|reserved_special_token_214|>"
+    },
+    {
+      "id": 128223,
+      "teacher": "<|reserved_special_token_218|>",
+      "student": "<|reserved_special_token_215|>"
+    },
+    {
+      "id": 128224,
+      "teacher": "<|reserved_special_token_219|>",
+      "student": "<|reserved_special_token_216|>"
+    },
+    {
+      "id": 128225,
+      "teacher": "<|reserved_special_token_220|>",
+      "student": "<|reserved_special_token_217|>"
+    },
+    {
+      "id": 128226,
+      "teacher": "<|reserved_special_token_221|>",
+      "student": "<|reserved_special_token_218|>"
+    },
+    {
+      "id": 128227,
+      "teacher": "<|reserved_special_token_222|>",
+      "student": "<|reserved_special_token_219|>"
+    },
+    {
+      "id": 128228,
+      "teacher": "<|reserved_special_token_223|>",
+      "student": "<|reserved_special_token_220|>"
+    },
+    {
+      "id": 128229,
+      "teacher": "<|reserved_special_token_224|>",
+      "student": "<|reserved_special_token_221|>"
+    },
+    {
+      "id": 128230,
+      "teacher": "<|reserved_special_token_225|>",
+      "student": "<|reserved_special_token_222|>"
+    },
+    {
+      "id": 128231,
+      "teacher": "<|reserved_special_token_226|>",
+      "student": "<|reserved_special_token_223|>"
+    },
+    {
+      "id": 128232,
+      "teacher": "<|reserved_special_token_227|>",
+      "student": "<|reserved_special_token_224|>"
+    },
+    {
+      "id": 128233,
+      "teacher": "<|reserved_special_token_228|>",
+      "student": "<|reserved_special_token_225|>"
+    },
+    {
+      "id": 128234,
+      "teacher": "<|reserved_special_token_229|>",
+      "student": "<|reserved_special_token_226|>"
+    },
+    {
+      "id": 128235,
+      "teacher": "<|reserved_special_token_230|>",
+      "student": "<|reserved_special_token_227|>"
+    },
+    {
+      "id": 128236,
+      "teacher": "<|reserved_special_token_231|>",
+      "student": "<|reserved_special_token_228|>"
+    },
+    {
+      "id": 128237,
+      "teacher": "<|reserved_special_token_232|>",
+      "student": "<|reserved_special_token_229|>"
+    },
+    {
+      "id": 128238,
+      "teacher": "<|reserved_special_token_233|>",
+      "student": "<|reserved_special_token_230|>"
+    },
+    {
+      "id": 128239,
+      "teacher": "<|reserved_special_token_234|>",
+      "student": "<|reserved_special_token_231|>"
+    },
+    {
+      "id": 128240,
+      "teacher": "<|reserved_special_token_235|>",
+      "student": "<|reserved_special_token_232|>"
+    },
+    {
+      "id": 128241,
+      "teacher": "<|reserved_special_token_236|>",
+      "student": "<|reserved_special_token_233|>"
+    },
+    {
+      "id": 128242,
+      "teacher": "<|reserved_special_token_237|>",
+      "student": "<|reserved_special_token_234|>"
+    },
+    {
+      "id": 128243,
+      "teacher": "<|reserved_special_token_238|>",
+      "student": "<|reserved_special_token_235|>"
+    },
+    {
+      "id": 128244,
+      "teacher": "<|reserved_special_token_239|>",
+      "student": "<|reserved_special_token_236|>"
+    },
+    {
+      "id": 128245,
+      "teacher": "<|reserved_special_token_240|>",
+      "student": "<|reserved_special_token_237|>"
+    },
+    {
+      "id": 128246,
+      "teacher": "<|reserved_special_token_241|>",
+      "student": "<|reserved_special_token_238|>"
+    },
+    {
+      "id": 128247,
+      "teacher": "<|reserved_special_token_242|>",
+      "student": "<|reserved_special_token_239|>"
+    },
+    {
+      "id": 128248,
+      "teacher": "<|reserved_special_token_243|>",
+      "student": "<|reserved_special_token_240|>"
+    },
+    {
+      "id": 128249,
+      "teacher": "<|reserved_special_token_244|>",
+      "student": "<|reserved_special_token_241|>"
+    },
+    {
+      "id": 128250,
+      "teacher": "<|reserved_special_token_245|>",
+      "student": "<|reserved_special_token_242|>"
+    },
+    {
+      "id": 128251,
+      "teacher": "<|reserved_special_token_246|>",
+      "student": "<|reserved_special_token_243|>"
+    },
+    {
+      "id": 128252,
+      "teacher": "<|reserved_special_token_247|>",
+      "student": "<|reserved_special_token_244|>"
+    },
+    {
+      "id": 128253,
+      "teacher": "<|reserved_special_token_248|>",
+      "student": "<|reserved_special_token_245|>"
+    },
+    {
+      "id": 128254,
+      "teacher": "<|reserved_special_token_249|>",
+      "student": "<|reserved_special_token_246|>"
+    },
+    {
+      "id": 128255,
+      "teacher": "<|reserved_special_token_250|>",
+      "student": "<|reserved_special_token_247|>"
+    }
+  ],
+  "same_added_tokens": [
+    {
+      "id": 128000,
+      "content": "<|begin_of_text|>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 128001,
+      "content": "<|end_of_text|>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 128002,
+      "content": "<|reserved_special_token_0|>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 128003,
+      "content": "<|reserved_special_token_1|>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 128006,
+      "content": "<|start_header_id|>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 128007,
+      "content": "<|end_header_id|>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    },
+    {
+      "id": 128009,
+      "content": "<|eot_id|>",
+      "single_word": false,
+      "lstrip": false,
+      "rstrip": false,
+      "normalized": false,
+      "special": true
+    }
+  ],
+  "all_added_token_flags_identical": true,
+  "plain_text_example_tokenization": [
+    {
+      "text": "Hello world!",
+      "ids_equal": true,
+      "ids": [
+        9906,
+        1917,
+        0
+      ]
+    },
+    {
+      "text": "中文测试。 Éléphant café. مرحبا بالعالم",
+      "ids_equal": true,
+      "ids": [
+        108891,
+        82805,
+        1811,
+        29124,
+        69328,
+        28022,
+        53050,
+        13,
+        111895,
+        103645,
+        100700,
+        24102,
+        101952
+      ]
+    },
+    {
+      "text": "1 + 2 = 3\n\tPython: print(\"test\")",
+      "ids_equal": true,
+      "ids": [
+        16,
+        489,
+        220,
+        17,
+        284,
+        220,
+        18,
+        198,
+        10230,
+        27993,
+        25,
+        1194,
+        446,
+        1985,
+        909
+      ]
+    },
+    {
+      "text": "<|begin_of_text|><|start_header_id|>assistant<|end_header_id|>\n\nHello<|eot_id|>",
+      "ids_equal": true,
+      "ids": [
+        128000,
+        128006,
+        78191,
+        128007,
+        271,
+        9906,
+        128009
+      ]
+    }
+  ],
+  "proposed_restricted_vocabulary": {
+    "status": "Design recommendation, not implemented or validated by this report",
+    "support_size": 128005,
+    "lexical_id_range": [
+      0,
+      127999
+    ],
+    "shared_active_special_tokens": {
+      "128000": "<|begin_of_text|>",
+      "128001": "<|end_of_text|>",
+      "128006": "<|start_header_id|>",
+      "128007": "<|end_header_id|>",
+      "128009": "<|eot_id|>"
+    },
+    "excluded_id_ranges": [
+      [
+        128002,
+        128005
+      ],
+      [
+        128008,
+        128008
+      ],
+      [
+        128010,
+        128255
+      ]
+    ],
+    "requirements": [
+      "Explicit opt-in for this model pair, preserve strict guard as default.",
+      "Check identical lexical token maps and complete BPE/pre/post/decoder machinery; compare allowed added tokens including every flag.",
+      "Use same fixed prompt rendering for teacher and student.",
+      "Reject excluded IDs in prompts/reference labels, including literal special-token spellings in dataset text.",
+      "Condition BOTH teacher and student probability distributions on exactly this support in every KD/SKD/ABKD/DistiLLM-2 computation.",
+      "Suppress excluded IDs in every generation and SKD proposal/acceptance path.",
+      "Use shared generation stop IDs 128001 and 128009; student-only 128008 is excluded.",
+      "Preserve native vocab tensor dimensions/checkpoint tokenizer; do not relabel model rows.",
+      "Report restricted-vocabulary adaptation explicitly; it is not full-vocabulary KD."
+    ],
+    "scientific_scope": "Conditional token-distribution distillation on identical shared IDs. Same-index alignment is valid on this support; unsupported/new specials and reserved tokens are excluded. Full-vocab comparison is invalid; full-vocab mapping cannot restore semantically absent teacher tokens."
+  }
+}

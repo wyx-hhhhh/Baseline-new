@@ -1,0 +1,6 @@
+.venv/
+.venv-math-eval/
+__pycache__/
+.pytest_cache/
+*.pyc
+artifacts/nl_eval_data/

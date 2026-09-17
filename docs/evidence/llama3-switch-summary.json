@@ -1,0 +1,26 @@
+{
+  "teacher": "/nas/Models/Meta-Llama-3-8B-Instruct",
+  "student": "/nas/Models/Meta-Llama-3.2-1B-Instruct",
+  "environment": "/home/wyx/Baseline/.venv",
+  "python": "3.11.14",
+  "torch": "2.6.0+cu124",
+  "transformers": "4.51.3",
+  "configs": [
+    "configs/experiments/llama3_8b_llama32_1b_abkd.json",
+    "configs/experiments/llama3_8b_llama32_1b_distillm2.json",
+    "configs/experiments/llama3_8b_llama32_1b_kd.json",
+    "configs/experiments/llama3_8b_llama32_1b_skd.json"
+  ],
+  "vocabulary_policy": "llama3_shared",
+  "support_size": 128005,
+  "ordinary_tokens": 128000,
+  "shared_active_specials": 5,
+  "excluded_control_and_reserved_tokens": 251,
+  "prompt_date": "26 Jul 2024",
+  "existing_tests_passed": 115,
+  "new_tests_passed": 36,
+  "preflight_report": "docs/environment-llama3.json",
+  "dataset_report": "docs/evidence/llama3-dolly-readiness.json",
+  "training_started": false,
+  "launch": "python scripts/train.py --config configs/experiments/llama3_8b_llama32_1b_kd.json"
+}

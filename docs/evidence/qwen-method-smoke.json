@@ -1,0 +1,339 @@
+{
+  "recorded_at_utc": "2026-09-16T07:45:45.054780+00:00",
+  "scope": "one update per method through production sample_record/response_loss/CPUAdamW helpers",
+  "limitations": [
+    "Synthetic prompt, not prepared training datasets or scientific results",
+    "Does not exercise full train loop, optimizer resume, DDP, or validation",
+    "64 prompt / 8 response token budget, not full workload memory certification"
+  ],
+  "python": "3.11.14 (main, Oct 21 2025, 18:31:21) [GCC 11.2.0]",
+  "torch": "2.6.0+cu124",
+  "transformers": "4.51.3",
+  "cuda_build": "12.4",
+  "config": {
+    "output_root": "/nas/Users/wyx/Baseline/smoke/qwen3_8b_1p7b",
+    "seed": 42,
+    "dtype": "bfloat16",
+    "device": "cuda:2",
+    "teacher_device": "cuda:3",
+    "optimizer_offload": true,
+    "max_prompt_tokens": 64,
+    "max_new_tokens": 8,
+    "enable_thinking": false,
+    "learning_rate": 1e-05,
+    "weight_decay": 0.01,
+    "gradient_accumulation_steps": 1,
+    "epochs": 1,
+    "max_steps": 1,
+    "warmup_ratio": 0.03,
+    "max_grad_norm": 1.0,
+    "gradient_checkpointing": true,
+    "loss_chunk_size": 4,
+    "save_steps": 100,
+    "eval_steps": 100,
+    "eval_max_examples": 100,
+    "alpha": 0.1,
+    "beta": 0.8,
+    "alpha_1": 0.1,
+    "alpha_2": 0.1,
+    "acceptance_k": 25,
+    "proposal_block_size": 5,
+    "generation": {
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "top_k": 20
+    },
+    "teacher_generation": {
+      "temperature": 0.7,
+      "top_p": 0.8,
+      "top_k": 20
+    },
+    "name": "qwen_real_helper_smoke",
+    "pair": "qwen3_8b_1p7b",
+    "method": "abkd",
+    "dataset": "synthetic_smoke",
+    "teacher_model": "/nas/Models/Qwen3-8B-Instruct",
+    "student_model": "/nas/Models/Qwen3-1.7B-Instruct",
+    "train_file": "/nas/Users/wyx/Baseline/smoke/qwen3_8b_1p7b/synthetic.train.jsonl",
+    "validation_file": "/nas/Users/wyx/Baseline/smoke/qwen3_8b_1p7b/synthetic.validation.jsonl"
+  },
+  "input": {
+    "id": "smoke-arithmetic",
+    "prompt": "What is 2 + 2? Answer briefly.",
+    "response": "4."
+  },
+  "script_sha256": "791ced03896d4ab6d2d2f7de59937cc43377b8334bb05fc5cbb2d1610ce4ce1f",
+  "methods": {
+    "abkd": {
+      "status": "passed",
+      "fresh_student_from_original": true,
+      "loss": 0.06797562539577484,
+      "gradient_norm_before_clip": 33.0,
+      "changed_probe_parameter": "model.layers.0.self_attn.q_proj.weight",
+      "changed_probe_elements": 410986,
+      "teacher_probe_parameter": "model.layers.0.self_attn.q_proj.weight",
+      "teacher_probe_unchanged": true,
+      "teacher_frozen": true,
+      "teacher_forward_calls": 1,
+      "counters": {
+        "teacher_training_tokens": 26,
+        "response_tokens": 3
+      },
+      "response_lengths": [
+        3
+      ],
+      "peak_student_gpu_bytes": 8146125824,
+      "peak_teacher_gpu_bytes": 16400221184,
+      "export_path": "/nas/Users/wyx/Baseline/smoke/qwen3_8b_1p7b/abkd/student",
+      "export_reload_probe_equal": true,
+      "export_tokenizer_equal": true,
+      "tied_embeddings_preserved": true,
+      "elapsed_seconds": 299.1473161460017
+    },
+    "skd": {
+      "status": "passed",
+      "fresh_student_from_original": true,
+      "loss": 0.10791938006877899,
+      "gradient_norm_before_clip": 98.0,
+      "changed_probe_parameter": "model.layers.0.self_attn.q_proj.weight",
+      "changed_probe_elements": 411098,
+      "teacher_probe_parameter": "model.layers.0.self_attn.q_proj.weight",
+      "teacher_probe_unchanged": true,
+      "teacher_frozen": true,
+      "teacher_forward_calls": 2,
+      "counters": {
+        "teacher_training_tokens": 26,
+        "response_tokens": 3,
+        "skd_proposed_tokens": 3,
+        "skd_accepted_tokens": 3,
+        "skd_teacher_interventions": 0,
+        "skd_student_forward_tokens": 72,
+        "skd_teacher_forward_tokens": 26,
+        "skd_student_forward_calls": 3,
+        "skd_teacher_forward_calls": 1,
+        "skd_generated_tokens": 3
+      },
+      "response_lengths": [
+        3
+      ],
+      "peak_student_gpu_bytes": 8145601536,
+      "peak_teacher_gpu_bytes": 16400221184,
+      "export_path": "/nas/Users/wyx/Baseline/smoke/qwen3_8b_1p7b/skd/student",
+      "export_reload_probe_equal": true,
+      "export_tokenizer_equal": true,
+      "tied_embeddings_preserved": true,
+      "elapsed_seconds": 65.39449459698517
+    },
+    "distillm2": {
+      "status": "passed",
+      "fresh_student_from_original": true,
+      "paired_record": {
+        "id": "smoke-arithmetic",
+        "prompt": "What is 2 + 2? Answer briefly.",
+        "response": "4.",
+        "prompt_ids": [
+          151644,
+          872,
+          198,
+          3838,
+          374,
+          220,
+          17,
+          488,
+          220,
+          17,
+          30,
+          21806,
+          26753,
+          13,
+          151645,
+          198,
+          151644,
+          77091,
+          198,
+          151667,
+          271,
+          151668,
+          271
+        ],
+        "chosen_ids": [
+          19,
+          13,
+          151645
+        ],
+        "rejected_ids": [
+          19,
+          13,
+          151645
+        ],
+        "provenance": {
+          "teacher": {
+            "path": "/nas/Models/Qwen3-8B-Instruct",
+            "metadata_sha256": {
+              "config.json": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+              "configuration.json": "f888421726665e8a84b738eed42a64875aed79de8be7daade851ac8bf4c0cef9",
+              "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+              "model.safetensors.index.json": "f9fdbcb91c23971c13ec5d5f2573d2349e8f61f2f049371ec699281748fdb1bc",
+              "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+              "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+              "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+            },
+            "weight_file_identity": {
+              "model-00001-of-00005.safetensors": {
+                "size": 3996250744,
+                "mtime_ns": 1781529933042122400
+              },
+              "model-00002-of-00005.safetensors": {
+                "size": 3993160032,
+                "mtime_ns": 1781529974269578500
+              },
+              "model-00003-of-00005.safetensors": {
+                "size": 3959604768,
+                "mtime_ns": 1781530012365092400
+              },
+              "model-00004-of-00005.safetensors": {
+                "size": 3187841392,
+                "mtime_ns": 1781529891626688900
+              },
+              "model-00005-of-00005.safetensors": {
+                "size": 1244659840,
+                "mtime_ns": 1781529861811110100
+              }
+            },
+            "note": "Metadata hashes and weight file size/mtime; not a full weight content hash"
+          },
+          "student": {
+            "path": "/nas/Models/Qwen3-1.7B-Instruct",
+            "metadata_sha256": {
+              "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+              "configuration.json": "f888421726665e8a84b738eed42a64875aed79de8be7daade851ac8bf4c0cef9",
+              "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+              "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+              "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+              "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+              "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+            },
+            "weight_file_identity": {
+              "model-00001-of-00002.safetensors": {
+                "size": 3441185608,
+                "mtime_ns": 1788666438075232151
+              },
+              "model-00002-of-00002.safetensors": {
+                "size": 622329984,
+                "mtime_ns": 1788666316251235433
+              }
+            },
+            "note": "Metadata hashes and weight file size/mtime; not a full weight content hash"
+          },
+          "tokenizer": {
+            "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+            "configuration.json": "f888421726665e8a84b738eed42a64875aed79de8be7daade851ac8bf4c0cef9",
+            "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+            "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+            "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+            "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+            "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+          },
+          "enable_thinking": false,
+          "max_prompt_tokens": 64,
+          "max_new_tokens": 8,
+          "generation": {
+            "temperature": 0.7,
+            "top_p": 0.8,
+            "top_k": 20
+          },
+          "teacher_generation": {
+            "temperature": 0.7,
+            "top_p": 0.8,
+            "top_k": 20
+          }
+        }
+      },
+      "loss": 0.10130760446190834,
+      "gradient_norm_before_clip": 48.75,
+      "changed_probe_parameter": "model.layers.0.self_attn.q_proj.weight",
+      "changed_probe_elements": 411103,
+      "teacher_probe_parameter": "model.layers.0.self_attn.q_proj.weight",
+      "teacher_probe_unchanged": true,
+      "teacher_frozen": true,
+      "teacher_forward_calls": 5,
+      "counters": {
+        "teacher_training_tokens": 52,
+        "response_tokens": 6
+      },
+      "response_lengths": [
+        3,
+        3
+      ],
+      "peak_student_gpu_bytes": 8767931904,
+      "peak_teacher_gpu_bytes": 16403457536,
+      "export_path": "/nas/Users/wyx/Baseline/smoke/qwen3_8b_1p7b/distillm2/student",
+      "export_reload_probe_equal": true,
+      "export_tokenizer_equal": true,
+      "tied_embeddings_preserved": true,
+      "elapsed_seconds": 60.894161667034496
+    }
+  },
+  "complete": true,
+  "checkpoints": {
+    "teacher": {
+      "path": "/nas/Models/Qwen3-8B-Instruct",
+      "metadata_sha256": {
+        "config.json": "f7c4eadfbbf522470667b797a3c89be2524832d2d599797248dc304fff447c30",
+        "configuration.json": "f888421726665e8a84b738eed42a64875aed79de8be7daade851ac8bf4c0cef9",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "model.safetensors.index.json": "f9fdbcb91c23971c13ec5d5f2573d2349e8f61f2f049371ec699281748fdb1bc",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "weight_file_identity": {
+        "model-00001-of-00005.safetensors": {
+          "size": 3996250744,
+          "mtime_ns": 1781529933042122400
+        },
+        "model-00002-of-00005.safetensors": {
+          "size": 3993160032,
+          "mtime_ns": 1781529974269578500
+        },
+        "model-00003-of-00005.safetensors": {
+          "size": 3959604768,
+          "mtime_ns": 1781530012365092400
+        },
+        "model-00004-of-00005.safetensors": {
+          "size": 3187841392,
+          "mtime_ns": 1781529891626688900
+        },
+        "model-00005-of-00005.safetensors": {
+          "size": 1244659840,
+          "mtime_ns": 1781529861811110100
+        }
+      },
+      "note": "Metadata hashes and weight file size/mtime; not a full weight content hash"
+    },
+    "student": {
+      "path": "/nas/Models/Qwen3-1.7B-Instruct",
+      "metadata_sha256": {
+        "config.json": "1ddb5b89ebc90dcb417a45c213d818577e65976454d29385c8f6140771d95197",
+        "configuration.json": "f888421726665e8a84b738eed42a64875aed79de8be7daade851ac8bf4c0cef9",
+        "generation_config.json": "2325da0f15bb848e018c5ae071b7943332e9f871d6b60e2ed22ca97d4cb993d2",
+        "model.safetensors.index.json": "0d660e94b165eb912669a5249dff44b83188c4777a07ddb9611fb78d91b0578d",
+        "tokenizer.json": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "tokenizer_config.json": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+        "vocab.json": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+      },
+      "weight_file_identity": {
+        "model-00001-of-00002.safetensors": {
+          "size": 3441185608,
+          "mtime_ns": 1788666438075232151
+        },
+        "model-00002-of-00002.safetensors": {
+          "size": 622329984,
+          "mtime_ns": 1788666316251235433
+        }
+      },
+      "note": "Metadata hashes and weight file size/mtime; not a full weight content hash"
+    }
+  },
+  "completed_at_utc": "2026-09-16T07:55:30.999761+00:00"
+}

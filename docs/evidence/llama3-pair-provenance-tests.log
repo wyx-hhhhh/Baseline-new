@@ -1,0 +1,8 @@
+..                                                                       [100%]
+=============================== warnings summary ===============================
+tests/test_llama_shared_integration.py::test_actual_tokenizers_one_update_all_methods_and_policy_export[distillm2]
+  /home/wyx/Baseline/.venv/lib/python3.11/site-packages/transformers/utils/hub.py:105: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+2 passed, 1 warning in 27.22s

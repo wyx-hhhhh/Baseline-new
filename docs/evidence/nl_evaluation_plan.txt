@@ -1,0 +1,49 @@
+Prepared ROUGE-L data: /home/wyx/Baseline/artifacts/nl_eval_data/dolly/55003a0320ab5c5e
+Training overlaps excluded; exact duplicate records merged.
+  DollyEval: 75 held-out examples
+  SelfInst: 242 held-out examples
+  Super-Natural: 7623 held-out examples
+  Unnatural: 64809 held-out examples
+  VicunaEval: 80 held-out examples
+qwen: cuda:0 within GPUs 0,1; 20 evaluations
+  kd_dolly, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/kd/seed_42/dolly
+  kd_selfinst, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/kd/seed_42/selfinst
+  kd_super_natural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/kd/seed_42/super_natural
+  kd_unnatural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/kd/seed_42/unnatural
+  kd_vicuna, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/kd/seed_42/vicuna
+  abkd_dolly, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/abkd/seed_42/dolly
+  abkd_selfinst, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/abkd/seed_42/selfinst
+  abkd_super_natural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/abkd/seed_42/super_natural
+  abkd_unnatural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/abkd/seed_42/unnatural
+  abkd_vicuna, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/abkd/seed_42/vicuna
+  skd_dolly, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/skd/seed_42/dolly
+  skd_selfinst, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/skd/seed_42/selfinst
+  skd_super_natural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/skd/seed_42/super_natural
+  skd_unnatural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/skd/seed_42/unnatural
+  skd_vicuna, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/skd/seed_42/vicuna
+  distillm2_dolly, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/distillm2/seed_42/dolly
+  distillm2_selfinst, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/distillm2/seed_42/selfinst
+  distillm2_super_natural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/distillm2/seed_42/super_natural
+  distillm2_unnatural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/distillm2/seed_42/unnatural
+  distillm2_vicuna, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/qwen3_8b_1p7b/distillm2/seed_42/vicuna
+llama: cuda:0 within GPUs 2,3; 20 evaluations
+  kd_dolly, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/kd/seed_42/dolly
+  kd_selfinst, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/kd/seed_42/selfinst
+  kd_super_natural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/kd/seed_42/super_natural
+  kd_unnatural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/kd/seed_42/unnatural
+  kd_vicuna, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/kd/seed_42/vicuna
+  abkd_dolly, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/abkd/seed_42/dolly
+  abkd_selfinst, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/abkd/seed_42/selfinst
+  abkd_super_natural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/abkd/seed_42/super_natural
+  abkd_unnatural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/abkd/seed_42/unnatural
+  abkd_vicuna, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/abkd/seed_42/vicuna
+  skd_dolly, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/skd/seed_42/dolly
+  skd_selfinst, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/skd/seed_42/selfinst
+  skd_super_natural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/skd/seed_42/super_natural
+  skd_unnatural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/skd/seed_42/unnatural
+  skd_vicuna, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/skd/seed_42/vicuna
+  distillm2_dolly, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/distillm2/seed_42/dolly
+  distillm2_selfinst, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/distillm2/seed_42/selfinst
+  distillm2_super_natural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/distillm2/seed_42/super_natural
+  distillm2_unnatural, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/distillm2/seed_42/unnatural
+  distillm2_vicuna, seed 42 -> /nas/Users/wyx/Baseline/evaluations/nl/dolly/nl_3f64d18b733e8908/llama3_8b_llama32_1b/distillm2/seed_42/vicuna

@@ -1,0 +1,311 @@
+{
+  "verified_at": "2026-09-16T11:22:26.018359+00:00",
+  "status": "passed",
+  "profile": "cuda",
+  "scope": "Random tiny Qwen3 and Llama checkpoints, 3 training records, 1 validation record; no full-corpus or NAS model training",
+  "hardware": [
+    {
+      "index": 0,
+      "name": "NVIDIA GeForce RTX 3090",
+      "total_memory_bytes": 25351356416,
+      "compute_capability": [
+        8,
+        6
+      ]
+    },
+    {
+      "index": 1,
+      "name": "NVIDIA GeForce RTX 3090",
+      "total_memory_bytes": 25351356416,
+      "compute_capability": [
+        8,
+        6
+      ]
+    },
+    {
+      "index": 2,
+      "name": "NVIDIA GeForce RTX 3090",
+      "total_memory_bytes": 25351356416,
+      "compute_capability": [
+        8,
+        6
+      ]
+    },
+    {
+      "index": 3,
+      "name": "NVIDIA GeForce RTX 3090",
+      "total_memory_bytes": 25351356416,
+      "compute_capability": [
+        8,
+        6
+      ]
+    }
+  ],
+  "runtime": {
+    "torch": "2.6.0+cu124",
+    "transformers": "4.51.3",
+    "tokenizers": "0.21.1"
+  },
+  "cuda_runtime": "12.4",
+  "dtype": "bfloat16",
+  "optimizer": "CPU FP32 master AdamW",
+  "gpu_groups": {
+    "qwen": [
+      0,
+      1
+    ],
+    "llama": [
+      2,
+      3
+    ]
+  },
+  "methods": [
+    "kd",
+    "abkd",
+    "skd",
+    "distillm2"
+  ],
+  "first_launch_workers": 10,
+  "completed_training_runs": 8,
+  "completed_pair_producers": 2,
+  "restart_training_workers": 0,
+  "restart_pair_validation_workers": 2,
+  "restart_preserved_artifact_hashes_and_mtimes": true,
+  "restart_loaded_models": 0,
+  "training": [
+    {
+      "group": "qwen",
+      "method": "kd",
+      "step": 1,
+      "loss": 0.005197628866881132,
+      "finite_export": true,
+      "cuda_rng_states": 2,
+      "peak_student_gpu_bytes": 17100800
+    },
+    {
+      "group": "qwen",
+      "method": "abkd",
+      "step": 1,
+      "loss": 0.007253388408571482,
+      "finite_export": true,
+      "cuda_rng_states": 2,
+      "peak_student_gpu_bytes": 17100800
+    },
+    {
+      "group": "qwen",
+      "method": "skd",
+      "step": 1,
+      "loss": 0.003299781121313572,
+      "finite_export": true,
+      "cuda_rng_states": 2,
+      "peak_student_gpu_bytes": 17100800
+    },
+    {
+      "group": "qwen",
+      "method": "distillm2",
+      "step": 1,
+      "loss": 0.006416135933250189,
+      "finite_export": true,
+      "cuda_rng_states": 2,
+      "peak_student_gpu_bytes": 17104384
+    },
+    {
+      "group": "llama",
+      "method": "kd",
+      "step": 1,
+      "loss": 0.0050386725924909115,
+      "finite_export": true,
+      "cuda_rng_states": 2,
+      "peak_student_gpu_bytes": 17096704
+    },
+    {
+      "group": "llama",
+      "method": "abkd",
+      "step": 1,
+      "loss": 0.007029870990663767,
+      "finite_export": true,
+      "cuda_rng_states": 2,
+      "peak_student_gpu_bytes": 17096704
+    },
+    {
+      "group": "llama",
+      "method": "skd",
+      "step": 1,
+      "loss": 0.003212781623005867,
+      "finite_export": true,
+      "cuda_rng_states": 2,
+      "peak_student_gpu_bytes": 17096704
+    },
+    {
+      "group": "llama",
+      "method": "distillm2",
+      "step": 1,
+      "loss": 0.006231289356946945,
+      "finite_export": true,
+      "cuda_rng_states": 2,
+      "peak_student_gpu_bytes": 17099264
+    }
+  ],
+  "observed_model_devices": [
+    {
+      "group": "llama",
+      "kind": "train",
+      "method": "kd",
+      "role": "student",
+      "requested_device": "cuda:0",
+      "actual_device": "cuda:0"
+    },
+    {
+      "group": "qwen",
+      "kind": "train",
+      "method": "kd",
+      "role": "student",
+      "requested_device": "cuda:0",
+      "actual_device": "cuda:0"
+    },
+    {
+      "group": "llama",
+      "kind": "train",
+      "method": "kd",
+      "role": "teacher",
+      "requested_device": "cuda:1",
+      "actual_device": "cuda:1"
+    },
+    {
+      "group": "qwen",
+      "kind": "train",
+      "method": "kd",
+      "role": "teacher",
+      "requested_device": "cuda:1",
+      "actual_device": "cuda:1"
+    },
+    {
+      "group": "llama",
+      "kind": "train",
+      "method": "abkd",
+      "role": "student",
+      "requested_device": "cuda:0",
+      "actual_device": "cuda:0"
+    },
+    {
+      "group": "llama",
+      "kind": "train",
+      "method": "abkd",
+      "role": "teacher",
+      "requested_device": "cuda:1",
+      "actual_device": "cuda:1"
+    },
+    {
+      "group": "qwen",
+      "kind": "train",
+      "method": "abkd",
+      "role": "student",
+      "requested_device": "cuda:0",
+      "actual_device": "cuda:0"
+    },
+    {
+      "group": "qwen",
+      "kind": "train",
+      "method": "abkd",
+      "role": "teacher",
+      "requested_device": "cuda:1",
+      "actual_device": "cuda:1"
+    },
+    {
+      "group": "llama",
+      "kind": "train",
+      "method": "skd",
+      "role": "student",
+      "requested_device": "cuda:0",
+      "actual_device": "cuda:0"
+    },
+    {
+      "group": "llama",
+      "kind": "train",
+      "method": "skd",
+      "role": "teacher",
+      "requested_device": "cuda:1",
+      "actual_device": "cuda:1"
+    },
+    {
+      "group": "qwen",
+      "kind": "train",
+      "method": "skd",
+      "role": "student",
+      "requested_device": "cuda:0",
+      "actual_device": "cuda:0"
+    },
+    {
+      "group": "qwen",
+      "kind": "train",
+      "method": "skd",
+      "role": "teacher",
+      "requested_device": "cuda:1",
+      "actual_device": "cuda:1"
+    },
+    {
+      "group": "llama",
+      "kind": "pairs",
+      "method": "distillm2",
+      "role": "teacher",
+      "requested_device": "cuda:1",
+      "actual_device": "cuda:1"
+    },
+    {
+      "group": "qwen",
+      "kind": "pairs",
+      "method": "distillm2",
+      "role": "teacher",
+      "requested_device": "cuda:1",
+      "actual_device": "cuda:1"
+    },
+    {
+      "group": "llama",
+      "kind": "pairs",
+      "method": "distillm2",
+      "role": "student",
+      "requested_device": "cuda:0",
+      "actual_device": "cuda:0"
+    },
+    {
+      "group": "qwen",
+      "kind": "pairs",
+      "method": "distillm2",
+      "role": "student",
+      "requested_device": "cuda:0",
+      "actual_device": "cuda:0"
+    },
+    {
+      "group": "llama",
+      "kind": "train",
+      "method": "distillm2",
+      "role": "student",
+      "requested_device": "cuda:0",
+      "actual_device": "cuda:0"
+    },
+    {
+      "group": "llama",
+      "kind": "train",
+      "method": "distillm2",
+      "role": "teacher",
+      "requested_device": "cuda:1",
+      "actual_device": "cuda:1"
+    },
+    {
+      "group": "qwen",
+      "kind": "train",
+      "method": "distillm2",
+      "role": "student",
+      "requested_device": "cuda:0",
+      "actual_device": "cuda:0"
+    },
+    {
+      "group": "qwen",
+      "kind": "train",
+      "method": "distillm2",
+      "role": "teacher",
+      "requested_device": "cuda:1",
+      "actual_device": "cuda:1"
+    }
+  ]
+}

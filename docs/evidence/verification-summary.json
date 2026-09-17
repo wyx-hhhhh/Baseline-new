@@ -1,0 +1,41 @@
+{
+  "request_scope": {
+    "methods": [
+      "kd",
+      "abkd",
+      "skd",
+      "distillm2"
+    ],
+    "pairs": 2,
+    "configs": 8
+  },
+  "pinned_stack_tests": {
+    "command": " .venv/bin/python -m pytest -q tests",
+    "observed_cases": 71,
+    "passed": 71,
+    "seconds": 61.06,
+    "note": "Before addition of test_config_models.py"
+  },
+  "additional_config_tokenizer_tests": {
+    "command": ".venv/bin/python -m pytest -q tests/test_config_models.py",
+    "passed": 44,
+    "seconds": 4.06,
+    "actual_local_tokenizers": true
+  },
+  "total_passed": 115,
+  "dependencies": {
+    "pip_check": "No broken requirements found.",
+    "uv_check": "All installed packages are compatible",
+    "hashed_lock_dry_run": "Would make no changes",
+    "torch": "2.6.0+cu124",
+    "transformers": "4.51.3",
+    "python": "3.11.14"
+  },
+  "remaining_model_artifact": "/nas/Models/Meta-Llama-3.1-8B-Instruct is empty",
+  "formal_experiments_started": false,
+  "actual_qwen": {
+    "kd_production_loop": "passed; evidence/qwen-kd-smoke-result.json",
+    "abkd_skd_distillm2_helpers": "passed; evidence/qwen-method-smoke.json",
+    "full_corpus_training": false
+  }
+}

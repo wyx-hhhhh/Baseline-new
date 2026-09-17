@@ -1,0 +1,160 @@
+{
+  "dolly": {
+    "schema_version": 1,
+    "dataset": "dolly",
+    "source": "/nas/Datasets/databricks-dolly-15k/databricks-dolly-15k.jsonl",
+    "source_split": "train",
+    "seed": 42,
+    "validation_fraction_requested": 0.05,
+    "split_policy": "hash-ranked connected components of normalized prompt and original_question",
+    "normalization": "Unicode NFKC, whitespace collapse, casefold",
+    "source_records": 15011,
+    "exact_duplicates_removed": 13,
+    "empty_text_records_removed": 0,
+    "evaluation_overlaps_removed": 463,
+    "max_records": 64,
+    "source_files": [
+      {
+        "path": "/nas/Datasets/databricks-dolly-15k/databricks-dolly-15k.jsonl",
+        "sha256": "2df9083338b4abd6bceb5635764dab5d833b393b55759dffb0959b6fcbf794ec"
+      }
+    ],
+    "exclusion_files": [
+      {
+        "path": "/nas/Datasets/dolly/valid.jsonl",
+        "sha256": "f2624572fdde0bec8759e63fecefdc5e38679816464cd57ef563612ccc6acc06"
+      }
+    ],
+    "splits": {
+      "train": {
+        "path": "train.jsonl",
+        "records": 60,
+        "sha256": "ca31ef267c60270ad0bac377eb0124547391644e87db6439ed27b04fb7bf73a1"
+      },
+      "validation": {
+        "path": "validation.jsonl",
+        "records": 4,
+        "sha256": "897786802dc6ed0b7a6bea7d8d9ed574539198a03895e0b8fc1fa69324687c42"
+      }
+    }
+  },
+  "gsm8k": {
+    "schema_version": 1,
+    "dataset": "gsm8k",
+    "source": "/nas/Datasets/GSM8K/main",
+    "source_split": "train",
+    "seed": 42,
+    "validation_fraction_requested": 0.05,
+    "split_policy": "hash-ranked connected components of normalized prompt and original_question",
+    "normalization": "Unicode NFKC, whitespace collapse, casefold",
+    "source_records": 7473,
+    "exact_duplicates_removed": 0,
+    "empty_text_records_removed": 0,
+    "evaluation_overlaps_removed": 0,
+    "max_records": 64,
+    "source_files": [
+      {
+        "path": "/nas/Datasets/GSM8K/main/train-00000-of-00001.parquet",
+        "sha256": "ea82612ea9582142387730c793eb67d3b12849002bc0b7fa6f8efafa7351419d"
+      }
+    ],
+    "exclusion_files": [
+      {
+        "path": "/nas/Datasets/GSM8K/main/test-00000-of-00001.parquet",
+        "sha256": "ee7b8da9e381df27b9e3f7758a159ab2bdaa4dbaa910546cbbc47e0cb44e4f59"
+      }
+    ],
+    "splits": {
+      "train": {
+        "path": "train.jsonl",
+        "records": 60,
+        "sha256": "5489c0964bf6984b8a2e4211ab6bfd0241481b10176f8ac8befe5d0358a48493"
+      },
+      "validation": {
+        "path": "validation.jsonl",
+        "records": 4,
+        "sha256": "ca553b7f30ad2bf964b88b271dc6e282ea0daf0f2fe152010672255078d973d8"
+      }
+    }
+  },
+  "metamathqa": {
+    "schema_version": 1,
+    "dataset": "metamathqa",
+    "source": "/nas/Datasets/MetaMathQA",
+    "source_split": "train",
+    "seed": 42,
+    "validation_fraction_requested": 0.05,
+    "split_policy": "hash-ranked connected components of normalized prompt and original_question",
+    "normalization": "Unicode NFKC, whitespace collapse, casefold",
+    "source_records": 395000,
+    "exact_duplicates_removed": 8956,
+    "empty_text_records_removed": 4,
+    "evaluation_overlaps_removed": 0,
+    "max_records": 64,
+    "source_files": [
+      {
+        "path": "/nas/Datasets/MetaMathQA/train/state.json",
+        "sha256": "d0248e762b3639ab502ba4d304cb7d8344316cd771c793f67899ee04e8e4179f"
+      },
+      {
+        "path": "/nas/Datasets/MetaMathQA/train/dataset_info.json",
+        "sha256": "6e5b02b69b4f1f5dca808a8bee7588b3a2cdc76fc532fb742b7d4fa6b5ffe14a"
+      },
+      {
+        "path": "/nas/Datasets/MetaMathQA/train/data-00000-of-00001.arrow",
+        "sha256": "8d6f6f655254a1e385f5cc9dd1fc570bd571c41479e5020b24d2ad034fd6d051"
+      }
+    ],
+    "exclusion_files": [
+      {
+        "path": "/nas/Datasets/GSM8K/main/test-00000-of-00001.parquet",
+        "sha256": "ee7b8da9e381df27b9e3f7758a159ab2bdaa4dbaa910546cbbc47e0cb44e4f59"
+      },
+      {
+        "path": "/nas/Datasets/hendrycks_competition_math/data/test/0000.parquet",
+        "sha256": "d570857db776722443a0e5ba598a77a61d91a99fc0d7493621e046c76c020b5c"
+      }
+    ],
+    "splits": {
+      "train": {
+        "path": "train.jsonl",
+        "records": 60,
+        "sha256": "1b467ab621260ff9a39904e296802fbe9088b1f184793904fccf24aa303faac7"
+      },
+      "validation": {
+        "path": "validation.jsonl",
+        "records": 4,
+        "sha256": "c9bb50925348c6cd24c85ba0edc852f7cb8765aab23dce26a5ca8e0235a60454"
+      }
+    }
+  },
+  "pair_generation_smoke": {
+    "kind": "random tiny local Llama CPU CLI; not actual requested checkpoint training",
+    "path": "/tmp/baseline-pairs-smoke-io1xu7fh",
+    "records": 2,
+    "file_sha256": {
+      "pairs.jsonl": "d423f6b6a23dc1f202ca9f2fa63f277e8257ce853ea9c3dd49bbc1761f4a7c6d",
+      "pairs.teacher.jsonl": "7d72222c95ce9a249bfb60087183ff12855e3851050b5b6e880acd6672e27e21",
+      "pairs.student.jsonl": "7d72222c95ce9a249bfb60087183ff12855e3851050b5b6e880acd6672e27e21"
+    },
+    "effective_seed": 43,
+    "generation_costs": {
+      "teacher": {
+        "load_seconds": 0.24580745497951284,
+        "generation_seconds": 0.14620781200937927,
+        "records": 2,
+        "prompt_tokens": 8,
+        "generated_tokens": 6,
+        "device": "cpu"
+      },
+      "student": {
+        "load_seconds": 0.01072568801464513,
+        "generation_seconds": 0.02603866101708263,
+        "records": 2,
+        "prompt_tokens": 8,
+        "generated_tokens": 6,
+        "device": "cpu"
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+qwen: inference on cuda:0 within GPUs 0,1
+  ROUGE-L: kd, seed 42 -> /nas/Users/wyx/Baseline/evaluations/qwen3_8b_1p7b/dolly/kd/seed_42/final
+  ROUGE-L: abkd, seed 42 -> /nas/Users/wyx/Baseline/evaluations/qwen3_8b_1p7b/dolly/abkd/seed_42/final
+  ROUGE-L: skd, seed 42 -> /nas/Users/wyx/Baseline/evaluations/qwen3_8b_1p7b/dolly/skd/seed_42/final
+  ROUGE-L: distillm2, seed 42 -> /nas/Users/wyx/Baseline/evaluations/qwen3_8b_1p7b/dolly/distillm2/seed_42/final
+llama: inference on cuda:0 within GPUs 2,3
+  ROUGE-L: kd, seed 42 -> /nas/Users/wyx/Baseline/evaluations/llama3_8b_llama32_1b/dolly/kd/seed_42/final
+  ROUGE-L: abkd, seed 42 -> /nas/Users/wyx/Baseline/evaluations/llama3_8b_llama32_1b/dolly/abkd/seed_42/final
+  ROUGE-L: skd, seed 42 -> /nas/Users/wyx/Baseline/evaluations/llama3_8b_llama32_1b/dolly/skd/seed_42/final
+  ROUGE-L: distillm2, seed 42 -> /nas/Users/wyx/Baseline/evaluations/llama3_8b_llama32_1b/dolly/distillm2/seed_42/final

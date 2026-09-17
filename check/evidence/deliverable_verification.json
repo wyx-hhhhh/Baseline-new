@@ -1,0 +1,76 @@
+{
+  "requirements": [
+    {
+      "requirement": "Investigate all five baselines across the four repositories",
+      "evidence": [
+        "investigation_report.md",
+        "evidence/audit_results.json"
+      ],
+      "status": "documented_with_source_evidence"
+    },
+    {
+      "requirement": "Confirm original and proposed Python/PyTorch versions",
+      "evidence": [
+        "investigation_report.md",
+        "unified_configuration.md",
+        "constraints-training-proposed.txt"
+      ],
+      "status": "documented_original_observed_and_proposed_separately"
+    },
+    {
+      "requirement": "Unify configuration version specification",
+      "evidence": [
+        "unified_configuration.md",
+        "experiment_spec.json",
+        "evidence/public_metadata.json"
+      ],
+      "status": "proposed_exact_common_pins_not_runtime_validated"
+    },
+    {
+      "requirement": "Assess both teacher/student pairs",
+      "evidence": [
+        "investigation_report.md",
+        "evidence/public_metadata.json"
+      ],
+      "status": "Qwen_tokenizers_verified_Llama_gated_details_explicitly_unverified"
+    },
+    {
+      "requirement": "Actionable plans for later Codex modifications",
+      "evidence": [
+        "codex_modification_plan.md"
+      ],
+      "status": "ten_work_packages_with_behavioral_acceptance_checks"
+    },
+    {
+      "requirement": "Save generated documents under G:/Baseline/check",
+      "evidence": [
+        "README.md",
+        "investigation_report.md",
+        "unified_configuration.md",
+        "codex_modification_plan.md",
+        "validation_record.md",
+        "experiment_spec.json",
+        "constraints-training-proposed.txt"
+      ],
+      "status": "verified"
+    }
+  ],
+  "broken_local_links": [],
+  "matrix_count": 10,
+  "seeded_run_count": 30,
+  "repo_statuses": {
+    "abkd": "",
+    "distillm": "",
+    "distillm-2": "",
+    "google-research": ""
+  },
+  "document_hashes": {
+    "README.md": "3910a3ce4150b6e8c88b3972535819c2d5217e86d0b2df816d938ca29cab84b4",
+    "investigation_report.md": "accb0131cf82f4e0e57b21d984807759b4f87beeaf531601f7cb256e18494c32",
+    "unified_configuration.md": "73fd84e2098fdf3685ae72eb41a299dd260866fd9e151b50351f686e3e4192f8",
+    "codex_modification_plan.md": "2d6b1a680dfcc1348a9b4a606c8cd897a2dad8bd8126e9f6116eb256bbce084a",
+    "validation_record.md": "e9fa390605e90ae060abcd8f6725fd1154c6074d527847bb2006b1f7f6761081",
+    "experiment_spec.json": "1c28dddbef07c6c6f51a063dc458fdf9000c3bfd71d3c812886fe95b5324dda5",
+    "constraints-training-proposed.txt": "0e75ed4ad6803db51c5641521828b6edf0f44745777825d19b7469346b906155"
+  }
+}

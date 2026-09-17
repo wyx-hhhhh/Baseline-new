@@ -1,0 +1,22 @@
+{
+  "dataset": "dolly",
+  "records": 750,
+  "all_references_valid": true,
+  "metric": {
+    "name": "rouge_l",
+    "variant": "rougeL",
+    "statistic": "fmeasure",
+    "implementation": "rouge-score",
+    "version": "0.1.2",
+    "aggregation": "arithmetic_mean_over_examples",
+    "range": [
+      0,
+      100
+    ],
+    "higher_is_better": true,
+    "tokenizer": "english",
+    "use_stemmer": true,
+    "truncate_references": false,
+    "normalization": "lowercase ASCII alphanumeric tokens; Porter stemming for tokens longer than 3 characters"
+  }
+}

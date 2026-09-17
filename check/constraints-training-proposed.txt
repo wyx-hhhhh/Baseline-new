@@ -1,0 +1,13 @@
+# PROPOSED migration constraints, not a complete lockfile or an install script.
+# Python 3.11.13; Linux x86_64; torch CUDA 12.4 wheel profile.
+# Read unified_configuration.md before installation. Code ports are required.
+torch==2.6.0
+transformers==4.51.3
+tokenizers==0.21.1
+accelerate==1.6.0
+peft==0.15.2
+trl==0.9.6
+deepspeed==0.16.7
+datasets==3.5.0
+huggingface-hub==0.30.2
+numpy==1.26.4

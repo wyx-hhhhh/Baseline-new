@@ -1,0 +1,744 @@
+{
+  "audited_at_utc": "2026-09-16T02:16:21.020485+00:00",
+  "python": "3.12.7 | packaged by Anaconda, Inc. | (main, Oct  4 2024, 13:17:27) [MSC v.1929 64 bit (AMD64)]",
+  "repos": {
+    "abkd": {
+      "commit": "027ec2621aad678b94587bb36cab9a16b8a05fed",
+      "origin": "https://github.com/ghwang-s/abkd.git",
+      "status": ""
+    },
+    "distillm": {
+      "commit": "d47e77ff9d27721783b32213be38c1204230cc0a",
+      "origin": "https://github.com/jongwooko/distillm.git",
+      "status": ""
+    },
+    "distillm-2": {
+      "commit": "fe4cf9bfbb4f83219dd1d69219800164b59685fa",
+      "origin": "https://github.com/jongwooko/distillm-2.git",
+      "status": ""
+    },
+    "google-research": {
+      "commit": "8025cf1351da4d3cb8c289afe2d11247623fbdfb",
+      "origin": "https://github.com/google-research/google-research.git",
+      "status": ""
+    }
+  },
+  "syntax": {
+    "abkd/distillation_llm": {
+      "files": 50,
+      "failures": []
+    },
+    "distillm": {
+      "files": 30,
+      "failures": []
+    },
+    "distillm-2/src": {
+      "files": 10,
+      "failures": []
+    },
+    "distillm-2/generate": {
+      "files": 5,
+      "failures": []
+    },
+    "google-research/speculative_kd": {
+      "files": 11,
+      "failures": []
+    }
+  },
+  "checks": {
+    "skd_student_no_grad_scopes": [
+      {
+        "no_grad_line": 102,
+        "scope_end": 142,
+        "student_calls": [
+          {
+            "line": 118,
+            "expression": "assistant_model(**final_outputs.to(assistant_model.device))"
+          }
+        ]
+      },
+      {
+        "no_grad_line": 497,
+        "scope_end": 819,
+        "student_calls": [
+          {
+            "line": 781,
+            "expression": "assistant_model(**final_outputs)"
+          }
+        ]
+      }
+    ],
+    "distillm_nonadaptive_threshold_expression": "unsupported operand type(s) for *: 'NoneType' and 'float'",
+    "kd_ce_vs_forward_kl": {
+      "ce": 2.9561941623687744,
+      "true_kl": 0.9475313425064087,
+      "max_gradient_difference": 1.1175870895385742e-08
+    },
+    "ab_limits": {
+      "alpha1_beta0_forward_kl_error": 0.0,
+      "alpha0_beta1_reverse_kl_error": 0.0,
+      "alpha01_beta08_finite": true,
+      "equal_distribution_loss": 5.960464477539062e-07
+    },
+    "no_grad_autograd_probe": {
+      "output_requires_grad": false
+    },
+    "binary_storage": {
+      "minus_one_as_uint16": 65535,
+      "minus_one_as_uint32": 4294967295,
+      "token128000_as_uint16": 62464
+    },
+    "legacy_generated_label_alignment": {
+      "input_ids": [
+        [
+          4,
+          5,
+          6,
+          7,
+          0,
+          0
+        ]
+      ],
+      "no_model_batch": [
+        [
+          -100,
+          -100,
+          6,
+          7,
+          -100,
+          -100
+        ]
+      ]
+    },
+    "skd_js_direction": {
+      "actual": 0.23556971549987793,
+      "standard_js": 0.17167428135871887,
+      "absolute_difference": 0.06389543414115906
+    },
+    "qwen_tokenizer": {
+      "vocab_mapping_equal": true,
+      "tokenizer_json_hash_equal": true,
+      "base_vocab_count": 151643,
+      "total_tokenizer_count": 151669,
+      "token_id_65535": "ĠgroupName",
+      "head_vocab_size": 151936
+    }
+  },
+  "installed_versions": {
+    "torch": "2.6.0",
+    "transformers": "4.56.1",
+    "accelerate": "1.10.1",
+    "peft": null,
+    "trl": null,
+    "deepspeed": null,
+    "numpy": "1.26.4",
+    "tokenizers": "0.22.0"
+  },
+  "runtime": {
+    "torch": "2.6.0+cpu",
+    "cuda_build": null,
+    "cuda_available": false,
+    "gpu_count": 0
+  },
+  "candidate_dependency_check": {
+    "python": "3.11.13",
+    "target": "Linux x86_64",
+    "comparisons": [
+      {
+        "package": "transformers",
+        "requirement": "huggingface-hub<1.0,>=0.30.0",
+        "selected": "0.30.2"
+      },
+      {
+        "package": "transformers",
+        "requirement": "numpy>=1.17",
+        "selected": "1.26.4"
+      },
+      {
+        "package": "transformers",
+        "requirement": "tokenizers<0.22,>=0.21",
+        "selected": "0.21.1"
+      },
+      {
+        "package": "accelerate",
+        "requirement": "numpy<3.0.0,>=1.17",
+        "selected": "1.26.4"
+      },
+      {
+        "package": "accelerate",
+        "requirement": "torch>=2.0.0",
+        "selected": "2.6.0"
+      },
+      {
+        "package": "accelerate",
+        "requirement": "huggingface-hub>=0.21.0",
+        "selected": "0.30.2"
+      },
+      {
+        "package": "peft",
+        "requirement": "numpy>=1.17",
+        "selected": "1.26.4"
+      },
+      {
+        "package": "peft",
+        "requirement": "torch>=1.13.0",
+        "selected": "2.6.0"
+      },
+      {
+        "package": "peft",
+        "requirement": "transformers",
+        "selected": "4.51.3"
+      },
+      {
+        "package": "peft",
+        "requirement": "accelerate>=0.21.0",
+        "selected": "1.6.0"
+      },
+      {
+        "package": "peft",
+        "requirement": "huggingface_hub>=0.25.0",
+        "selected": "0.30.2"
+      },
+      {
+        "package": "trl",
+        "requirement": "torch>=1.4.0",
+        "selected": "2.6.0"
+      },
+      {
+        "package": "trl",
+        "requirement": "transformers>=4.31.0",
+        "selected": "4.51.3"
+      },
+      {
+        "package": "trl",
+        "requirement": "numpy<2.0.0,>=1.18.2",
+        "selected": "1.26.4"
+      },
+      {
+        "package": "trl",
+        "requirement": "accelerate",
+        "selected": "1.6.0"
+      },
+      {
+        "package": "trl",
+        "requirement": "datasets",
+        "selected": "3.5.0"
+      },
+      {
+        "package": "deepspeed",
+        "requirement": "numpy",
+        "selected": "1.26.4"
+      },
+      {
+        "package": "deepspeed",
+        "requirement": "torch",
+        "selected": "2.6.0"
+      },
+      {
+        "package": "datasets",
+        "requirement": "numpy>=1.17",
+        "selected": "1.26.4"
+      },
+      {
+        "package": "datasets",
+        "requirement": "huggingface-hub>=0.24.0",
+        "selected": "0.30.2"
+      },
+      {
+        "package": "tokenizers",
+        "requirement": "huggingface-hub<1.0,>=0.16.4",
+        "selected": "0.30.2"
+      },
+      {
+        "package": "vllm",
+        "requirement": "numpy",
+        "selected": "1.26.4"
+      },
+      {
+        "package": "vllm",
+        "requirement": "transformers>=4.51.1",
+        "selected": "4.51.3"
+      },
+      {
+        "package": "vllm",
+        "requirement": "huggingface-hub[hf_xet]>=0.30.0",
+        "selected": "0.30.2"
+      },
+      {
+        "package": "vllm",
+        "requirement": "tokenizers>=0.21.1",
+        "selected": "0.21.1"
+      },
+      {
+        "package": "vllm",
+        "requirement": "torch==2.6.0",
+        "selected": "2.6.0"
+      },
+      {
+        "package": "flash-attn",
+        "requirement": "torch",
+        "selected": "2.6.0"
+      }
+    ],
+    "conflicts": [],
+    "unresolved_transitive_requirements": [
+      {
+        "package": "torch",
+        "requirement": "filelock"
+      },
+      {
+        "package": "torch",
+        "requirement": "typing-extensions>=4.10.0"
+      },
+      {
+        "package": "torch",
+        "requirement": "networkx"
+      },
+      {
+        "package": "torch",
+        "requirement": "jinja2"
+      },
+      {
+        "package": "torch",
+        "requirement": "fsspec"
+      },
+      {
+        "package": "torch",
+        "requirement": "nvidia-cuda-nvrtc-cu12==12.4.127; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+      },
+      {
+        "package": "torch",
+        "requirement": "nvidia-cuda-runtime-cu12==12.4.127; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+      },
+      {
+        "package": "torch",
+        "requirement": "nvidia-cuda-cupti-cu12==12.4.127; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+      },
+      {
+        "package": "torch",
+        "requirement": "nvidia-cudnn-cu12==9.1.0.70; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+      },
+      {
+        "package": "torch",
+        "requirement": "nvidia-cublas-cu12==12.4.5.8; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+      },
+      {
+        "package": "torch",
+        "requirement": "nvidia-cufft-cu12==11.2.1.3; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+      },
+      {
+        "package": "torch",
+        "requirement": "nvidia-curand-cu12==10.3.5.147; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+      },
+      {
+        "package": "torch",
+        "requirement": "nvidia-cusolver-cu12==11.6.1.9; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+      },
+      {
+        "package": "torch",
+        "requirement": "nvidia-cusparse-cu12==12.3.1.170; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+      },
+      {
+        "package": "torch",
+        "requirement": "nvidia-cusparselt-cu12==0.6.2; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+      },
+      {
+        "package": "torch",
+        "requirement": "nvidia-nccl-cu12==2.21.5; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+      },
+      {
+        "package": "torch",
+        "requirement": "nvidia-nvtx-cu12==12.4.127; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+      },
+      {
+        "package": "torch",
+        "requirement": "nvidia-nvjitlink-cu12==12.4.127; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+      },
+      {
+        "package": "torch",
+        "requirement": "triton==3.2.0; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+      },
+      {
+        "package": "torch",
+        "requirement": "sympy==1.13.1; python_version >= \"3.9\""
+      },
+      {
+        "package": "transformers",
+        "requirement": "filelock"
+      },
+      {
+        "package": "transformers",
+        "requirement": "packaging>=20.0"
+      },
+      {
+        "package": "transformers",
+        "requirement": "pyyaml>=5.1"
+      },
+      {
+        "package": "transformers",
+        "requirement": "regex!=2019.12.17"
+      },
+      {
+        "package": "transformers",
+        "requirement": "requests"
+      },
+      {
+        "package": "transformers",
+        "requirement": "safetensors>=0.4.3"
+      },
+      {
+        "package": "transformers",
+        "requirement": "tqdm>=4.27"
+      },
+      {
+        "package": "accelerate",
+        "requirement": "packaging>=20.0"
+      },
+      {
+        "package": "accelerate",
+        "requirement": "psutil"
+      },
+      {
+        "package": "accelerate",
+        "requirement": "pyyaml"
+      },
+      {
+        "package": "accelerate",
+        "requirement": "safetensors>=0.4.3"
+      },
+      {
+        "package": "peft",
+        "requirement": "packaging>=20.0"
+      },
+      {
+        "package": "peft",
+        "requirement": "psutil"
+      },
+      {
+        "package": "peft",
+        "requirement": "pyyaml"
+      },
+      {
+        "package": "peft",
+        "requirement": "tqdm"
+      },
+      {
+        "package": "peft",
+        "requirement": "safetensors"
+      },
+      {
+        "package": "trl",
+        "requirement": "tyro>=0.5.11"
+      },
+      {
+        "package": "deepspeed",
+        "requirement": "einops"
+      },
+      {
+        "package": "deepspeed",
+        "requirement": "hjson"
+      },
+      {
+        "package": "deepspeed",
+        "requirement": "msgpack"
+      },
+      {
+        "package": "deepspeed",
+        "requirement": "ninja"
+      },
+      {
+        "package": "deepspeed",
+        "requirement": "packaging>=20.0"
+      },
+      {
+        "package": "deepspeed",
+        "requirement": "psutil"
+      },
+      {
+        "package": "deepspeed",
+        "requirement": "py-cpuinfo"
+      },
+      {
+        "package": "deepspeed",
+        "requirement": "pydantic>=2.0.0"
+      },
+      {
+        "package": "deepspeed",
+        "requirement": "tqdm"
+      },
+      {
+        "package": "datasets",
+        "requirement": "filelock"
+      },
+      {
+        "package": "datasets",
+        "requirement": "pyarrow>=15.0.0"
+      },
+      {
+        "package": "datasets",
+        "requirement": "dill<0.3.9,>=0.3.0"
+      },
+      {
+        "package": "datasets",
+        "requirement": "pandas"
+      },
+      {
+        "package": "datasets",
+        "requirement": "requests>=2.32.2"
+      },
+      {
+        "package": "datasets",
+        "requirement": "tqdm>=4.66.3"
+      },
+      {
+        "package": "datasets",
+        "requirement": "xxhash"
+      },
+      {
+        "package": "datasets",
+        "requirement": "multiprocess<0.70.17"
+      },
+      {
+        "package": "datasets",
+        "requirement": "fsspec[http]<=2024.12.0,>=2023.1.0"
+      },
+      {
+        "package": "datasets",
+        "requirement": "aiohttp"
+      },
+      {
+        "package": "datasets",
+        "requirement": "packaging"
+      },
+      {
+        "package": "datasets",
+        "requirement": "pyyaml>=5.1"
+      },
+      {
+        "package": "huggingface-hub",
+        "requirement": "filelock"
+      },
+      {
+        "package": "huggingface-hub",
+        "requirement": "fsspec>=2023.5.0"
+      },
+      {
+        "package": "huggingface-hub",
+        "requirement": "packaging>=20.9"
+      },
+      {
+        "package": "huggingface-hub",
+        "requirement": "pyyaml>=5.1"
+      },
+      {
+        "package": "huggingface-hub",
+        "requirement": "requests"
+      },
+      {
+        "package": "huggingface-hub",
+        "requirement": "tqdm>=4.42.1"
+      },
+      {
+        "package": "huggingface-hub",
+        "requirement": "typing-extensions>=3.7.4.3"
+      },
+      {
+        "package": "vllm",
+        "requirement": "cachetools"
+      },
+      {
+        "package": "vllm",
+        "requirement": "psutil"
+      },
+      {
+        "package": "vllm",
+        "requirement": "sentencepiece"
+      },
+      {
+        "package": "vllm",
+        "requirement": "requests>=2.26.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "tqdm"
+      },
+      {
+        "package": "vllm",
+        "requirement": "blake3"
+      },
+      {
+        "package": "vllm",
+        "requirement": "py-cpuinfo"
+      },
+      {
+        "package": "vllm",
+        "requirement": "protobuf"
+      },
+      {
+        "package": "vllm",
+        "requirement": "fastapi[standard]>=0.115.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "aiohttp"
+      },
+      {
+        "package": "vllm",
+        "requirement": "openai>=1.52.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "pydantic>=2.9"
+      },
+      {
+        "package": "vllm",
+        "requirement": "prometheus_client>=0.18.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "pillow"
+      },
+      {
+        "package": "vllm",
+        "requirement": "prometheus-fastapi-instrumentator>=7.0.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "tiktoken>=0.6.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "lm-format-enforcer<0.11,>=0.10.11"
+      },
+      {
+        "package": "vllm",
+        "requirement": "llguidance<0.8.0,>=0.7.9; platform_machine == \"x86_64\" or platform_machine == \"arm64\" or platform_machine == \"aarch64\""
+      },
+      {
+        "package": "vllm",
+        "requirement": "outlines==0.1.11"
+      },
+      {
+        "package": "vllm",
+        "requirement": "lark==1.2.2"
+      },
+      {
+        "package": "vllm",
+        "requirement": "xgrammar==0.1.18; platform_machine == \"x86_64\" or platform_machine == \"aarch64\""
+      },
+      {
+        "package": "vllm",
+        "requirement": "typing_extensions>=4.10"
+      },
+      {
+        "package": "vllm",
+        "requirement": "filelock>=3.16.1"
+      },
+      {
+        "package": "vllm",
+        "requirement": "partial-json-parser"
+      },
+      {
+        "package": "vllm",
+        "requirement": "pyzmq>=25.0.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "msgspec"
+      },
+      {
+        "package": "vllm",
+        "requirement": "gguf>=0.13.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "importlib_metadata"
+      },
+      {
+        "package": "vllm",
+        "requirement": "mistral_common[opencv]>=1.5.4"
+      },
+      {
+        "package": "vllm",
+        "requirement": "opencv-python-headless>=4.11.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "pyyaml"
+      },
+      {
+        "package": "vllm",
+        "requirement": "einops"
+      },
+      {
+        "package": "vllm",
+        "requirement": "compressed-tensors==0.9.3"
+      },
+      {
+        "package": "vllm",
+        "requirement": "depyf==0.18.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "cloudpickle"
+      },
+      {
+        "package": "vllm",
+        "requirement": "watchfiles"
+      },
+      {
+        "package": "vllm",
+        "requirement": "python-json-logger"
+      },
+      {
+        "package": "vllm",
+        "requirement": "scipy"
+      },
+      {
+        "package": "vllm",
+        "requirement": "ninja"
+      },
+      {
+        "package": "vllm",
+        "requirement": "opentelemetry-sdk<1.27.0,>=1.26.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "opentelemetry-api<1.27.0,>=1.26.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "opentelemetry-exporter-otlp<1.27.0,>=1.26.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "opentelemetry-semantic-conventions-ai<0.5.0,>=0.4.1"
+      },
+      {
+        "package": "vllm",
+        "requirement": "numba==0.61.2; python_version > \"3.9\""
+      },
+      {
+        "package": "vllm",
+        "requirement": "ray[cgraph]!=2.44.*,>=2.43.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "torchaudio==2.6.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "torchvision==0.21.0"
+      },
+      {
+        "package": "vllm",
+        "requirement": "xformers==0.0.29.post2; platform_system == \"Linux\" and platform_machine == \"x86_64\""
+      },
+      {
+        "package": "flash-attn",
+        "requirement": "einops"
+      }
+    ],
+    "scope": "Direct constraints among proposed pins only; not installation or complete resolution."
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "scope": "Original SKD, ABKD, DistiLLM-2 and KD math setups; primary papers and official code",
+  "report": "docs/math_baseline_literature.md",
+  "notes": [
+    "docs/evidence/skd_math_research.md",
+    "docs/evidence/abkd_math_research.md",
+    "docs/evidence/distillm2_math_research.md"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/evidence/math_sources/abkd_ab_launcher.sh",
+      "bytes": 4367,
+      "sha256": "50eddc30ded7d026be47ab40e33d8854e98117adf1e40bd1a55e0504ba9eff52"
+    },
+    {
+      "path": "docs/evidence/math_sources/abkd_eval_math.py",
+      "bytes": 7240,
+      "sha256": "b03a145bd9f2c228a85d132119c1686f17e99d0b729db373af7000a9c57252a5"
+    },
+    {
+      "path": "docs/evidence/math_sources/abkd_icml2025.pdf",
+      "bytes": 4435007,
+      "sha256": "d8bded94bd5ea6c25f47bd118978001f197c53026cc40ea28d0b7acc1c05c339"
+    },
+    {
+      "path": "docs/evidence/math_sources/abkd_icml2025.txt",
+      "bytes": 243248,
+      "sha256": "f3d3082e7a78b1caa33028740e226fc197258c375404153785c4794685d57da5"
+    },
+    {
+      "path": "docs/evidence/math_sources/abkd_icml2025_p43.png",
+      "bytes": 314768,
+      "sha256": "8713e4ea68bd65379b6da946add73efdcc78d634fec01df8f5e1802a77403e6e"
+    },
+    {
+      "path": "docs/evidence/math_sources/abkd_kd_launcher.sh",
+      "bytes": 3087,
+      "sha256": "74b2dca50f03f8c7b406fe5ad698973c522a1a5186b9857486b5029e865b91d8"
+    },
+    {
+      "path": "docs/evidence/math_sources/abkd_prepare_launcher.sh",
+      "bytes": 465,
+      "sha256": "3e1daa52a242c6f9d49f52dddf762018704b2020dad3dcf0b36923d4d6f3c499"
+    },
+    {
+      "path": "docs/evidence/math_sources/abkd_process_metamath.py",
+      "bytes": 6523,
+      "sha256": "5cfdfe3a426b2b94aad311bd130c9f9b8cc69a540405b12d6540568ad87b3e00"
+    },
+    {
+      "path": "docs/evidence/math_sources/abkd_provenance.json",
+      "bytes": 2315,
+      "sha256": "5f81a12e88f06dec0d5c002afc656b81fcf23dde1aeb29166d0d675636ec6188"
+    },
+    {
+      "path": "docs/evidence/math_sources/distillm2_arxiv_v2.pdf",
+      "bytes": 655832,
+      "sha256": "c8ed8bdd190d1c0d3bee5b8506f6f50f4199a90d9f50d14d4d79c0b89d76517d"
+    },
+    {
+      "path": "docs/evidence/math_sources/distillm2_arxiv_v2.txt",
+      "bytes": 136643,
+      "sha256": "557be0e0a13ff0d024516eb08bfcd5cff00989009062d9c006e562a68caf7ee9"
+    },
+    {
+      "path": "docs/evidence/math_sources/distillm2_generate_vllm.py",
+      "bytes": 4451,
+      "sha256": "800bfb90ca699b3d11abcd486436add5a4e8a20786607d429be3b6604c7184d4"
+    },
+    {
+      "path": "docs/evidence/math_sources/distillm2_icml2025.pdf",
+      "bytes": 522331,
+      "sha256": "2cfede7f41dc6552034240f31fae6f8e558dbab148b70a15dbcfaae7a90dea0d"
+    },
+    {
+      "path": "docs/evidence/math_sources/distillm2_icml2025.txt",
+      "bytes": 134515,
+      "sha256": "1d5a3a29d18c68cabf893c628aefbafef443ed6d404a1ddf64e60c5a729e37e9"
+    },
+    {
+      "path": "docs/evidence/math_sources/distillm2_model_utils.py",
+      "bytes": 5082,
+      "sha256": "ee27b7092a6c907c7c3cd22ea51ba0eabb9ee379e434db9b6607e546d24e5d80"
+    },
+    {
+      "path": "docs/evidence/math_sources/distillm2_qwen_config.yaml",
+      "bytes": 1103,
+      "sha256": "069b7b0cc73f962ca3cf134f28cc70af1d0aa05aae5bc74809ac0e4f0bcbd049"
+    },
+    {
+      "path": "docs/evidence/math_sources/distillm2_spin_iter1_metadata.json",
+      "bytes": 1256,
+      "sha256": "57eb79aba2effee4d0fbcaaa6ad5dcead2c16c82e6ae53063db4fe728bf598b7"
+    },
+    {
+      "path": "docs/evidence/math_sources/skd_arxiv_v2.pdf",
+      "bytes": 1244915,
+      "sha256": "99935d6fa62fb84be67f9a204432207461fc555de9a91352ea2ac5fd6431521c"
+    },
+    {
+      "path": "docs/evidence/math_sources/skd_arxiv_v2.txt",
+      "bytes": 147571,
+      "sha256": "3e3f1c86507a9191ead5751deb2c8730bb40e29cde3245fe45f5c80cfb9acabf"
+    }
+  ],
+  "training_code_changed": false,
+  "training_jobs_changed": false,
+  "distinction": "Paper-reported settings, released-code evidence, unknown fields and proposed common experiment are explicitly separated"
+}

@@ -1,0 +1,17 @@
+Verified at: 2026-09-17T03:27:49.480262+00:00
+Command: CUDA_VISIBLE_DEVICES="" OMP_NUM_THREADS=2 .venv-math-eval/bin/python -m pytest -q tests/test_math_campaign.py
+Scope: Native tiny CPU Qwen3/Llama checkpoints; eight training runs, two pair producers, sixteen separate two-example GSM8K/MATH evaluations, SIGTERM recovery and completed-run validation. Full production pool hashes/counts checked read-only. Missing/changed grader and audit pins/files rejected; audit checked again before the next evaluation child. No full-model or GPU training launched.
+tests/test_math_campaign.py sha256=cf9c13ac249720e15ea940fc8864ded8239bd1bdfc3d8a85134b1ba391956dbb
+scripts/run_math.py sha256=30ea420ea118b239f6483556ddd190a00c242163996b604fca0529103db0a814
+baseline_common/math_metrics.py sha256=49c624abcbcbcd8e54412c822aeb7e647fda6d38d2e9785477dd6d3ebe33db17
+configs/math_campaign.json sha256=2f8e0d71d5ee494505d17edd3de3ea13eee38edb7e8fa312edbaf2f69fdf9fd9
+docs/evidence/math-grading-audit.json sha256=d43b8416b8caf2364d7b2d6cafede0c91604518bd307d41fa1b553242a9e9d3d
+
+.........................                                                [100%]
+=============================== warnings summary ===============================
+tests/test_math_campaign.py::test_real_cpu_campaign_interruption_resume_eight_models_and_sixteen_tests
+  /home/wyx/Baseline/.venv-math-eval/lib/python3.11/site-packages/transformers/utils/hub.py:105: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+25 passed, 1 warning in 154.86s (0:02:34)

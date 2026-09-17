@@ -1,0 +1,74 @@
+[
+  {
+    "file": "configs/experiments/llama3_8b_llama32_1b_abkd.json",
+    "pair": "llama3_8b_llama32_1b",
+    "method": "abkd",
+    "teacher": "/nas/Models/Meta-Llama-3-8B-Instruct",
+    "student": "/nas/Models/Meta-Llama-3.2-1B-Instruct",
+    "vocabulary_policy": "llama3_shared",
+    "output_root": "/nas/Users/wyx/Baseline"
+  },
+  {
+    "file": "configs/experiments/llama3_8b_llama32_1b_distillm2.json",
+    "pair": "llama3_8b_llama32_1b",
+    "method": "distillm2",
+    "teacher": "/nas/Models/Meta-Llama-3-8B-Instruct",
+    "student": "/nas/Models/Meta-Llama-3.2-1B-Instruct",
+    "vocabulary_policy": "llama3_shared",
+    "output_root": "/nas/Users/wyx/Baseline"
+  },
+  {
+    "file": "configs/experiments/llama3_8b_llama32_1b_kd.json",
+    "pair": "llama3_8b_llama32_1b",
+    "method": "kd",
+    "teacher": "/nas/Models/Meta-Llama-3-8B-Instruct",
+    "student": "/nas/Models/Meta-Llama-3.2-1B-Instruct",
+    "vocabulary_policy": "llama3_shared",
+    "output_root": "/nas/Users/wyx/Baseline"
+  },
+  {
+    "file": "configs/experiments/llama3_8b_llama32_1b_skd.json",
+    "pair": "llama3_8b_llama32_1b",
+    "method": "skd",
+    "teacher": "/nas/Models/Meta-Llama-3-8B-Instruct",
+    "student": "/nas/Models/Meta-Llama-3.2-1B-Instruct",
+    "vocabulary_policy": "llama3_shared",
+    "output_root": "/nas/Users/wyx/Baseline"
+  },
+  {
+    "file": "configs/experiments/qwen3_8b_1p7b_abkd.json",
+    "pair": "qwen3_8b_1p7b",
+    "method": "abkd",
+    "teacher": "/nas/Models/Qwen3-8B-Instruct",
+    "student": "/nas/Models/Qwen3-1.7B-Instruct",
+    "vocabulary_policy": "full",
+    "output_root": "/nas/Users/wyx/Baseline"
+  },
+  {
+    "file": "configs/experiments/qwen3_8b_1p7b_distillm2.json",
+    "pair": "qwen3_8b_1p7b",
+    "method": "distillm2",
+    "teacher": "/nas/Models/Qwen3-8B-Instruct",
+    "student": "/nas/Models/Qwen3-1.7B-Instruct",
+    "vocabulary_policy": "full",
+    "output_root": "/nas/Users/wyx/Baseline"
+  },
+  {
+    "file": "configs/experiments/qwen3_8b_1p7b_kd.json",
+    "pair": "qwen3_8b_1p7b",
+    "method": "kd",
+    "teacher": "/nas/Models/Qwen3-8B-Instruct",
+    "student": "/nas/Models/Qwen3-1.7B-Instruct",
+    "vocabulary_policy": "full",
+    "output_root": "/nas/Users/wyx/Baseline"
+  },
+  {
+    "file": "configs/experiments/qwen3_8b_1p7b_skd.json",
+    "pair": "qwen3_8b_1p7b",
+    "method": "skd",
+    "teacher": "/nas/Models/Qwen3-8B-Instruct",
+    "student": "/nas/Models/Qwen3-1.7B-Instruct",
+    "vocabulary_policy": "full",
+    "output_root": "/nas/Users/wyx/Baseline"
+  }
+]

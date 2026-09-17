@@ -1,0 +1,16 @@
+Command: CUDA_VISIBLE_DEVICES='' .venv/bin/python -m pytest -q tests/test_nl_evaluate.py
+Result: 54 passed, 1 warning in 48.66s
+Warning: existing Transformers TRANSFORMERS_CACHE deprecation.
+
+The tests use tiny locally generated Llama models on CPU, including native CLI
+generation and completed-cache validation for all five supported benchmarks.
+They cover complete-prompt/context preflight, all-reference validation before
+pilot limits, maximum reference ROUGE-L and example-level macro aggregation,
+Unicode/CJK references, symbol-only and empty predictions retained at score 0,
+training leakage, model/runtime/config/input identity changes, vocabulary policy,
+DistiLLM-2 paired training inputs, per-response interruption recovery, torn tails,
+artifact corruption, exclusive output locking, publication crash recovery, and
+original-source/prepared-pool/exclusion provenance validation.
+
+No full model, GPU inference, network download, or NAS write was performed by
+this evaluator test suite.

@@ -1,0 +1,173 @@
+{
+  "created_at_utc": "2026-09-17T03:29:18.138541+00:00",
+  "status": "prepared_not_launched",
+  "full_math_training_launched": false,
+  "verification_device": "cpu",
+  "pool": "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1",
+  "pool_manifest_sha256": "01c2e37cb1e3d33facf4336400e611f489b64e736b9ad83271f59d1a5fea3bcb",
+  "pool_counts": {
+    "train": 50000,
+    "validation": 5000,
+    "gsm8k": 1319,
+    "math": 5000
+  },
+  "split_sha256": {
+    "gsm8k": "4c4e33e816639a02939d3d189041ddecbd6ee3f750845274104c9ebf44229288",
+    "math": "8051037ea52aa75fd53f5659120045be20e73b22cae6093b837ec356649ab1fd",
+    "train": "1135c79fdc52b469b4036c6ab58528528dc3f7f1744eae1c904f996e84718acd",
+    "validation": "b1c6ffae13c47f95c36b7676081b1ee43318f9fa22f5ba97f180d2323b4c6513"
+  },
+  "gpu_groups": {
+    "qwen": [
+      0,
+      1
+    ],
+    "llama": [
+      2,
+      3
+    ]
+  },
+  "method_order": [
+    "kd",
+    "abkd",
+    "skd",
+    "distillm2"
+  ],
+  "training_runs": 8,
+  "pair_producers": 2,
+  "benchmark_evaluations": 16,
+  "tests": {
+    "campaign": 25,
+    "data_and_evaluation": 170,
+    "previous_dolly_regression": 108
+  },
+  "gold_references_audited": 6319,
+  "math_gold_interpretations": 16,
+  "bindings": [
+    {
+      "group": "qwen",
+      "method": "kd",
+      "config_sha256": "02aa6f214590cca78aa384316e3dd31f3e5003cf7c189d4553d950154888f402",
+      "student": "/nas/Models/Qwen3-1.7B-Instruct",
+      "teacher": "/nas/Models/Qwen3-8B-Instruct",
+      "updates": 1563,
+      "model": "/nas/Users/wyx/Baseline/math/runs/qwen3_8b_1p7b/metamathqa_50k_v1/kd/seed_42/final",
+      "tests": [
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/gsm8k.jsonl",
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/math.jsonl"
+      ]
+    },
+    {
+      "group": "qwen",
+      "method": "abkd",
+      "config_sha256": "f94f1c6cdbd13f0bd2fccb7823f4fbc75489d462ab0ca144d4d8ba27f8b65d5a",
+      "student": "/nas/Models/Qwen3-1.7B-Instruct",
+      "teacher": "/nas/Models/Qwen3-8B-Instruct",
+      "updates": 1563,
+      "model": "/nas/Users/wyx/Baseline/math/runs/qwen3_8b_1p7b/metamathqa_50k_v1/abkd/seed_42/final",
+      "tests": [
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/gsm8k.jsonl",
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/math.jsonl"
+      ]
+    },
+    {
+      "group": "qwen",
+      "method": "skd",
+      "config_sha256": "a4438ba6277056666cebdee1e7e70c0e9d18b4087cf3d83afe30219bf41c11d7",
+      "student": "/nas/Models/Qwen3-1.7B-Instruct",
+      "teacher": "/nas/Models/Qwen3-8B-Instruct",
+      "updates": 1563,
+      "model": "/nas/Users/wyx/Baseline/math/runs/qwen3_8b_1p7b/metamathqa_50k_v1/skd/seed_42/final",
+      "tests": [
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/gsm8k.jsonl",
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/math.jsonl"
+      ]
+    },
+    {
+      "group": "qwen",
+      "method": "distillm2",
+      "config_sha256": "cada656be120debaa2df09f062c1948d349fa64460cb8dd4351d3342870a96cd",
+      "student": "/nas/Models/Qwen3-1.7B-Instruct",
+      "teacher": "/nas/Models/Qwen3-8B-Instruct",
+      "updates": 1563,
+      "model": "/nas/Users/wyx/Baseline/math/runs/qwen3_8b_1p7b/metamathqa_50k_v1/distillm2/seed_42/final",
+      "tests": [
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/gsm8k.jsonl",
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/math.jsonl"
+      ]
+    },
+    {
+      "group": "llama",
+      "method": "kd",
+      "config_sha256": "6a924fd142bf5be18d5b1e07f6008bf39942e9890e5c718310df64a5412211e8",
+      "student": "/nas/Models/Meta-Llama-3.2-1B-Instruct",
+      "teacher": "/nas/Models/Meta-Llama-3-8B-Instruct",
+      "updates": 1563,
+      "model": "/nas/Users/wyx/Baseline/math/runs/llama3_8b_llama32_1b/metamathqa_50k_v1/kd/seed_42/final",
+      "tests": [
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/gsm8k.jsonl",
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/math.jsonl"
+      ]
+    },
+    {
+      "group": "llama",
+      "method": "abkd",
+      "config_sha256": "941a4de74b7790fe3628187ce7cb2837f49897dfcb9ada8bbe0753a614f4a5fb",
+      "student": "/nas/Models/Meta-Llama-3.2-1B-Instruct",
+      "teacher": "/nas/Models/Meta-Llama-3-8B-Instruct",
+      "updates": 1563,
+      "model": "/nas/Users/wyx/Baseline/math/runs/llama3_8b_llama32_1b/metamathqa_50k_v1/abkd/seed_42/final",
+      "tests": [
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/gsm8k.jsonl",
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/math.jsonl"
+      ]
+    },
+    {
+      "group": "llama",
+      "method": "skd",
+      "config_sha256": "2316f00dbc3ab1a19603bb43d52fb7fe0f3593ab841309037ca9c6b39091e012",
+      "student": "/nas/Models/Meta-Llama-3.2-1B-Instruct",
+      "teacher": "/nas/Models/Meta-Llama-3-8B-Instruct",
+      "updates": 1563,
+      "model": "/nas/Users/wyx/Baseline/math/runs/llama3_8b_llama32_1b/metamathqa_50k_v1/skd/seed_42/final",
+      "tests": [
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/gsm8k.jsonl",
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/math.jsonl"
+      ]
+    },
+    {
+      "group": "llama",
+      "method": "distillm2",
+      "config_sha256": "f0f73f31ccd3bec15bb444de3c6c434e2826bee6399f8b2ec567fdf630c92075",
+      "student": "/nas/Models/Meta-Llama-3.2-1B-Instruct",
+      "teacher": "/nas/Models/Meta-Llama-3-8B-Instruct",
+      "updates": 1563,
+      "model": "/nas/Users/wyx/Baseline/math/runs/llama3_8b_llama32_1b/metamathqa_50k_v1/distillm2/seed_42/final",
+      "tests": [
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/gsm8k.jsonl",
+        "/nas/Users/wyx/Baseline/data/metamathqa_50k_v1/tests/math.jsonl"
+      ]
+    }
+  ],
+  "artifact_sha256": {
+    "scripts/run_math.py": "30ea420ea118b239f6483556ddd190a00c242163996b604fca0529103db0a814",
+    "scripts/run_math.sh": "2cd59111b112599532dd09f8f6d7cafd57251249cb4a3990fce0cda8bb804d00",
+    "scripts/evaluate_math_all.sh": "3443de8bf336b16c2e8c2787ea2f3ab0718beb10ee40c6c597306674c621bc61",
+    "scripts/evaluate_math.py": "89914ebcc95b6ed7fb0b257db066ea260334e8c83131f8097a2823d834ca4d9d",
+    "baseline_common/math_data.py": "90dcd21945dd107b780b1a8c88220283893532a60dc7fe7d1f24a520303a0eaa",
+    "baseline_common/math_evaluation.py": "96943fb05f7fe3d38981deb85ff1a13c295bfcfe602e9944a8c1296e6bd0f4b6",
+    "baseline_common/math_metrics.py": "49c624abcbcbcd8e54412c822aeb7e647fda6d38d2e9785477dd6d3ebe33db17",
+    "configs/math_campaign.json": "2f8e0d71d5ee494505d17edd3de3ea13eee38edb7e8fa312edbaf2f69fdf9fd9",
+    "requirements-math-eval.lock": "88658666d0b504acbe27c805b1da4448e97962226aeda7f88d7cb094440560d0",
+    "docs/evidence/math-grading-audit.json": "d43b8416b8caf2364d7b2d6cafede0c91604518bd307d41fa1b553242a9e9d3d",
+    "docs/evidence/math-campaign-tests.txt": "0f3851e5cfb19c91e9eaabeb2920c1549759dfc0cc773def27b203510d247a14",
+    "docs/evidence/math-data-evaluation-tests.txt": "8500ad68c58bce95836ac4a4879ded432f2a516e19f0eb8224eb6a973f9facc6",
+    "docs/evidence/math-dolly-regression.txt": "f9bc0f2bfa4755a18971c5514da2cb57b0659d9fa4c564b59f11843788b266fd",
+    "docs/evidence/math_training_plan.txt": "49b61e1be49ae122793e7a6bdd81fce8a90ecbd08690abd64dba409ed4c4ab45",
+    "docs/evidence/math_evaluation_plan.txt": "1d68e63440852f538556e839c7f68e36c8c0b6fcb8999a171321eb2f4464b5f0"
+  },
+  "limitations": [
+    "No full-size GPU math training or throughput/memory test at 2048+2048 tokens.",
+    "Grading conventions, including 16 hashed MATH gold interpretations, are documented in docs/math_grading.md."
+  ]
+}
